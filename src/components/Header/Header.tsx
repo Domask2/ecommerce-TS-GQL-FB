@@ -3,7 +3,7 @@ import { Wrapper } from './Header.style';
 // @ts-ignore
 import Logo from '../../assets/logo.png';
 
-const Header = () => {
+const Header: React.FC = () => {
   return (
     <Wrapper>
       <div className="container">

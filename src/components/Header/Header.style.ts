@@ -1,10 +1,14 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  max-width: 1450px;
-  height: 100%;
-  position: relative;
-  margin: 0 auto;
+  height: 6.5rem;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  .container {
+    max-width: 1450px;
+    height: 100%;
+    position: relative;
+    margin: 0 auto;
+  }
 
   .logo {
     width: 13rem;
@@ -16,8 +20,6 @@ export const Wrapper = styled.div`
       display: block;
       width: 100%;
       margin: 0;
-    } 
+    }
   }
-
- 
 `;
