@@ -8,9 +8,15 @@ export const GlobalStyle = createGlobalStyle`
 
   html,
   body {
-    height: 100%;
     padding: 0;
     margin: 0;
+  }
+
+  html,
+  body,
+  #root,
+  .App {
+    height: 100%;
   }
 
   html {
@@ -26,6 +32,7 @@ export const GlobalStyle = createGlobalStyle`
 
   a {
     text-decoration: none;
+    cursor: pointer;
   }
 
   a, a:hover {
@@ -38,6 +45,7 @@ export const Wrapper = styled.div``;
 
 export const Main = styled.div`
   width: 100%;
+  height: calc(100% - 6.5rem);
   max-width: 1450px;
   padding: 0 10px;
   margin: 0 auto;
