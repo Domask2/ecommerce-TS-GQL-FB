@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
@@ -41,12 +40,3 @@ export const GlobalStyle = createGlobalStyle`
 
 `;
 
-export const Wrapper = styled.div``;
-
-export const Main = styled.div`
-  width: 100%;
-  height: calc(100% - 6.5rem);
-  max-width: 1450px;
-  padding: 0 10px;
-  margin: 0 auto;
-`;

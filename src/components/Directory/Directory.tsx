@@ -14,14 +14,14 @@ const Directory: React.FC = () => {
           style={{
             backgroundImage: `url(${ClassicFurniture})`,
           }}>
-          <a href="#"> Classic Furniture</a>
+          <a href="/"> Classic Furniture</a>
         </div>
         <div
           className="item"
           style={{
             backgroundImage: `url(${ModernFurniture})`,
           }}>
-          <a href="#"> Modern Furniture</a>
+          <a href="/"> Modern Furniture</a>
         </div>
       </div>
     </Wrapper>

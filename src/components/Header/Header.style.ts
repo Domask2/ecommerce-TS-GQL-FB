@@ -22,4 +22,28 @@ export const Wrapper = styled.div`
       margin: 0;
     }
   }
+
+  .callToActions {
+    position: absolute;
+    right:10px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    ul, li {
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      list-style-type: none;
+
+      a {
+        font-size: 1.8rem;
+        line-height: 1;
+        color: black;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+    }
+  }
 `;
