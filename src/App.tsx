@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { auth } from './firebase/utils';
 //Global Style Css
 import { GlobalStyle } from './App.style';
 
@@ -11,6 +13,22 @@ import MainLayout from './layouts/MainLayout';
 import HomePageLayout from './layouts/HomePageLayout';
 
 const App: React.FC = () => {
+  const [currentUser, setCurrentUser] = useState<any>(null);
+  let authListener: any = null;
+
+  useEffect(() => {
+    authListener = auth.onAuthStateChanged((userAuth) => {
+      if (!userAuth) return;
+      setCurrentUser(userAuth.displayName);
+    });
+
+    return () => {
+      authListener();
+    };
+  }, [authListener]);
+
+  console.log(currentUser);
+
   return (
     <div className="App">
       <GlobalStyle />
