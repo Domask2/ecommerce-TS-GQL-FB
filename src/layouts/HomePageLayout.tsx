@@ -1,17 +1,17 @@
-import Footer from "../components/Footer/Footer";
-import Header from "../components/Header/Header";
-import { Main, Wrapper } from "./Layout.style";
+import Footer from '../components/Footer/Footer';
+import Header from '../components/Header/Header';
+import { Main, Wrapper } from './Layout.style';
 
 type Props = {
-  children: JSX.Element
-}
+  children: JSX.Element;
+};
 
-const HomePageLayout = ({ children }: Props) => {
+const HomePageLayout: React.FC<Props> = ({ children }) => {
   return (
     <Wrapper>
       <Header />
       <Main>{children}</Main>
-      <Footer/>
+      <Footer />
     </Wrapper>
   );
 };

@@ -1,15 +1,14 @@
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch } from 'react-router-dom';
 //Global Style Css
-import { GlobalStyle } from "./App.style";
+import { GlobalStyle } from './App.style';
 
 // Pages
-import Homepage from "./pages/Homepage/Homepage";
-import Registration from "./pages/Registration/Registration";
+import Homepage from './pages/Homepage/Homepage';
+import Registration from './pages/Registration/Registration';
+import Login from './pages/Login/Login';
 //Layout
-import MainLayout from "./layouts/MainLayout";
-import HomePageLayout from "./layouts/HomePageLayout";
-
-
+import MainLayout from './layouts/MainLayout';
+import HomePageLayout from './layouts/HomePageLayout';
 
 const App: React.FC = () => {
   return (
@@ -30,6 +29,14 @@ const App: React.FC = () => {
           render={() => (
             <MainLayout>
               <Registration />
+            </MainLayout>
+          )}
+        />
+        <Route
+          path="/login"
+          render={() => (
+            <MainLayout>
+              <Login />
             </MainLayout>
           )}
         />
