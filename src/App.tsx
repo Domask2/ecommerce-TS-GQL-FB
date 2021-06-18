@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import firebase from 'firebase/app';
 import { auth } from './firebase/utils';
 //Global Style Css
 import { GlobalStyle } from './App.style';
-
 // Pages
 import Homepage from './pages/Homepage/Homepage';
 import Registration from './pages/Registration/Registration';
@@ -13,19 +13,18 @@ import MainLayout from './layouts/MainLayout';
 import HomePageLayout from './layouts/HomePageLayout';
 
 const App: React.FC = () => {
-  const [currentUser, setCurrentUser] = useState<any>(null);
-  let authListener: any = null;
+  const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
 
   useEffect(() => {
-    authListener = auth.onAuthStateChanged((userAuth) => {
+    const authListener = auth.onAuthStateChanged((userAuth) => {
       if (!userAuth) return;
-      setCurrentUser(userAuth.displayName);
+      setCurrentUser(userAuth);
     });
 
     return () => {
       authListener();
     };
-  }, [authListener]);
+  }, []);
 
   console.log(currentUser);
 
