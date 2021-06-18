@@ -13,4 +13,9 @@ export const ButtonStyle = styled.button`
   color: #444;
   box-shadow: 1px 1px 1px grey;
   border: thin solid #888;
+  outline: none;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;

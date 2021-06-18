@@ -1,16 +1,21 @@
 import { Wrapper } from './SignIn.style';
 import Button from './../forms/Button/Button';
+import { signInWithGoogle } from './../../firebase/utils';
 
 const SignIn: React.FC = () => {
+  async function handleSubmit(e: any) {
+    e.preventDefault();
+  }
+
   return (
     <Wrapper>
       <div className="container">
         <h2>LogIn</h2>
         <div className="form-wrapper">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="socialSignIn">
               <div className="row">
-                <Button otherProps="1">
+                <Button onClick={signInWithGoogle} otherProps="1">
                   <span className="icon"></span>
                   <p>Google</p>
                 </Button>

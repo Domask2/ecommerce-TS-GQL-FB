@@ -19,7 +19,11 @@ export const Wrapper = styled.section`
       display: block;
       width: 100%;
       padding: 0;
-      margin: 0 auto;
+      margin: 1.2rem auto;
+    }
+
+    .socialSignIn {
+      margin: 3rem auto 2rem;
     }
 
     span {
