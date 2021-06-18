@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Route, Switch } from 'react-router-dom';
-import firebase from 'firebase/app';
-import { auth } from './firebase/utils';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import firebase from 'firebase';
+import { auth, handleUserProfile } from './firebase/utils';
 //Global Style Css
 import { GlobalStyle } from './App.style';
 // Pages
@@ -16,17 +16,24 @@ const App: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
 
   useEffect(() => {
-    const authListener = auth.onAuthStateChanged((userAuth) => {
-      if (!userAuth) return;
-      setCurrentUser(userAuth);
+    const authListener = auth.onAuthStateChanged(async(userAuth: any) => {
+      if (userAuth) {
+        const userRef:any = await handleUserProfile(userAuth);
+        userRef.onSnapshot((snapshot: any) => {
+          setCurrentUser({
+            id: snapshot.id,
+            ...snapshot.data()
+          })
+        })
+      } else {
+        setCurrentUser(null);
+      }
     });
-
+   
     return () => {
       authListener();
     };
   }, []);
-
-  console.log(currentUser);
 
   return (
     <div className="App">
@@ -36,7 +43,7 @@ const App: React.FC = () => {
           exact
           path="/"
           render={() => (
-            <HomePageLayout>
+            <HomePageLayout currentUser={currentUser}>
               <Homepage />
             </HomePageLayout>
           )}
@@ -44,15 +51,15 @@ const App: React.FC = () => {
         <Route
           path="/registration"
           render={() => (
-            <MainLayout>
+            <MainLayout currentUser={currentUser}>
               <Registration />
             </MainLayout>
           )}
         />
         <Route
           path="/login"
-          render={() => (
-            <MainLayout>
+          render={() => currentUser ? <Redirect to="/"/> : (
+            <MainLayout currentUser={currentUser}>
               <Login />
             </MainLayout>
           )}
