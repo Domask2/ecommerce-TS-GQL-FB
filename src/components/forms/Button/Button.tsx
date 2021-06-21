@@ -1,16 +1,22 @@
 import { ButtonStyle } from './Button.style';
+import { ThemeProvider } from "styled-components";
 
 type Props = {
+  type?:string
   children: any;
-  otherProps: any;
-  onClick: () => void;
+  otherProps?: any;
+  pd?: string;
+  onClick?: (e: any) => void;
 };
 
-const Button: React.FC<Props> = ({ children, onClick, ...otherProps }) => {
+const Button: React.FC<Props> = ({ type, children, onClick, pd, ...otherProps }) => {
   return (
-    <ButtonStyle {...otherProps} onClick={onClick}>
+    <ThemeProvider theme={{padding: `${pd ? pd : '0'}`}}>
+      <ButtonStyle {...otherProps} onClick={onClick} >
       {children}
     </ButtonStyle>
+    </ThemeProvider>
+    
   );
 };
 

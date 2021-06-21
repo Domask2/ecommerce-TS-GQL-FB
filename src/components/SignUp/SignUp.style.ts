@@ -22,21 +22,8 @@ export const Wrapper = styled.section`
       margin: 1.2rem auto;
     }
 
-    .socialSignIn {
-      margin: 3rem auto 2rem;
-    }
-
-    span {
-      background: url('https://developers-dot-devsite-v2-prod.appspot.com/identity/sign-in/g-normal.png')
-        transparent 5px 50% no-repeat;
-      display: inline-block;
-      vertical-align: middle;
-      width: 5rem;
-      height: 5rem;
-    }
-
-    p {
-      display: inline-block;
+    .formWrap {
+      margin: 2rem auto 0;
     }
   }
 `;

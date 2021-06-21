@@ -23,7 +23,7 @@ export const Wrapper = styled.section`
     }
 
     .socialSignIn {
-      margin: 3rem auto 2rem;
+      margin: 2rem auto 0;
     }
 
     span {

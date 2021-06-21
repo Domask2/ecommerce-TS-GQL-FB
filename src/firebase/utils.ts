@@ -34,6 +34,5 @@ export const handleUserProfile = async (userAuth:firebase.User | null) => {
       console.log(error)
     }
   }
-  console.log(userRef)
   return userRef;
 }
