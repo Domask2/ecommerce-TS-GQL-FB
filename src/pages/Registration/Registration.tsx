@@ -1,11 +1,12 @@
-import { Wrapper } from "./Registration.style";
+import { Wrapper } from './Registration.style';
+import SignUp from '../../components/SignUp/SignUp';
 
 const Registration = () => {
   return (
     <Wrapper>
-      <h1>Registration page</h1>
+      <SignUp />
     </Wrapper>
-  )
-}
+  );
+};
 
 export default Registration;

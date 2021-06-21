@@ -12,9 +12,9 @@ export const Wrapper = styled.div`
     height: 100%;
     width: 50%;
     float: left;
-    background-position: 'center';
-    background-size: 'cover';
-    background-repeat: 'no-repeat';
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
     &::after {
       content: '';
       position: absolute;
