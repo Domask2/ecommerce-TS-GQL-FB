@@ -13,7 +13,7 @@ GoogleProvider.setCustomParameters({ prompt: 'select_account' });
 export const signInWithGoogle = () => auth.signInWithPopup(GoogleProvider);
 
 
-export const handleUserProfile = async (userAuth:firebase.User | null) => {
+export const handleUserProfile = async (userAuth:firebase.User | null ) => {
   if (!userAuth) return;
   const { uid } = userAuth;
 

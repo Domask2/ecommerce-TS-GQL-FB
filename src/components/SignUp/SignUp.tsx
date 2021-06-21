@@ -20,12 +20,11 @@ const SignUp = () => {
     //   return;
     // }
     // console.log(error);
-
+    
     try {
-      const { user } = await auth.createUserWithEmailAndPassword(email as any,  password as any);
-      console.log(user);
+      const { user } = await auth.createUserWithEmailAndPassword(email.value,  password.value)
       await handleUserProfile(user)
-
+       
     } catch (err) {
       console.log(err);
     }
