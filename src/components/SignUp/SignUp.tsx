@@ -8,6 +8,11 @@ const SignUp = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
+  console.log(displayName);
+
+  const handleChange = (e: any) => {
+    setDisplayName(e.target.value);
+  };
 
   return (
     <Wrapper>
@@ -15,7 +20,13 @@ const SignUp = () => {
         <h2>SignUp</h2>
 
         <form>
-          <FormInput />
+          <FormInput
+            type="text"
+            name="displayName"
+            value={displayName}
+            placeholder="Full name"
+            handleChange={handleChange}
+          />
         </form>
       </div>
     </Wrapper>
