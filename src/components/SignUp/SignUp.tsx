@@ -6,7 +6,7 @@ import { auth, handleUserProfile } from "../../firebase/utils";
 import { useState } from "react";
 
 const SignUp = () => {
-  const displayName = useInput("");
+  const displayName= useInput("");
   const email = useInput("");
   const password = useInput("");
   const confirmPassword = useInput("");
@@ -15,15 +15,19 @@ const SignUp = () => {
   const handleFormSubmit = async (e: any) => {
     e.preventDefault();
     
-    // if ( password !== confirmPassword) {
-    //   setError('Password Don\'t match')
-    //   return;
-    // }
-    // console.log(error);
+    if ( password.value !== confirmPassword.value) {
+      setError('Password Don\'t match')
+      return;
+    }
     
     try {
       const { user } = await auth.createUserWithEmailAndPassword(email.value,  password.value)
-      await handleUserProfile(user)
+      await handleUserProfile(user, displayName.value )
+
+      displayName.reset();
+      email.reset();
+      password.reset();
+      confirmPassword.reset();
        
     } catch (err) {
       console.log(err);
@@ -37,16 +41,12 @@ const SignUp = () => {
 
         { error && (
           <ul>
-            {/* {error.map((err: string, index: number) => {
-              return ( 
-              <li key={index}>
-                {err}
-              </li>
-              )
-            })} */}
-            {error === '' ? error : ''}
+            <li>
+              {error}
+            </li>
           </ul>
         )}
+
         <div className="formWrap">
           <form onSubmit={handleFormSubmit}>
             <FormInput

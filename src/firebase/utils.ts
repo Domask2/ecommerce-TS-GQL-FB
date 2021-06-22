@@ -13,7 +13,7 @@ GoogleProvider.setCustomParameters({ prompt: 'select_account' });
 export const signInWithGoogle = () => auth.signInWithPopup(GoogleProvider);
 
 
-export const handleUserProfile = async (userAuth:firebase.User | null ) => {
+export const handleUserProfile = async (userAuth:firebase.User | null, ...additionalData: any) => {
   if (!userAuth) return;
   const { uid } = userAuth;
 
@@ -29,6 +29,7 @@ export const handleUserProfile = async (userAuth:firebase.User | null ) => {
         displayName,
         email,
         createdDate: timetamp,
+        ...additionalData
       })
     } catch (error) {
       console.log(error)
