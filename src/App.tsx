@@ -16,20 +16,20 @@ const App: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
 
   useEffect(() => {
-    const authListener = auth.onAuthStateChanged(async(userAuth: any) => {
+    const authListener = auth.onAuthStateChanged(async (userAuth: any) => {
       if (userAuth) {
-        const userRef:any = await handleUserProfile(userAuth);
+        const userRef: any = await handleUserProfile(userAuth);
         userRef.onSnapshot((snapshot: any) => {
           setCurrentUser({
             id: snapshot.id,
-            ...snapshot.data()
-          })
-        })
+            ...snapshot.data(),
+          });
+        });
       } else {
         setCurrentUser(null);
       }
     });
-   
+
     return () => {
       authListener();
     };
@@ -50,19 +50,27 @@ const App: React.FC = () => {
         />
         <Route
           path="/registration"
-          render={() => (
-            <MainLayout currentUser={currentUser}>
-              <Registration />
-            </MainLayout>
-          )}
+          render={() =>
+            currentUser ? (
+              <Redirect to="/" />
+            ) : (
+              <MainLayout currentUser={currentUser}>
+                <Registration />
+              </MainLayout>
+            )
+          }
         />
         <Route
           path="/login"
-          render={() => currentUser ? <Redirect to="/"/> : (
-            <MainLayout currentUser={currentUser}>
-              <Login />
-            </MainLayout>
-          )}
+          render={() =>
+            currentUser ? (
+              <Redirect to="/" />
+            ) : (
+              <MainLayout currentUser={currentUser}>
+                <Login />
+              </MainLayout>
+            )
+          }
         />
       </Switch>
     </div>

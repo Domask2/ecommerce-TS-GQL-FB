@@ -1,6 +1,7 @@
 import { Wrapper } from './SignIn.style';
 import Button from './../forms/Button/Button';
 import { signInWithGoogle } from './../../firebase/utils';
+import FormInput from '../forms/FormInput/FormInput';
 
 const SignIn: React.FC = () => {
   async function handleSubmit(e: any) {
