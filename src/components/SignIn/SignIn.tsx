@@ -2,6 +2,7 @@ import { Wrapper } from './SignIn.style';
 import Button from './../forms/Button/Button';
 import { signInWithGoogle, auth } from './../../firebase/utils';
 import FormInput from '../forms/FormInput/FormInput';
+import AuthWrapper from '../AuthWrapper/AuthWrapper';
 import useInput from '../../hooks/useInput';
 
 const SignIn: React.FC = () => {
