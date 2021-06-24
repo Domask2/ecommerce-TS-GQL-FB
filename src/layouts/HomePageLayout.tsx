@@ -4,13 +4,12 @@ import { Main, Wrapper } from './Layout.style';
 import firebase from 'firebase';
 interface Props {
   children: JSX.Element;
-  currentUser: firebase.User | null;
 }
 
-const HomePageLayout: React.FC<Props> = ({ children, currentUser }) => {
+const HomePageLayout: React.FC<Props> = ({ children }) => {
   return (
     <Wrapper>
-      <Header currentUser={currentUser}/>
+      <Header />
       <Main>{children}</Main>
       <Footer />
     </Wrapper>

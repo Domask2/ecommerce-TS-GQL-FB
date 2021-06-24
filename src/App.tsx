@@ -12,9 +12,11 @@ import Recovery from "./pages/Recovery/Recovery";
 //Layout
 import MainLayout from "./layouts/MainLayout";
 import HomePageLayout from "./layouts/HomePageLayout";
+import { useDispatch } from "react-redux";
 
 const App: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const authListener = auth.onAuthStateChanged(async (userAuth: any) => {
@@ -30,11 +32,15 @@ const App: React.FC = () => {
         setCurrentUser(null);
       }
     });
-
+   
     return () => {
       authListener();
     };
   }, []);
+
+  useEffect(() => {
+    dispatch({type: 'SET_CURRENT_USER', payload:currentUser})
+  }, [currentUser, dispatch])
 
   return (
     <div className="App">
@@ -44,7 +50,7 @@ const App: React.FC = () => {
           exact
           path="/"
           render={() => (
-            <HomePageLayout currentUser={currentUser}>
+            <HomePageLayout>
               <Homepage />
             </HomePageLayout>
           )}
@@ -55,7 +61,7 @@ const App: React.FC = () => {
             currentUser ? (
               <Redirect to="/" />
             ) : (
-              <MainLayout currentUser={currentUser}>
+              <MainLayout>
                 <Registration />
               </MainLayout>
             )
@@ -67,7 +73,7 @@ const App: React.FC = () => {
             currentUser ? (
               <Redirect to="/" />
             ) : (
-              <MainLayout currentUser={currentUser}>
+              <MainLayout>
                 <Login />
               </MainLayout>
             )
@@ -76,7 +82,7 @@ const App: React.FC = () => {
         <Route
           path="/recovery"
           render={() => 
-            <MainLayout currentUser={currentUser}>
+            <MainLayout>
               <Recovery />
             </MainLayout>
           }

@@ -4,13 +4,12 @@ import { Container } from './Layout.style';
 import firebase from 'firebase';
 interface Props {
   children: JSX.Element;
-  currentUser: firebase.User | null;
 }
 
-const MainLayout: React.FC<Props> = ({ children, currentUser }) => {
+const MainLayout: React.FC<Props> = ({ children }) => {
   return (
     <>
-      <Header currentUser={currentUser}/>
+      <Header />
       <Container>{children}</Container>
       <Footer />
     </>

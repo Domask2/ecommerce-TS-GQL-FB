@@ -1,15 +1,14 @@
 import { Wrapper } from "./Header.style";
 import { Link } from "react-router-dom";
-import firebase from "firebase";
 import { auth } from './../../firebase/utils';
+import { useSelector } from "react-redux";
 // @ts-ignore
 import Logo from "../../assets/logo.png";
 
-interface Props {
-  currentUser: firebase.User | null;
-}
 
-const Header: React.FC<Props> = ({ currentUser }) => {
+const Header: React.FC = () => {
+  const User  = useSelector(state => state)
+  console.log(User.currentUser);
   return (
     <Wrapper>
       <div className="container">
@@ -21,7 +20,7 @@ const Header: React.FC<Props> = ({ currentUser }) => {
 
         <div className="callToActions">
 
-          {currentUser && (
+          {User && (
             <ul>
               <li>
                 <span onClick={() => auth.signOut()}>
@@ -31,7 +30,7 @@ const Header: React.FC<Props> = ({ currentUser }) => {
             </ul>
           )}
 
-          {!currentUser && (
+          {!User && (
             <ul>
               <li>
                 <Link to="/registration">Register</Link>
