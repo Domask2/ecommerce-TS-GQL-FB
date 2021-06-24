@@ -1,8 +1,9 @@
-import { Wrapper } from "./SignUp.style";
+import { FormWrap } from "./SignUp.style";
 import FormInput from "../forms/FormInput/FormInput";
 import Button from "../forms/Button/Button";
 import useInput from "../../hooks/useInput";
 import { auth, handleUserProfile } from "../../firebase/utils";
+import AuthWrapper from '../AuthWrapper/AuthWrapper';
 import { useState } from "react";
 
 const SignUp = () => {
@@ -35,20 +36,17 @@ const SignUp = () => {
   }
 
   return (
-    <Wrapper>
-      <div className="container">
-        <h2>SignUp</h2>
-
-        { error && (
-          <ul>
-            <li>
-              {error}
-            </li>
-          </ul>
-        )}
-
-        <div className="formWrap">
+    <AuthWrapper headline="SignUp">
+        <FormWrap>
           <form onSubmit={handleFormSubmit}>
+             { error && (
+              <ul>
+               <li>
+                 {error}
+               </li>
+             </ul>
+            )}
+            
             <FormInput
               type="text"
               name="displayName"
@@ -81,9 +79,8 @@ const SignUp = () => {
               Register
             </Button>
           </form>
-        </div>
-      </div>
-    </Wrapper>
+        </FormWrap>
+    </AuthWrapper>
   );
 };
 

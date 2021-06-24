@@ -1,4 +1,4 @@
-import { Wrapper } from './SignIn.style';
+import { SocialSignIn } from './SignIn.style';
 import Button from './../forms/Button/Button';
 import { signInWithGoogle, auth } from './../../firebase/utils';
 import FormInput from '../forms/FormInput/FormInput';
@@ -22,9 +22,7 @@ const SignIn: React.FC = () => {
   }
 
   return (
-    <Wrapper>
-      <div className="container">
-        <h2>LogIn</h2>
+    <AuthWrapper headline="LogIn">
         <div className="form-wrapper">
           <form onSubmit={handleSubmit}>
             <FormInput type="email" name="email" placeholder="Email" displayName={email} />
@@ -36,7 +34,7 @@ const SignIn: React.FC = () => {
               displayName={password}
             />
 
-            <div className="socialSignIn">
+            <SocialSignIn>
               <div className="row">
                 <Button type="submit" pd="16px">
                   LOGIN
@@ -46,11 +44,11 @@ const SignIn: React.FC = () => {
                   <p>Google</p>
                 </Button>
               </div>
-            </div>
+            </SocialSignIn>
+
           </form>
         </div>
-      </div>
-    </Wrapper>
+      </AuthWrapper>
   );
 };
 
