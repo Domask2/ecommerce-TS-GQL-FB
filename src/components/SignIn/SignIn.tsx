@@ -23,32 +23,31 @@ const SignIn: React.FC = () => {
 
   return (
     <AuthWrapper headline="LogIn">
-        <div className="form-wrapper">
-          <form onSubmit={handleSubmit}>
-            <FormInput type="email" name="email" placeholder="Email" displayName={email} />
+      <div className="form-wrapper">
+        <form onSubmit={handleSubmit}>
+          <FormInput type="email" name="email" placeholder="Email" displayName={email} />
 
-            <FormInput
-              type="password"
-              name="password"
-              placeholder="Password"
-              displayName={password}
-            />
+          <FormInput
+            type="password"
+            name="password"
+            placeholder="Password"
+            displayName={password}
+          />
 
-            <SocialSignIn>
-              <div className="row">
-                <Button type="submit" pd="16px">
-                  LOGIN
-                </Button>
-                <Button onClick={signInWithGoogle} otherProps="1">
-                  <span className="icon"></span>
-                  <p>Google</p>
-                </Button>
-              </div>
-            </SocialSignIn>
-
-          </form>
-        </div>
-      </AuthWrapper>
+          <SocialSignIn>
+            <div className="row">
+              <Button type="submit" pd="16px">
+                LOGIN
+              </Button>
+              <Button onClick={signInWithGoogle} otherProps="1">
+                <span className="icon"></span>
+                <p>Google</p>
+              </Button>
+            </div>
+          </SocialSignIn>
+        </form>
+      </div>
+    </AuthWrapper>
   );
 };
 

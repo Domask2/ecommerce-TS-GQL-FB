@@ -1,11 +1,12 @@
 import { Wrapper } from './Recovery.style';
+import EmailPassword from './../../components/EmailPassword/EmailPassword';
 
 const Recovery: React.FC = () => {
   return (
     <Wrapper>
-      <h1>Email Password</h1>
+      <EmailPassword />
     </Wrapper>
-  )
-}
+  );
+};
 
-export default Recovery
+export default Recovery;

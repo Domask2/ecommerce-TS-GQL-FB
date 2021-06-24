@@ -1,8 +1,8 @@
-import { Wrapper } from "./AuthWrapper.style";
+import { Wrapper } from './AuthWrapper.style';
 
 interface IAuthWrapper {
   headline?: string;
-  children?: JSX.Element;
+  children?: any;
 }
 
 const AuthWrapper: React.FC<IAuthWrapper> = ({ headline, children }) => {
@@ -10,9 +10,7 @@ const AuthWrapper: React.FC<IAuthWrapper> = ({ headline, children }) => {
     <Wrapper>
       <div className="container">
         {headline && <h2>{headline}</h2>}
-        <div className="children">
-          {children && children}
-        </div>
+        <div className="children">{children && children}</div>
       </div>
     </Wrapper>
   );
