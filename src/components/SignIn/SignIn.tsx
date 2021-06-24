@@ -1,6 +1,7 @@
-import { SocialSignIn } from './SignIn.style';
+import { SocialSignIn, Links } from './SignIn.style';
 import Button from './../forms/Button/Button';
 import { signInWithGoogle, auth } from './../../firebase/utils';
+import { Link } from 'react-router-dom';
 import FormInput from '../forms/FormInput/FormInput';
 import AuthWrapper from '../AuthWrapper/AuthWrapper';
 import useInput from '../../hooks/useInput';
@@ -45,6 +46,10 @@ const SignIn: React.FC = () => {
               </Button>
             </div>
           </SocialSignIn>
+
+          <Links>
+            <Link to="/recovery">Reset Pasword</Link>
+          </Links>
         </form>
       </div>
     </AuthWrapper>
