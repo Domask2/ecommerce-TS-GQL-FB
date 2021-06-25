@@ -1,9 +1,5 @@
-export enum userTypes  {
-  SET_CURRENT_USER = 'SET_CURRENT_USER'
-}
-
-export interface TodoState {
-  currentUser: null
+export enum userTypes {
+  SET_CURRENT_USER = 'SET_CURRENT_USER',
 }
 
 interface FetchUserAction {

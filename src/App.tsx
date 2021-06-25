@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
-import firebase from "firebase";
-import { auth, handleUserProfile } from "./firebase/utils";
+import { useEffect, useState } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import firebase from 'firebase';
+import { auth, handleUserProfile } from './firebase/utils';
 //Global Style Css
-import { GlobalStyle } from "./App.style";
+import { GlobalStyle } from './App.style';
 // Pages
-import Homepage from "./pages/Homepage/Homepage";
-import Registration from "./pages/Registration/Registration";
-import Login from "./pages/Login/Login";
-import Recovery from "./pages/Recovery/Recovery";
+import Homepage from './pages/Homepage/Homepage';
+import Registration from './pages/Registration/Registration';
+import Login from './pages/Login/Login';
+import Recovery from './pages/Recovery/Recovery';
 //Layout
-import MainLayout from "./layouts/MainLayout";
-import HomePageLayout from "./layouts/HomePageLayout";
-import { useDispatch } from "react-redux";
+import MainLayout from './layouts/MainLayout';
+import HomePageLayout from './layouts/HomePageLayout';
+import { useDispatch } from 'react-redux';
 
 const App: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
@@ -32,15 +32,14 @@ const App: React.FC = () => {
         setCurrentUser(null);
       }
     });
-   
     return () => {
       authListener();
     };
   }, []);
 
   useEffect(() => {
-    dispatch({type: 'SET_CURRENT_USER', payload:currentUser})
-  }, [currentUser, dispatch])
+    dispatch({ type: 'SET_CURRENT_USER', payload: currentUser });
+  }, [currentUser, dispatch]);
 
   return (
     <div className="App">
@@ -81,11 +80,11 @@ const App: React.FC = () => {
         />
         <Route
           path="/recovery"
-          render={() => 
+          render={() => (
             <MainLayout>
               <Recovery />
             </MainLayout>
-          }
+          )}
         />
       </Switch>
     </div>

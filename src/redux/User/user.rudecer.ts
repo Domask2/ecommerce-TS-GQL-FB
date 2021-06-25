@@ -1,15 +1,22 @@
-import { userTypes, TodoState, UserAction } from "./user.types";
+import { userTypes, UserAction } from './user.types';
 
-const INITAIL_STATE: TodoState = {
-  currentUser: null
+interface Iuser {
+  id: string;
+  createData: any;
+  displayName: string;
+  email: string;
 }
+type TInitialState = typeof initialState;
 
-export const userReducer = (state=INITAIL_STATE, action: UserAction): TodoState => {
-  switch(action.type) {
+const initialState = {
+  setUser: [] as Array<Iuser>,
+};
+
+export const userReducer = (state = initialState, action: UserAction): TInitialState => {
+  switch (action.type) {
     case userTypes.SET_CURRENT_USER:
-      return {...state, currentUser: action.payload}
+      return { ...state, setUser: action.payload };
     default:
-      return state
+      return state;
   }
-}
-
+};

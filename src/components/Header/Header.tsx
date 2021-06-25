@@ -1,14 +1,14 @@
-import { Wrapper } from "./Header.style";
-import { Link } from "react-router-dom";
+import { Wrapper } from './Header.style';
+import { Link } from 'react-router-dom';
 import { auth } from './../../firebase/utils';
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 // @ts-ignore
-import Logo from "../../assets/logo.png";
-
+import Logo from '../../assets/logo.png';
 
 const Header: React.FC = () => {
-  const User  = useSelector(state => state)
-  console.log(User.currentUser);
+  const user = useSelector((state: RootState) => state.user.setUser);
+  console.log(user);
   return (
     <Wrapper>
       <div className="container">
@@ -19,18 +19,15 @@ const Header: React.FC = () => {
         </div>
 
         <div className="callToActions">
-
-          {User && (
+          {user && (
             <ul>
               <li>
-                <span onClick={() => auth.signOut()}>
-                  LogOut
-                </span>
+                <span onClick={() => auth.signOut()}>LogOut</span>
               </li>
             </ul>
           )}
 
-          {!User && (
+          {!user && (
             <ul>
               <li>
                 <Link to="/registration">Register</Link>
