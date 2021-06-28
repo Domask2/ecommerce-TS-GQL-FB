@@ -12,11 +12,13 @@ import Recovery from './pages/Recovery/Recovery';
 //Layout
 import MainLayout from './layouts/MainLayout';
 import HomePageLayout from './layouts/HomePageLayout';
-import { useDispatch } from 'react-redux';
+//store
+import { useActions } from './hooks/useAction';
+import { setCurrentUserAction } from './redux/User/user.actions';
 
 const App: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
-  const dispatch = useDispatch();
+  const {setCurrentUserAction} = useActions()
 
   useEffect(() => {
     const authListener = auth.onAuthStateChanged(async (userAuth: any) => {
@@ -38,8 +40,9 @@ const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    dispatch({ type: 'SET_CURRENT_USER', payload: currentUser });
-  }, [currentUser, dispatch]);
+    // dispatch({ type: 'SET_CURRENT_USER', payload: currentUser });
+    setCurrentUserAction(currentUser)
+  }, [currentUser, setCurrentUserAction]);
 
   return (
     <div className="App">

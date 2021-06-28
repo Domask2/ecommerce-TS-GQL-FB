@@ -1,13 +1,13 @@
 import { Wrapper } from './Header.style';
 import { Link } from 'react-router-dom';
 import { auth } from './../../firebase/utils';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
+import { useTypedSelector } from '../../hooks/useTypeSelector';
 // @ts-ignore
 import Logo from '../../assets/logo.png';
 
 const Header: React.FC = () => {
-  const user = useSelector((state: RootState) => state.user.setUser);
+  // const user = useSelector((state: RootState) => state.user.setUser);
+  const user = useTypedSelector(state => state.user.setUser)
   console.log(user);
   return (
     <Wrapper>

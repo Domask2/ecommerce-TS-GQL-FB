@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
-export default function useInput(initialValue = '') {
+export default function useInput(initialValue:string) {
   const [value, setValue] = useState(initialValue);
 
   const reset = () => {
-    setValue('');
+    setValue(initialValue);
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -15,6 +15,7 @@ const SignIn: React.FC = () => {
 
     try {
       await auth.signInWithEmailAndPassword(email.value, password.value);
+
       email.reset();
       password.reset();
     } catch (error) {
