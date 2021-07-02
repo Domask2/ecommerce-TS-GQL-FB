@@ -4,10 +4,12 @@ interface iFormInput {
   type: string;
   name: string;
   placeholder: string;
-  displayName: {
-    value: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  }
+  value: string;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  // displayName: {
+  //   value: string;
+  //   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  // }
 }
 
 const FormInput: React.FC<iFormInput> = ({
@@ -15,7 +17,9 @@ const FormInput: React.FC<iFormInput> = ({
   type,
   name,
   placeholder,
-  displayName
+  // displayName,
+  value,
+  handleChange,
 }) => {
   return (
     <Wrapper>
@@ -27,7 +31,9 @@ const FormInput: React.FC<iFormInput> = ({
           type={type}
           name={name}
           placeholder={placeholder}
-          {...displayName}
+          value={value}
+          onChange={handleChange}
+          // {...displayName}
         />
       </div>
     </Wrapper>

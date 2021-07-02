@@ -7,7 +7,7 @@ import { auth } from '../../firebase/utils';
 import { useState } from 'react';
 
 const EmailPassword: React.FC = (props) => {
-  const email = useInput('');
+  const [email, setEmail] = useState('');
   let history = useHistory();
   const [error, setError] = useState<string[]>([]);
 
@@ -20,7 +20,7 @@ const EmailPassword: React.FC = (props) => {
       };
 
       await auth
-        .sendPasswordResetEmail(email.value, config)
+        .sendPasswordResetEmail(email, config)
         .then(() => {
           history.push('/login');
         })
@@ -44,7 +44,13 @@ const EmailPassword: React.FC = (props) => {
       )}
 
       <form onSubmit={handleSubmit}>
-        <FormInput type="email" name="email" placeholder="Email" displayName={email} />
+        <FormInput
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={email}
+          handleChange={(e) => setEmail(e.target.value)}
+        />
 
         <Button type="submit" pd="15px">
           Email Password

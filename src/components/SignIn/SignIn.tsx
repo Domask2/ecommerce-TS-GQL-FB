@@ -4,20 +4,19 @@ import { signInWithGoogle, auth } from './../../firebase/utils';
 import { Link } from 'react-router-dom';
 import FormInput from '../forms/FormInput/FormInput';
 import AuthWrapper from '../AuthWrapper/AuthWrapper';
-import useInput from '../../hooks/useInput';
+import { useState } from 'react';
 
 const SignIn: React.FC = () => {
-  const email = useInput('');
-  const password = useInput('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   async function handleSubmit(e: any) {
     e.preventDefault();
 
     try {
-      await auth.signInWithEmailAndPassword(email.value, password.value);
-
-      email.reset();
-      password.reset();
+      await auth.signInWithEmailAndPassword(email, password);
+      setEmail('');
+      setPassword('');
     } catch (error) {
       console.log(error);
     }
@@ -27,13 +26,20 @@ const SignIn: React.FC = () => {
     <AuthWrapper headline="LogIn">
       <div className="form-wrapper">
         <form onSubmit={handleSubmit}>
-          <FormInput type="email" name="email" placeholder="Email" displayName={email} />
+          <FormInput
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={email}
+            handleChange={(e) => setEmail(e.target.value)}
+          />
 
           <FormInput
             type="password"
             name="password"
             placeholder="Password"
-            displayName={password}
+            value={password}
+            handleChange={(e) => setPassword(e.target.value)}
           />
 
           <SocialSignIn>
