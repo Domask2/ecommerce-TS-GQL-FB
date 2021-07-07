@@ -1,15 +1,15 @@
 import AuthWrapper from './../AuthWrapper/AuthWrapper';
 import FormInput from '../forms/FormInput/FormInput';
 import Button from '../forms/Button/Button';
-import useInput from '../../hooks/useInput';
 import { useHistory } from 'react-router';
 import { auth } from '../../firebase/utils';
 import { useState } from 'react';
 
 const EmailPassword: React.FC = (props) => {
-  const [email, setEmail] = useState('');
-  let history = useHistory();
+  const [email, setEmail] = useState<string>('');
   const [error, setError] = useState<string[]>([]);
+
+  let history = useHistory();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();

@@ -6,10 +6,10 @@ import AuthWrapper from '../AuthWrapper/AuthWrapper';
 import { useState } from 'react';
 
 const SignUp = () => {
-  const [email, setEmail] = useState('');
-  const [displayName, setDisplayName] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [email, setEmail] = useState<string>('');
+  const [displayName, setDisplayName] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
 
   const resetForm = () => {

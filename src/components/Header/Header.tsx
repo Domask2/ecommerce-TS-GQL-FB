@@ -7,8 +7,8 @@ import Logo from '../../assets/logo.png';
 
 const Header: React.FC = () => {
   // const user = useSelector((state: RootState) => state.user.setUser);
-  const user = useTypedSelector(state => state.user.setUser)
-  console.log(user);
+  const user = useTypedSelector((state) => state.user.setUser);
+
   return (
     <Wrapper>
       <div className="container">

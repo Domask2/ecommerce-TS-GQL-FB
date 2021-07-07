@@ -7,8 +7,8 @@ import AuthWrapper from '../AuthWrapper/AuthWrapper';
 import { useState } from 'react';
 
 const SignIn: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
   const resetForm = () => {
     setEmail('');
