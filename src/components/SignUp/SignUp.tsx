@@ -12,6 +12,14 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState<string>('');
 
+  const resetForm = () => {
+    setEmail('');
+    setDisplayName('');
+    setPassword('');
+    setConfirmPassword('');
+    setError('');
+  };
+
   const handleFormSubmit = async (e: any) => {
     e.preventDefault();
 
@@ -23,10 +31,7 @@ const SignUp = () => {
     try {
       const { user } = await auth.createUserWithEmailAndPassword(email, password);
       await handleUserProfile(user, displayName);
-      setEmail('');
-      setDisplayName('');
-      setPassword('');
-      setConfirmPassword('');
+      resetForm();
     } catch (err) {
       console.log(err);
     }

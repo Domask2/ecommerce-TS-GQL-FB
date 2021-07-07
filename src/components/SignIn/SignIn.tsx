@@ -13,7 +13,7 @@ const SignIn: React.FC = () => {
   const resetForm = () => {
     setEmail('');
     setPassword('');
-  }
+  };
 
   async function handleSubmit(e: any) {
     e.preventDefault();
@@ -21,7 +21,6 @@ const SignIn: React.FC = () => {
     try {
       await auth.signInWithEmailAndPassword(email, password);
       resetForm();
-      
     } catch (error) {
       console.log(error);
     }
