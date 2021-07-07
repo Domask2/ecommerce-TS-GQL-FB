@@ -18,7 +18,7 @@ import { setCurrentUserAction } from './redux/User/user.actions';
 
 const App: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
-  const {setCurrentUserAction} = useActions()
+  const { setCurrentUserAction } = useActions();
 
   useEffect(() => {
     const authListener = auth.onAuthStateChanged(async (userAuth: any) => {
@@ -41,7 +41,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     // dispatch({ type: 'SET_CURRENT_USER', payload: currentUser });
-    setCurrentUserAction(currentUser)
+    setCurrentUserAction(currentUser);
   }, [currentUser, setCurrentUserAction]);
 
   return (

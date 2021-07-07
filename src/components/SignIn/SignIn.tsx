@@ -10,13 +10,18 @@ const SignIn: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const resetForm = () => {
+    setEmail('');
+    setPassword('');
+  }
+
   async function handleSubmit(e: any) {
     e.preventDefault();
 
     try {
       await auth.signInWithEmailAndPassword(email, password);
-      setEmail('');
-      setPassword('');
+      resetForm();
+      
     } catch (error) {
       console.log(error);
     }
