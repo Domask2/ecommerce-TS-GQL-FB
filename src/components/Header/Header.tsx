@@ -1,9 +1,9 @@
-import { Wrapper } from './Header.style';
-import { Link } from 'react-router-dom';
-import { auth } from './../../firebase/utils';
-import { useTypedSelector } from '../../hooks/useTypeSelector';
+import { Wrapper } from "./Header.style";
+import { Link } from "react-router-dom";
+import { auth } from "./../../firebase/utils";
+import { useTypedSelector } from "../../hooks/useTypeSelector";
 // @ts-ignore
-import Logo from '../../assets/logo.png';
+import Logo from "../../assets/logo.png";
 
 const Header: React.FC = () => {
   // const user = useSelector((state: RootState) => state.user.setUser);
@@ -22,6 +22,9 @@ const Header: React.FC = () => {
           {user && (
             <ul>
               <li>
+                <Link to="/dashboard">Dashboard</Link>
+              </li>
+              <li>
                 <span onClick={() => auth.signOut()}>LogOut</span>
               </li>
             </ul>
@@ -29,6 +32,9 @@ const Header: React.FC = () => {
 
           {!user && (
             <ul>
+              <li>
+                <Link to="/dashboard">Dashboard</Link>
+              </li>
               <li>
                 <Link to="/registration">Register</Link>
               </li>
