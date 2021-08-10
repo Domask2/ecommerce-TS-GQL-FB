@@ -1,4 +1,4 @@
-import useAuth from '../hooks/useAuth';
+import useAuth from './useAuth';
 
 const WithAuth = (props: any) => useAuth(props.currentUser) && props.children;
 

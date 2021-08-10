@@ -6,23 +6,29 @@ import FormInput from '../forms/FormInput/FormInput';
 import AuthWrapper from '../AuthWrapper/AuthWrapper';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useActions } from '../../hooks/useAction';
+import { signInUser } from '../../redux/User/user.actions';
+import { signInSuccess } from '../../redux/User/user.actions';
 
 const SignIn: React.FC = () => {
   const history = useHistory();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const { signInSuccess } = useActions();
 
   const resetForm = () => {
     setEmail('');
     setPassword('');
-  };
 
+  };
+  
   async function handleSubmit(e: any) {
     e.preventDefault();
-    // resetForm();
-    // history.push('/');
+    resetForm();
+    history.push('/');
 
-
+    signInUser(email, password);
+    signInSuccess(true);
   }
 
   return (

@@ -17,11 +17,12 @@ import HomePageLayout from './layouts/HomePageLayout';
 import { useActions } from './hooks/useAction';
 import { setCurrentUserAction } from './redux/User/user.actions';
 //hoc
-import WithAuth from './hoc/withAuth';
+import WithAuth from './hooks/withAuth';
 
 const App: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
   const { setCurrentUserAction } = useActions();
+  
 
   useEffect(() => {
     const authListener = auth.onAuthStateChanged(async (userAuth: any) => {
