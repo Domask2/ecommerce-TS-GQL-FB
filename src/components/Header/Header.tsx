@@ -5,9 +5,10 @@ import { useTypedSelector } from "../../hooks/useTypeSelector";
 // @ts-ignore
 import Logo from "../../assets/logo.png";
 
-const Header: React.FC = () => {
+const Header: React.FC = (props) => {
   // const user = useSelector((state: RootState) => state.user.setUser);
-  const user = useTypedSelector((state) => state.user.setUser);
+
+  const currentUser = useTypedSelector((state) => state.user.currentUser);
 
   return (
     <Wrapper>
@@ -19,7 +20,7 @@ const Header: React.FC = () => {
         </div>
 
         <div className="callToActions">
-          {user && (
+          {currentUser && (
             <ul>
               <li>
                 <Link to="/dashboard">Dashboard</Link>
@@ -30,7 +31,7 @@ const Header: React.FC = () => {
             </ul>
           )}
 
-          {!user && (
+          {!currentUser && (
             <ul>
               <li>
                 <Link to="/dashboard">Dashboard</Link>

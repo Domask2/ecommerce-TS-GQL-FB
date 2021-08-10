@@ -9,13 +9,13 @@ interface Iuser {
 type TInitialState = typeof initialState;
 
 const initialState = {
-  setUser: [] as Array<Iuser>,
+  currentUser: [] as Array<Iuser>,
 };
 
 export const userReducer = (state = initialState, action: UserAction): TInitialState => {
   switch (action.type) {
     case userTypes.SET_CURRENT_USER:
-      return { ...state, setUser: action.payload };
+      return { ...state, currentUser: action.payload };
     default:
       return state;
   }

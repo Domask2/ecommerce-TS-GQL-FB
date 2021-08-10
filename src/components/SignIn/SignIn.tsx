@@ -5,8 +5,10 @@ import { Link } from 'react-router-dom';
 import FormInput from '../forms/FormInput/FormInput';
 import AuthWrapper from '../AuthWrapper/AuthWrapper';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const SignIn: React.FC = () => {
+  const history = useHistory();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
@@ -17,13 +19,10 @@ const SignIn: React.FC = () => {
 
   async function handleSubmit(e: any) {
     e.preventDefault();
+    // resetForm();
+    // history.push('/');
 
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-      resetForm();
-    } catch (error) {
-      console.log(error);
-    }
+
   }
 
   return (
