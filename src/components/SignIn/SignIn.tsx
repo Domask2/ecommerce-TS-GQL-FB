@@ -10,21 +10,27 @@ import { useHistory } from 'react-router-dom';
 import { signInUser } from '../../redux/User/user.actions';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../hooks/useTypeSelector';
+import { useActions } from '../../hooks/useAction';
+import { resetUserState } from '../../redux/User/user.actions';
 
 const SignIn: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const { resetUserState } = useActions();
 
-  const signInSuccess = useTypedSelector((state) => state.user.signInSuccess);
+  // const signInSuccess = useTypedSelector((state) => state.user.signInSuccess);
+  const currentUser = useTypedSelector((state) => state.user.currentUser);
+
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
   useEffect(() => {
-    if (signInSuccess) {
+    if (currentUser) {
       resetForm();
       history.push('/');
+      resetUserState();
     }
-  }, [signInSuccess]);
+  }, [currentUser, history, resetUserState]);
 
   const resetForm = () => {
     setEmail('');

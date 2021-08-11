@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Wrapper = styled.div`
   height: 6.5rem;
@@ -25,11 +25,12 @@ export const Wrapper = styled.div`
 
   .callToActions {
     position: absolute;
-    right:10px;
+    right: 10px;
     top: 50%;
     transform: translateY(-50%);
 
-    ul, li {
+    ul,
+    li {
       margin: 0;
       padding: 0;
     }
@@ -40,7 +41,7 @@ export const Wrapper = styled.div`
       margin-right: 1.5rem;
 
       &:last-child {
-        margin-right:0;
+        margin-right: 0;
       }
 
       a {
@@ -49,6 +50,10 @@ export const Wrapper = styled.div`
         color: black;
         text-decoration: none;
         text-transform: uppercase;
+      }
+      span {
+        text-transform: uppercase;
+        cursor: pointer;
       }
     }
   }

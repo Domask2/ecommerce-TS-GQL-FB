@@ -7,10 +7,13 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { signUpUser } from '../../redux/User/user.actions';
 import { useTypedSelector } from '../../hooks/useTypeSelector';
+import { useActions } from '../../hooks/useAction';
+import { resetUserState } from '../../redux/User/user.actions';
 
 const SignUp = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { resetUserState } = useActions();
 
   const [email, setEmail] = useState<string>('');
   const [displayName, setDisplayName] = useState<string>('');
@@ -25,8 +28,9 @@ const SignUp = () => {
     if (signUpSuccess) {
       resetForm();
       history.push('/');
+      resetUserState();
     }
-  }, [signUpSuccess]);
+  }, [signUpSuccess, history, resetUserState]);
 
   useEffect(() => {
     if (signUpError.length > 0) {

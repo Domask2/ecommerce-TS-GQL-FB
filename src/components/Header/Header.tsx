@@ -22,7 +22,7 @@ const Header: React.FC = (props) => {
           {currentUser && (
             <ul>
               <li>
-                <Link to="/dashboard">Dashboard</Link>
+                <Link to="/dashboard">My Account</Link>
               </li>
               <li>
                 <span onClick={() => auth.signOut()}>LogOut</span>
@@ -32,9 +32,6 @@ const Header: React.FC = (props) => {
 
           {!currentUser && (
             <ul>
-              <li>
-                <Link to="/dashboard">Dashboard</Link>
-              </li>
               <li>
                 <Link to="/registration">Register</Link>
               </li>

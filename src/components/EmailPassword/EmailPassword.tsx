@@ -1,45 +1,53 @@
-import AuthWrapper from './../AuthWrapper/AuthWrapper';
-import FormInput from '../forms/FormInput/FormInput';
-import Button from '../forms/Button/Button';
-import { useHistory } from 'react-router';
-import { auth } from '../../firebase/utils';
-import { useState } from 'react';
+import AuthWrapper from "./../AuthWrapper/AuthWrapper";
+import FormInput from "../forms/FormInput/FormInput";
+import Button from "../forms/Button/Button";
+import { useHistory } from "react-router";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useTypedSelector } from "../../hooks/useTypeSelector";
+import { useState } from "react";
+import { resetPassword } from "../../redux/User/user.actions";
+import { useActions } from '../../hooks/useAction';
+import { resetUserState } from '../../redux/User/user.actions';
 
 const EmailPassword: React.FC = (props) => {
-  const [email, setEmail] = useState<string>('');
-  const [error, setError] = useState<string[]>([]);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const { resetUserState } = useActions();
 
-  let history = useHistory();
+  const [email, setEmail] = useState<string>("");
+  const [error, setError] = useState<string>("");
+
+  const resetPasswordSuccess = useTypedSelector(
+    (state) => state.user.resetPasswordSuccess
+  );
+  const resetPasswordError = useTypedSelector(
+    (state) => state.user.resetPasswordError
+  );
+
+  useEffect(() => {
+    if (resetPasswordSuccess) {
+      history.push("/login");
+      resetUserState();
+    }
+  }, [resetPasswordSuccess, history, resetUserState]);
+
+  useEffect(() => {
+    if (resetPasswordError.length > 0) {
+      setError(resetPasswordError);
+    }
+  }, [resetPasswordError]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-
-    try {
-      const config = {
-        url: 'http://localhost:3000/login',
-      };
-
-      await auth
-        .sendPasswordResetEmail(email, config)
-        .then(() => {
-          history.push('/login');
-        })
-        .catch(() => {
-          const err = ['Email not found. Please try again.'];
-          setError(err);
-        });
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(resetPassword(email));
   };
 
   return (
     <AuthWrapper headline="Email Password">
       {error.length > 0 && (
         <ul>
-          {error.map((e: string, index: number) => {
-            return <li key={index}>{e}</li>;
-          })}
+          <li>{error}</li>;
         </ul>
       )}
 

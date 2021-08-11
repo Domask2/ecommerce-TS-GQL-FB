@@ -13,6 +13,8 @@ const initialState = {
   signInSuccess: false as boolean,
   signUpError: '' as string,
   signUpSuccess: false as boolean,
+  resetPasswordSuccess: false as boolean,
+  resetPasswordError: '' as string,
 };
 
 export const userReducer = (state = initialState, action: UserAction): TInitialState => {
@@ -37,6 +39,22 @@ export const userReducer = (state = initialState, action: UserAction): TInitialS
         ...state,
         signUpError: action.payload,
       };
+    case userTypes.RESET_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        resetPasswordSuccess: action.payload,
+      };
+    case userTypes.RESET_PASSWORD_ERROR:
+      return {
+        ...state,
+        resetPasswordError: action.payload,
+      };
+    case userTypes.RESET_USER_STATE:
+      return {
+        ...state,
+        ...initialState
+      };
+    
 
     default:
       return state;

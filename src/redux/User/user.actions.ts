@@ -1,5 +1,5 @@
-import { UserAction, userTypes } from './user.types';
-import { auth, handleUserProfile } from './../../firebase/utils';
+import { UserAction, userTypes } from "./user.types";
+import { auth, handleUserProfile } from "./../../firebase/utils";
 
 export const setCurrentUserAction = (user: any): UserAction => {
   return { type: userTypes.SET_CURRENT_USER, payload: user };
@@ -17,25 +17,46 @@ export const signUpError = (error: string) => {
   return { type: userTypes.SIGN_UP_ERROR, payload: error };
 };
 
-export const signInUser = (email: string, password: string) => async (dispatch: any) => {
-  try {
-    await auth.signInWithEmailAndPassword(email, password);
-    dispatch(signInSuccess(true));
-  } catch (error) {
-    console.log(error);
-  }
+export const resetPasswordSuccess = (success: boolean) => {
+  return { type: userTypes.RESET_PASSWORD_SUCCESS, payload: success };
 };
 
+export const resetPasswordError = (error: string) => {
+  return { type: userTypes.RESET_PASSWORD_ERROR, payload: error };
+};
+
+export const resetUserState = () => {
+  return {type: userTypes.RESET_USER_STATE}
+}
+
+export const signInUser =
+  (email: string, password: string) => async (dispatch: any) => {
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+      dispatch(signInSuccess(true));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 export const signUpUser =
-  (displayName: string, email: string, password: string, confirmPassword: string) =>
+  (
+    displayName: string,
+    email: string,
+    password: string,
+    confirmPassword: string
+  ) =>
   async (dispatch: any) => {
     if (password !== confirmPassword) {
-      dispatch(signUpError('error confirm password'));
+      dispatch(signUpError("error confirm password"));
       return;
     }
 
     try {
-      const { user } = await auth.createUserWithEmailAndPassword(email, password);
+      const { user } = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
 
       await handleUserProfile(user, displayName);
 
@@ -44,3 +65,22 @@ export const signUpUser =
       console.log(err);
     }
   };
+
+export const resetPassword = (email: string) => async (dispatch: any) => {
+  const config = {
+    url: "http://localhost:3000/login",
+  };
+
+  try {
+    await auth
+      .sendPasswordResetEmail(email, config)
+      .then(() => {
+        dispatch(resetPasswordSuccess(true));
+      })
+      .catch(() => {
+        dispatch(resetPasswordError("Email not found. Please try again"));
+      });
+  } catch (error) {
+    console.log(error);
+  }
+};
