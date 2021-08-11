@@ -1,16 +1,38 @@
 import { FormWrap } from './SignUp.style';
 import FormInput from '../forms/FormInput/FormInput';
 import Button from '../forms/Button/Button';
-import { auth, handleUserProfile } from '../../firebase/utils';
 import AuthWrapper from '../AuthWrapper/AuthWrapper';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { signUpUser } from '../../redux/User/user.actions';
+import { useTypedSelector } from '../../hooks/useTypeSelector';
 
 const SignUp = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   const [email, setEmail] = useState<string>('');
   const [displayName, setDisplayName] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
+
+  const signUpSuccess = useTypedSelector((state) => state.user.signUpSuccess);
+  const signUpError = useTypedSelector((state) => state.user.signUpError);
+
+  useEffect(() => {
+    if (signUpSuccess) {
+      resetForm();
+      history.push('/');
+    }
+  }, [signUpSuccess]);
+
+  useEffect(() => {
+    if (signUpError.length > 0) {
+      setError(signUpError);
+    }
+  }, [signUpError]);
 
   const resetForm = () => {
     setEmail('');
@@ -20,21 +42,10 @@ const SignUp = () => {
     setError('');
   };
 
-  const handleFormSubmit = async (e: any) => {
+  const handleFormSubmit = (e: any) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
-      setError("Password Don't match");
-      return;
-    }
-
-    try {
-      const { user } = await auth.createUserWithEmailAndPassword(email, password);
-      await handleUserProfile(user, displayName);
-      resetForm();
-    } catch (err) {
-      console.log(err);
-    }
+    dispatch(signUpUser(displayName, email, password, confirmPassword));
   };
 
   return (
@@ -48,7 +59,7 @@ const SignUp = () => {
           )}
 
           <FormInput
-            type="email"
+            type="text"
             name="displayName"
             placeholder="Full name"
             value={displayName}

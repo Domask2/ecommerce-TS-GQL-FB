@@ -1,35 +1,40 @@
 import { SocialSignIn, Links } from './SignIn.style';
 import Button from './../forms/Button/Button';
-import { signInWithGoogle, auth } from './../../firebase/utils';
+import { signInWithGoogle } from './../../firebase/utils';
 import { Link } from 'react-router-dom';
 import FormInput from '../forms/FormInput/FormInput';
 import AuthWrapper from '../AuthWrapper/AuthWrapper';
-import { useState } from 'react';
+
+import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useActions } from '../../hooks/useAction';
 import { signInUser } from '../../redux/User/user.actions';
-import { signInSuccess } from '../../redux/User/user.actions';
+import { useDispatch } from 'react-redux';
+import { useTypedSelector } from '../../hooks/useTypeSelector';
 
 const SignIn: React.FC = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  const signInSuccess = useTypedSelector((state) => state.user.signInSuccess);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const { signInSuccess } = useActions();
+
+  useEffect(() => {
+    if (signInSuccess) {
+      resetForm();
+      history.push('/');
+    }
+  }, [signInSuccess]);
 
   const resetForm = () => {
     setEmail('');
     setPassword('');
-
   };
-  
-  async function handleSubmit(e: any) {
-    e.preventDefault();
-    resetForm();
-    history.push('/');
 
-    signInUser(email, password);
-    signInSuccess(true);
-  }
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    dispatch(signInUser(email, password));
+  };
 
   return (
     <AuthWrapper headline="LogIn">

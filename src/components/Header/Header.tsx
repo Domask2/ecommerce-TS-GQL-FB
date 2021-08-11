@@ -1,13 +1,12 @@
-import { Wrapper } from "./Header.style";
-import { Link } from "react-router-dom";
-import { auth } from "./../../firebase/utils";
-import { useTypedSelector } from "../../hooks/useTypeSelector";
+import { Wrapper } from './Header.style';
+import { Link } from 'react-router-dom';
+import { auth } from './../../firebase/utils';
+import { useTypedSelector } from '../../hooks/useTypeSelector';
 // @ts-ignore
-import Logo from "../../assets/logo.png";
+import Logo from '../../assets/logo.png';
 
 const Header: React.FC = (props) => {
   // const user = useSelector((state: RootState) => state.user.setUser);
-
   const currentUser = useTypedSelector((state) => state.user.currentUser);
 
   return (
