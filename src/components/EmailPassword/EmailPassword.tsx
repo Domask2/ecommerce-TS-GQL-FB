@@ -1,12 +1,12 @@
-import AuthWrapper from "./../AuthWrapper/AuthWrapper";
-import FormInput from "../forms/FormInput/FormInput";
-import Button from "../forms/Button/Button";
-import { useHistory } from "react-router";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { useTypedSelector } from "../../hooks/useTypeSelector";
-import { useState } from "react";
-import { resetPassword } from "../../redux/User/user.actions";
+import AuthWrapper from './../AuthWrapper/AuthWrapper';
+import FormInput from '../forms/FormInput/FormInput';
+import Button from '../forms/Button/Button';
+import { useHistory } from 'react-router';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useTypedSelector } from '../../hooks/useTypeSelector';
+import { useState } from 'react';
+import { resetPassword } from '../../redux/User/user.actions';
 import { useActions } from '../../hooks/useAction';
 import { resetUserState } from '../../redux/User/user.actions';
 
@@ -15,20 +15,16 @@ const EmailPassword: React.FC = (props) => {
   const history = useHistory();
   const { resetUserState } = useActions();
 
-  const [email, setEmail] = useState<string>("");
-  const [error, setError] = useState<string>("");
+  const [email, setEmail] = useState<string>('');
+  const [error, setError] = useState<string>('');
 
-  const resetPasswordSuccess = useTypedSelector(
-    (state) => state.user.resetPasswordSuccess
-  );
-  const resetPasswordError = useTypedSelector(
-    (state) => state.user.resetPasswordError
-  );
+  const resetPasswordSuccess = useTypedSelector((state) => state.user.resetPasswordSuccess);
+  const resetPasswordError = useTypedSelector((state) => state.user.resetPasswordError);
 
   useEffect(() => {
     if (resetPasswordSuccess) {
-      history.push("/login");
-      resetUserState();
+      // resetUserState();
+      history.push('/login');
     }
   }, [resetPasswordSuccess, history, resetUserState]);
 
@@ -47,7 +43,7 @@ const EmailPassword: React.FC = (props) => {
     <AuthWrapper headline="Email Password">
       {error.length > 0 && (
         <ul>
-          <li>{error}</li>;
+          <li>{error}</li>
         </ul>
       )}
 

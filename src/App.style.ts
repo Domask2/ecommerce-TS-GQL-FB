@@ -39,5 +39,8 @@ export const GlobalStyle = createGlobalStyle`
     transition: all .4s ease;
   }
 
-`;
+  li {
+    list-style-type: none;
+  }
 
+`;
