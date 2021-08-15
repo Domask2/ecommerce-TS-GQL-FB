@@ -4,9 +4,10 @@ import thunkMiddleware from 'redux-thunk';
 import createSagaMiddleware from '@redux-saga/core';
 import { userReducer } from './User/user.rudecer';
 import { all, call } from '@redux-saga/core/effects';
+import userSaga from './User/user.sagas';
 
 function* rootSaga() {
-  yield all([])
+  yield all([userSaga])
 }
 
 export const rootReducer = combineReducers({

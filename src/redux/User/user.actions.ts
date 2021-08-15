@@ -1,6 +1,13 @@
 import { UserAction, userTypes } from "./user.types";
 import { auth, handleUserProfile, GoogleProvider } from "./../../firebase/utils";
 
+
+export const emailSignInStart = (useCredentials:any) => ({
+  type: userTypes.EMAIL_SIGN_IN_START,
+  payload: useCredentials
+});
+
+
 export const setCurrentUserAction = (user: any): UserAction => {
   return { type: userTypes.SET_CURRENT_USER, payload: user };
 };

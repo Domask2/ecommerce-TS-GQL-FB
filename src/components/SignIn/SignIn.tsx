@@ -11,7 +11,7 @@ import { signInUser } from '../../redux/User/user.actions';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../hooks/useTypeSelector';
 import { useActions } from '../../hooks/useAction';
-import { resetUserState, resetAllAuthForms, signInWithGoogle  } from '../../redux/User/user.actions';
+import { resetUserState, resetAllAuthForms, signInWithGoogle, emailSignInStart  } from '../../redux/User/user.actions';
 
 const SignIn: React.FC = () => {
   const history = useHistory();
@@ -43,7 +43,8 @@ const SignIn: React.FC = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    dispatch(signInUser(email, password));
+    // dispatch(signInUser(email, password));
+    dispatch(emailSignInStart({email, password}));
   };
 
   return (
