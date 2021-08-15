@@ -5,6 +5,7 @@ export enum userTypes {
   SIGN_UP_ERROR = 'SIGN_UP_ERROR',
   RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS',
   RESET_PASSWORD_ERROR = 'RESET_PASSWORD_ERROR',
+  RESEY_AUTH_FORMS = 'RESEY_AUTH_FORMS',
   RESET_USER_STATE = 'RESET_USER_STATE',
 }
 
@@ -17,6 +18,7 @@ interface FetchUserAction {
     | userTypes.RESET_PASSWORD_SUCCESS
     | userTypes.RESET_PASSWORD_ERROR
     | userTypes.RESET_USER_STATE
+    | userTypes.RESEY_AUTH_FORMS
   payload: any;
 }
 

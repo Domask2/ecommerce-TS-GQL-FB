@@ -1,5 +1,5 @@
 import { UserAction, userTypes } from "./user.types";
-import { auth, handleUserProfile } from "./../../firebase/utils";
+import { auth, handleUserProfile, GoogleProvider } from "./../../firebase/utils";
 
 export const setCurrentUserAction = (user: any): UserAction => {
   return { type: userTypes.SET_CURRENT_USER, payload: user };
@@ -27,6 +27,10 @@ export const resetPasswordError = (error: string) => {
 
 export const resetUserState = () => {
   return {type: userTypes.RESET_USER_STATE}
+}
+
+export const resetAllAuthForms = () => {
+  return {type: userTypes.RESEY_AUTH_FORMS}
 }
 
 export const signInUser =
@@ -84,3 +88,16 @@ export const resetPassword = (email: string) => async (dispatch: any) => {
     console.log(error);
   }
 };
+
+export const signInWithGoogle = () => async (dispatch:any) => {
+  try {
+    await auth.signInWithPopup(GoogleProvider)
+      .then (() => {
+        dispatch(signInSuccess(true));
+      })
+  }catch (error){
+    console.log(error)
+  }
+  
+};
+

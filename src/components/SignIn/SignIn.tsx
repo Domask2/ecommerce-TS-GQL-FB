@@ -1,6 +1,6 @@
 import { SocialSignIn, Links } from './SignIn.style';
 import Button from './../forms/Button/Button';
-import { signInWithGoogle } from './../../firebase/utils';
+
 import { Link } from 'react-router-dom';
 import FormInput from '../forms/FormInput/FormInput';
 import AuthWrapper from '../AuthWrapper/AuthWrapper';
@@ -11,31 +11,35 @@ import { signInUser } from '../../redux/User/user.actions';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../hooks/useTypeSelector';
 import { useActions } from '../../hooks/useAction';
-import { resetUserState } from '../../redux/User/user.actions';
+import { resetUserState, resetAllAuthForms, signInWithGoogle  } from '../../redux/User/user.actions';
 
 const SignIn: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { resetUserState } = useActions();
-
-  // const signInSuccess = useTypedSelector((state) => state.user.signInSuccess);
-  const currentUser = useTypedSelector((state) => state.user.currentUser);
+  const { resetUserState, resetAllAuthForms } = useActions();
+ 
+  const signInSuccess = useTypedSelector((state) => state.user.signInSuccess);
+  // const currentUser = useTypedSelector((state) => state.user.currentUser);
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
   useEffect(() => {
-    if (currentUser) {
+    if (signInSuccess) {
       resetForm();
+      resetAllAuthForms();
       history.push('/');
-      resetUserState();
     }
-  }, [currentUser, history, resetUserState]);
+  }, [signInSuccess, history, resetUserState]);
 
   const resetForm = () => {
     setEmail('');
     setPassword('');
   };
+
+  const handleGoogleSignIn = () => {
+    dispatch(signInWithGoogle());
+  }
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -67,7 +71,7 @@ const SignIn: React.FC = () => {
               <Button type="submit" pd="16px">
                 LOGIN
               </Button>
-              <Button onClick={signInWithGoogle} otherProps="1">
+              <Button onClick={handleGoogleSignIn} otherProps="1">
                 <span className="icon"></span>
                 <p>Google</p>
               </Button>

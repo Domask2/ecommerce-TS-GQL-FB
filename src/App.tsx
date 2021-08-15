@@ -15,37 +15,38 @@ import MainLayout from './layouts/MainLayout';
 import HomePageLayout from './layouts/HomePageLayout';
 //store
 import { useActions } from './hooks/useAction';
+import { useTypedSelector } from './hooks/useTypeSelector';
 import { setCurrentUserAction } from './redux/User/user.actions';
 //hoc
 import WithAuth from './hooks/withAuth';
 
 const App: React.FC = () => {
-  const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
+  // const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
   const { setCurrentUserAction } = useActions();
-  
+  const currentUser = useTypedSelector(state => state.user.currentUser)
 
   useEffect(() => {
     const authListener = auth.onAuthStateChanged(async (userAuth: any) => {
       if (userAuth) {
         const userRef: any = await handleUserProfile(userAuth);
         userRef.onSnapshot((snapshot: any) => {
-          setCurrentUser({
+          setCurrentUserAction({
             id: snapshot.id,
             ...snapshot.data(),
           });
         });
       } else {
-        setCurrentUser(null);
+        setCurrentUserAction(null);
       }
     });
     return () => {
       authListener();
     };
-  }, []);
+  },[]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  useEffect(() => {
-    setCurrentUserAction(currentUser);
-  }, [currentUser, setCurrentUserAction]);
+  // useEffect(() => {
+  //   setCurrentUserAction(currentUser);
+  // }, [currentUser, setCurrentUserAction]);
 
   return (
     <div className="App">
@@ -95,7 +96,7 @@ const App: React.FC = () => {
         <Route
           path="/dashboard"
           render={() => (
-            <WithAuth currentUser={currentUser}>
+            <WithAuth>
               <MainLayout>
                 <Dashboard />
               </MainLayout>

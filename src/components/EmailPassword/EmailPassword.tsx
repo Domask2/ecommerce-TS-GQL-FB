@@ -8,12 +8,12 @@ import { useTypedSelector } from '../../hooks/useTypeSelector';
 import { useState } from 'react';
 import { resetPassword } from '../../redux/User/user.actions';
 import { useActions } from '../../hooks/useAction';
-import { resetUserState } from '../../redux/User/user.actions';
+import { resetAllAuthForms } from '../../redux/User/user.actions';
 
 const EmailPassword: React.FC = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { resetUserState } = useActions();
+  const { resetAllAuthForms } = useActions();
 
   const [email, setEmail] = useState<string>('');
   const [error, setError] = useState<string>('');
@@ -23,10 +23,10 @@ const EmailPassword: React.FC = (props) => {
 
   useEffect(() => {
     if (resetPasswordSuccess) {
-      // resetUserState();
+      resetAllAuthForms();
       history.push('/login');
     }
-  }, [resetPasswordSuccess, history, resetUserState]);
+  }, [resetPasswordSuccess, history, resetAllAuthForms]);
 
   useEffect(() => {
     if (resetPasswordError.length > 0) {

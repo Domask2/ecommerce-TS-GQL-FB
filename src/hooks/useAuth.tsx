@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useTypedSelector } from './useTypeSelector';
 
-const useAuth = (currentUser: any) => {
+const useAuth = () => {
+  const currentUser = useTypedSelector(state => state.user.currentUser);
   const history = useHistory();
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import { userTypes, UserAction } from './user.types';
+import { userTypes, UserAction } from "./user.types";
 
 interface Iuser {
   id: string;
@@ -11,13 +11,16 @@ type TInitialState = typeof initialState;
 const initialState = {
   currentUser: [] as Array<Iuser>,
   signInSuccess: false as boolean,
-  signUpError: '' as string,
   signUpSuccess: false as boolean,
+  signUpError: "" as string,
   resetPasswordSuccess: false as boolean,
-  resetPasswordError: '' as string,
+  resetPasswordError: "" as string,
 };
 
-export const userReducer = (state = initialState, action: UserAction): TInitialState => {
+export const userReducer = (
+  state = initialState,
+  action: UserAction
+): TInitialState => {
   switch (action.type) {
     case userTypes.SET_CURRENT_USER:
       return {
@@ -52,9 +55,17 @@ export const userReducer = (state = initialState, action: UserAction): TInitialS
     case userTypes.RESET_USER_STATE:
       return {
         ...state,
-        ...initialState
+        ...initialState,
       };
-    
+    case userTypes.RESEY_AUTH_FORMS:
+      return {
+        ...state,
+        signInSuccess: false as boolean,
+        signUpSuccess: false as boolean,
+        signUpError: "" as string,
+        resetPasswordSuccess: false as boolean,
+        resetPasswordError: "" as string,
+      };
 
     default:
       return state;
