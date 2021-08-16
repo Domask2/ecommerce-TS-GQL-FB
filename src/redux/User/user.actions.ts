@@ -1,9 +1,9 @@
 import { UserAction, userTypes } from './user.types';
 import { auth, handleUserProfile, GoogleProvider } from './../../firebase/utils';
 
-export const emailSignInStart = (email: string, password: string) => ({
+export const emailSignInStart = (useCredentials: any) => ({
   type: userTypes.EMAIL_SIGN_IN_START,
-  payload: { email, password },
+  payload: useCredentials,
 });
 
 export const setCurrentUserAction = (user: any): UserAction => {
@@ -58,7 +58,7 @@ export const signUpUser =
     try {
       const { user } = await auth.createUserWithEmailAndPassword(email, password);
 
-      await handleUserProfile(user, displayName);
+      // await handleUserProfile(user, displayName);
 
       dispatch(signUpSuccess(true));
     } catch (err) {

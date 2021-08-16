@@ -5,10 +5,25 @@ import { AnyAction } from 'redux';
 
 // import { signInSuccess } from './user.actions';
 
-export function* emailSignIn({ payload }: AnyAction) {
-  console.log(userTypes.EMAIL_SIGN_IN_START);
+export function* getSnapshotFromUserAuth(user: any, additionalData = {}): any {
   try {
-    yield auth.signInWithEmailAndPassword(payload.email, payload.password);
+    const userRef: any = yield call(handleUserProfile, { userAuth: user, additionalData });
+    const snapshot = yield userRef.get();
+    // userRef.onSnapshot((snapshot: any) => {
+    //   setCurrentUserAction({
+    //     id: snapshot.id,
+    //     ...snapshot.data(),
+    //   });
+    // });
+  } catch (error) {
+    // console.log(error)
+  }
+}
+
+export function* emailSignIn({ payload: { email, password } }: AnyAction) {
+  try {
+    const { user } = yield auth.signInWithEmailAndPassword(email, password);
+    yield getSnapshotFromUserAuth(user);
     // yield put (
     //   signInSuccess(true)
     // )

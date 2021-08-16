@@ -23,26 +23,14 @@ import WithAuth from './hooks/withAuth';
 const App: React.FC = () => {
   // const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
   const { setCurrentUserAction } = useActions();
-  const currentUser = useTypedSelector(state => state.user.currentUser)
+  const currentUser = useTypedSelector((state) => state.user.currentUser);
 
-  useEffect(() => {
-    const authListener = auth.onAuthStateChanged(async (userAuth: any) => {
-      if (userAuth) {
-        const userRef: any = await handleUserProfile(userAuth);
-        userRef.onSnapshot((snapshot: any) => {
-          setCurrentUserAction({
-            id: snapshot.id,
-            ...snapshot.data(),
-          });
-        });
-      } else {
-        setCurrentUserAction(null);
-      }
-    });
-    return () => {
-      authListener();
-    };
-  },[]); // eslint-disable-line react-hooks/exhaustive-deps
+  // useEffect(() => {
+
+  //   return () => {
+  //     authListener();
+  //   };
+  // },[]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // useEffect(() => {
   //   setCurrentUserAction(currentUser);

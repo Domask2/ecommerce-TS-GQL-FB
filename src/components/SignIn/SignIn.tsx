@@ -49,7 +49,7 @@ const SignIn: React.FC = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     // dispatch(signInUser(email, password));
-    dispatch(emailSignInStart(email, password));
+    dispatch(emailSignInStart({ email, password }));
   };
 
   return (
