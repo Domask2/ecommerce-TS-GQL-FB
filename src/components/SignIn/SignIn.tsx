@@ -7,17 +7,22 @@ import AuthWrapper from '../AuthWrapper/AuthWrapper';
 
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { signInUser } from '../../redux/User/user.actions';
+// import { signInUser } from '../../redux/User/user.actions';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../hooks/useTypeSelector';
 import { useActions } from '../../hooks/useAction';
-import { resetUserState, resetAllAuthForms, signInWithGoogle, emailSignInStart  } from '../../redux/User/user.actions';
+import {
+  resetUserState,
+  resetAllAuthForms,
+  signInWithGoogle,
+  emailSignInStart,
+} from '../../redux/User/user.actions';
 
 const SignIn: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { resetUserState, resetAllAuthForms } = useActions();
- 
+
   const signInSuccess = useTypedSelector((state) => state.user.signInSuccess);
   // const currentUser = useTypedSelector((state) => state.user.currentUser);
 
@@ -39,12 +44,12 @@ const SignIn: React.FC = () => {
 
   const handleGoogleSignIn = () => {
     dispatch(signInWithGoogle());
-  }
+  };
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
     // dispatch(signInUser(email, password));
-    dispatch(emailSignInStart({email, password}));
+    dispatch(emailSignInStart(email, password));
   };
 
   return (

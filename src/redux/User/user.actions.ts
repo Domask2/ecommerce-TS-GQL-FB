@@ -1,12 +1,10 @@
-import { UserAction, userTypes } from "./user.types";
-import { auth, handleUserProfile, GoogleProvider } from "./../../firebase/utils";
+import { UserAction, userTypes } from './user.types';
+import { auth, handleUserProfile, GoogleProvider } from './../../firebase/utils';
 
-
-export const emailSignInStart = (useCredentials:any) => ({
+export const emailSignInStart = (email: string, password: string) => ({
   type: userTypes.EMAIL_SIGN_IN_START,
-  payload: useCredentials
+  payload: { email, password },
 });
-
 
 export const setCurrentUserAction = (user: any): UserAction => {
   return { type: userTypes.SET_CURRENT_USER, payload: user };
@@ -33,41 +31,32 @@ export const resetPasswordError = (error: string) => {
 };
 
 export const resetUserState = () => {
-  return {type: userTypes.RESET_USER_STATE}
-}
+  return { type: userTypes.RESET_USER_STATE };
+};
 
 export const resetAllAuthForms = () => {
-  return {type: userTypes.RESEY_AUTH_FORMS}
-}
+  return { type: userTypes.RESEY_AUTH_FORMS };
+};
 
-export const signInUser =
-  (email: string, password: string) => async (dispatch: any) => {
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-      dispatch(signInSuccess(true));
-    } catch (error) {
-      console.log(error);
-    }
-  };
+// export const signInUser = (email: string, password: string) => async (dispatch: any) => {
+//   try {
+//     await auth.signInWithEmailAndPassword(email, password);
+//     dispatch(signInSuccess(true));
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 export const signUpUser =
-  (
-    displayName: string,
-    email: string,
-    password: string,
-    confirmPassword: string
-  ) =>
+  (displayName: string, email: string, password: string, confirmPassword: string) =>
   async (dispatch: any) => {
     if (password !== confirmPassword) {
-      dispatch(signUpError("error confirm password"));
+      dispatch(signUpError('error confirm password'));
       return;
     }
 
     try {
-      const { user } = await auth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
+      const { user } = await auth.createUserWithEmailAndPassword(email, password);
 
       await handleUserProfile(user, displayName);
 
@@ -79,7 +68,7 @@ export const signUpUser =
 
 export const resetPassword = (email: string) => async (dispatch: any) => {
   const config = {
-    url: "http://localhost:3000/login",
+    url: 'http://localhost:3000/login',
   };
 
   try {
@@ -89,22 +78,19 @@ export const resetPassword = (email: string) => async (dispatch: any) => {
         dispatch(resetPasswordSuccess(true));
       })
       .catch(() => {
-        dispatch(resetPasswordError("Email not found. Please try again"));
+        dispatch(resetPasswordError('Email not found. Please try again'));
       });
   } catch (error) {
     console.log(error);
   }
 };
 
-export const signInWithGoogle = () => async (dispatch:any) => {
+export const signInWithGoogle = () => async (dispatch: any) => {
   try {
-    await auth.signInWithPopup(GoogleProvider)
-      .then (() => {
-        dispatch(signInSuccess(true));
-      })
-  }catch (error){
-    console.log(error)
+    await auth.signInWithPopup(GoogleProvider).then(() => {
+      dispatch(signInSuccess(true));
+    });
+  } catch (error) {
+    console.log(error);
   }
-  
 };
-

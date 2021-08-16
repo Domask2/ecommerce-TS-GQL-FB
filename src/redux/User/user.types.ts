@@ -1,5 +1,4 @@
 export enum userTypes {
-
   EMAIL_SIGN_IN_START = 'EMAIL_SIGN_IN_START',
   SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS',
   SET_CURRENT_USER = 'SET_CURRENT_USER',
@@ -20,8 +19,7 @@ interface FetchUserAction {
     | userTypes.RESET_PASSWORD_SUCCESS
     | userTypes.RESET_PASSWORD_ERROR
     | userTypes.RESET_USER_STATE
-    | userTypes.RESEY_AUTH_FORMS
-    | userTypes.EMAIL_SIGN_IN_START
+    | userTypes.RESEY_AUTH_FORMS;
   payload: any;
 }
 
