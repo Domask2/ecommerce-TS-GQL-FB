@@ -2,21 +2,20 @@ import { userTypes } from './user.types';
 import { takeLatest, call, all, put } from '@redux-saga/core/effects';
 import { auth, handleUserProfile, GoogleProvider } from './../../firebase/utils';
 import { AnyAction } from 'redux';
-
-// import { signInSuccess } from './user.actions';
+import { signInSuccess } from './user.actions';
 
 export function* getSnapshotFromUserAuth(user: any, additionalData = {}): any {
   try {
     const userRef: any = yield call(handleUserProfile, { userAuth: user, additionalData });
     const snapshot = yield userRef.get();
-    // userRef.onSnapshot((snapshot: any) => {
-    //   setCurrentUserAction({
-    //     id: snapshot.id,
-    //     ...snapshot.data(),
-    //   });
-    // });
+    yield put(
+      signInSuccess({
+        id: snapshot.id,
+        ...snapshot.data(),
+      }),
+    );
   } catch (error) {
-    // console.log(error)
+    console.log(error);
   }
 }
 
@@ -24,11 +23,8 @@ export function* emailSignIn({ payload: { email, password } }: AnyAction) {
   try {
     const { user } = yield auth.signInWithEmailAndPassword(email, password);
     yield getSnapshotFromUserAuth(user);
-    // yield put (
-    //   signInSuccess(true)
-    // )
   } catch (error) {
-    // console.log(error);
+    console.log(error);
   }
 }
 

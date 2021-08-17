@@ -6,37 +6,31 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../hooks/useTypeSelector';
 import { useState } from 'react';
-import { resetPassword } from '../../redux/User/user.actions';
 import { useActions } from '../../hooks/useAction';
-import { resetAllAuthForms } from '../../redux/User/user.actions';
 
 const EmailPassword: React.FC = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { resetAllAuthForms } = useActions();
 
   const [email, setEmail] = useState<string>('');
   const [error, setError] = useState<string>('');
 
-  const resetPasswordSuccess = useTypedSelector((state) => state.user.resetPasswordSuccess);
-  const resetPasswordError = useTypedSelector((state) => state.user.resetPasswordError);
+  // useEffect(() => {
+  //   if (resetPasswordSuccess) {
+  //     resetAllAuthForms();
+  //     history.push('/login');
+  //   }
+  // }, [resetPasswordSuccess, history, resetAllAuthForms]);
 
-  useEffect(() => {
-    if (resetPasswordSuccess) {
-      resetAllAuthForms();
-      history.push('/login');
-    }
-  }, [resetPasswordSuccess, history, resetAllAuthForms]);
-
-  useEffect(() => {
-    if (resetPasswordError.length > 0) {
-      setError(resetPasswordError);
-    }
-  }, [resetPasswordError]);
+  // useEffect(() => {
+  //   if (resetPasswordError.length > 0) {
+  //     setError(resetPasswordError);
+  //   }
+  // }, [resetPasswordError]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    dispatch(resetPassword(email));
+    // dispatch(resetPassword(email));
   };
 
   return (

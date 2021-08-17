@@ -22,7 +22,7 @@ import WithAuth from './hooks/withAuth';
 
 const App: React.FC = () => {
   // const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
-  const { setCurrentUserAction } = useActions();
+
   const currentUser = useTypedSelector((state) => state.user.currentUser);
 
   // useEffect(() => {

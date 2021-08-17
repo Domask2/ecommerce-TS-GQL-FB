@@ -5,15 +5,12 @@ import AuthWrapper from '../AuthWrapper/AuthWrapper';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { signUpUser } from '../../redux/User/user.actions';
 import { useTypedSelector } from '../../hooks/useTypeSelector';
 import { useActions } from '../../hooks/useAction';
-import { resetUserState, resetAllAuthForms } from '../../redux/User/user.actions';
 
 const SignUp = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { resetUserState, resetAllAuthForms } = useActions();
 
   const [email, setEmail] = useState<string>('');
   const [displayName, setDisplayName] = useState<string>('');
@@ -21,22 +18,19 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
 
-  const signUpSuccess = useTypedSelector((state) => state.user.signUpSuccess);
-  const signUpError = useTypedSelector((state) => state.user.signUpError);
+  // useEffect(() => {
+  //   if (signUpSuccess) {
+  //     resetForm();
+  //     resetAllAuthForms();
+  //     history.push('/');
+  //   }
+  // }, [signUpSuccess, history, resetUserState]);
 
-  useEffect(() => {
-    if (signUpSuccess) {
-      resetForm();
-      resetAllAuthForms();
-      history.push('/');
-    }
-  }, [signUpSuccess, history, resetUserState]);
-
-  useEffect(() => {
-    if (signUpError.length > 0) {
-      setError(signUpError);
-    }
-  }, [signUpError]);
+  // useEffect(() => {
+  //   if (signUpError.length > 0) {
+  //     setError(signUpError);
+  //   }
+  // }, [signUpError]);
 
   const resetForm = () => {
     setEmail('');
@@ -49,7 +43,7 @@ const SignUp = () => {
   const handleFormSubmit = (e: any) => {
     e.preventDefault();
 
-    dispatch(signUpUser(displayName, email, password, confirmPassword));
+    // dispatch(signUpUser(displayName, email, password, confirmPassword));
   };
 
   return (

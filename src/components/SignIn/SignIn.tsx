@@ -11,31 +11,24 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../hooks/useTypeSelector';
 import { useActions } from '../../hooks/useAction';
-import {
-  resetUserState,
-  resetAllAuthForms,
-  signInWithGoogle,
-  emailSignInStart,
-} from '../../redux/User/user.actions';
+import { emailSignInStart } from '../../redux/User/user.actions';
 
 const SignIn: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { resetUserState, resetAllAuthForms } = useActions();
 
-  const signInSuccess = useTypedSelector((state) => state.user.signInSuccess);
-  // const currentUser = useTypedSelector((state) => state.user.currentUser);
+  const currentUser = useTypedSelector((state) => state.user.currentUser);
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  useEffect(() => {
-    if (signInSuccess) {
-      resetForm();
-      resetAllAuthForms();
-      history.push('/');
-    }
-  }, [signInSuccess, history, resetUserState]);
+  // useEffect(() => {
+  //   if (signInSuccess) {
+  //     resetForm();
+  //     resetAllAuthForms();
+  //     history.push('/');
+  //   }
+  // }, [signInSuccess, history, resetUserState]);
 
   const resetForm = () => {
     setEmail('');
@@ -43,7 +36,7 @@ const SignIn: React.FC = () => {
   };
 
   const handleGoogleSignIn = () => {
-    dispatch(signInWithGoogle());
+    // dispatch(signInWithGoogle());
   };
 
   const handleSubmit = (e: any) => {

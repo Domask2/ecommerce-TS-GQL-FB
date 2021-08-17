@@ -1,4 +1,4 @@
-import { userTypes, UserAction } from "./user.types";
+import { userTypes, UserAction } from './user.types';
 
 interface Iuser {
   id: string;
@@ -9,62 +9,15 @@ interface Iuser {
 type TInitialState = typeof initialState;
 
 const initialState = {
-  currentUser: [] as Array<Iuser>,
-  signInSuccess: false as boolean,
-  signUpSuccess: false as boolean,
-  signUpError: "" as string,
-  resetPasswordSuccess: false as boolean,
-  resetPasswordError: "" as string,
+  currentUser: null,
 };
 
-export const userReducer = (
-  state = initialState,
-  action: UserAction
-): TInitialState => {
+export const userReducer = (state = initialState, action: UserAction): TInitialState => {
   switch (action.type) {
-    case userTypes.SET_CURRENT_USER:
-      return {
-        ...state,
-        currentUser: action.payload,
-      };
     case userTypes.SIGN_IN_SUCCESS:
       return {
         ...state,
-        signInSuccess: action.payload,
-      };
-    case userTypes.SIGN_UP_SUCCESS:
-      return {
-        ...state,
-        signUpSuccess: action.payload,
-      };
-    case userTypes.SIGN_UP_ERROR:
-      return {
-        ...state,
-        signUpError: action.payload,
-      };
-    case userTypes.RESET_PASSWORD_SUCCESS:
-      return {
-        ...state,
-        resetPasswordSuccess: action.payload,
-      };
-    case userTypes.RESET_PASSWORD_ERROR:
-      return {
-        ...state,
-        resetPasswordError: action.payload,
-      };
-    case userTypes.RESET_USER_STATE:
-      return {
-        ...state,
-        ...initialState,
-      };
-    case userTypes.RESEY_AUTH_FORMS:
-      return {
-        ...state,
-        signInSuccess: false as boolean,
-        signUpSuccess: false as boolean,
-        signUpError: "" as string,
-        resetPasswordSuccess: false as boolean,
-        resetPasswordError: "" as string,
+        currentUser: action.payload,
       };
 
     default:
