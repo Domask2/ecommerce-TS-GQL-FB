@@ -1,7 +1,6 @@
 import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
 import { Main, Wrapper } from './Layout.style';
-import firebase from 'firebase';
 interface Props {
   children: JSX.Element;
 }

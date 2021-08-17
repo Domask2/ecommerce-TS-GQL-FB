@@ -1,38 +1,28 @@
-import { useEffect, useState } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
-import firebase from 'firebase';
-import { auth, handleUserProfile } from './firebase/utils';
+import { useEffect } from "react";
+import { Route, Switch } from "react-router-dom";
+import { useDispatch } from "react-redux";
 //Global Style Css
-import { GlobalStyle } from './App.style';
+import { GlobalStyle } from "./App.style";
 // Pages
-import Homepage from './pages/Homepage/Homepage';
-import Registration from './pages/Registration/Registration';
-import Login from './pages/Login/Login';
-import Recovery from './pages/Recovery/Recovery';
-import Dashboard from './pages/Dashboard/Dashboard';
+import Homepage from "./pages/Homepage/Homepage";
+import Registration from "./pages/Registration/Registration";
+import Login from "./pages/Login/Login";
+import Recovery from "./pages/Recovery/Recovery";
+import Dashboard from "./pages/Dashboard/Dashboard";
 //Layout
-import MainLayout from './layouts/MainLayout';
-import HomePageLayout from './layouts/HomePageLayout';
-//store
-import { useTypedSelector } from './hooks/useTypeSelector';
+import MainLayout from "./layouts/MainLayout";
+import HomePageLayout from "./layouts/HomePageLayout";
+//redux-saga
+import { checkUserSession } from "./redux/User/user.actions";
 //hoc
-import WithAuth from './hooks/withAuth';
+import WithAuth from "./hooks/withAuth";
 
 const App: React.FC = () => {
-  // const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
+  const dispatch = useDispatch();
 
-  const currentUser = useTypedSelector((state) => state.user.currentUser);
-
-  // useEffect(() => {
-
-  //   return () => {
-  //     authListener();
-  //   };
-  // },[]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // useEffect(() => {
-  //   setCurrentUserAction(currentUser);
-  // }, [currentUser, setCurrentUserAction]);
+  useEffect(() => {
+    dispatch(checkUserSession());
+  }, []);
 
   return (
     <div className="App">
@@ -49,27 +39,19 @@ const App: React.FC = () => {
         />
         <Route
           path="/registration"
-          render={() =>
-            currentUser ? (
-              <Redirect to="/" />
-            ) : (
-              <MainLayout>
-                <Registration />
-              </MainLayout>
-            )
-          }
+          render={() => (
+            <MainLayout>
+              <Registration />
+            </MainLayout>
+          )}
         />
         <Route
           path="/login"
-          render={() =>
-            currentUser ? (
-              <Redirect to="/" />
-            ) : (
-              <MainLayout>
-                <Login />
-              </MainLayout>
-            )
-          }
+          render={() => (
+            <MainLayout>
+              <Login />
+            </MainLayout>
+          )}
         />
         <Route
           path="/recovery"

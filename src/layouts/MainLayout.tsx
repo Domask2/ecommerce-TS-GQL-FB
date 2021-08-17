@@ -6,13 +6,15 @@ interface Props {
   children: JSX.Element;
 }
 
-const MainLayout: React.FC<Props> = ({ children }) => {
+const MainLayout: React.FC<Props> = (props) => {
   return (
-    <>
-      <Header />
-      <Container>{children}</Container>
+    <div>
+      <Header {...props} />
+      <div className="main">
+        {props.children}
+      </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

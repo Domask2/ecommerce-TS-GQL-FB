@@ -1,11 +1,11 @@
 import { userTypes, UserAction } from './user.types';
 
-interface Iuser {
-  id: string;
-  createData: any;
-  displayName: string;
-  email: string;
-}
+// interface Iuser {
+//   id: string;
+//   createData: any;
+//   displayName: string;
+//   email: string;
+// }
 type TInitialState = typeof initialState;
 
 const initialState = {

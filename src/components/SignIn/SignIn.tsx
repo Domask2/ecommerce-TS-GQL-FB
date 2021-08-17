@@ -22,13 +22,12 @@ const SignIn: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  // useEffect(() => {
-  //   if (signInSuccess) {
-  //     resetForm();
-  //     resetAllAuthForms();
-  //     history.push('/');
-  //   }
-  // }, [signInSuccess, history, resetUserState]);
+  useEffect(() => {
+    if (currentUser) {
+      resetForm();
+      history.push('/');
+    }
+  }, [currentUser, history]);
 
   const resetForm = () => {
     setEmail('');

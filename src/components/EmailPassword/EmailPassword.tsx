@@ -1,16 +1,15 @@
 import AuthWrapper from './../AuthWrapper/AuthWrapper';
 import FormInput from '../forms/FormInput/FormInput';
 import Button from '../forms/Button/Button';
-import { useHistory } from 'react-router';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useTypedSelector } from '../../hooks/useTypeSelector';
+// import { useHistory } from 'react-router';
+// import { useDispatch } from 'react-redux';
+// import { useTypedSelector } from '../../hooks/useTypeSelector';
 import { useState } from 'react';
-import { useActions } from '../../hooks/useAction';
+// import { useActions } from '../../hooks/useAction';
 
 const EmailPassword: React.FC = (props) => {
-  const dispatch = useDispatch();
-  const history = useHistory();
+  // const dispatch = useDispatch();
+  // const history = useHistory();
 
   const [email, setEmail] = useState<string>('');
   const [error, setError] = useState<string>('');
