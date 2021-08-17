@@ -14,9 +14,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import MainLayout from './layouts/MainLayout';
 import HomePageLayout from './layouts/HomePageLayout';
 //store
-import { useActions } from './hooks/useAction';
 import { useTypedSelector } from './hooks/useTypeSelector';
-import { setCurrentUserAction } from './redux/User/user.actions';
 //hoc
 import WithAuth from './hooks/withAuth';
 
