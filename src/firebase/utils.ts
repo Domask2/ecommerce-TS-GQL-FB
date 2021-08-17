@@ -30,7 +30,7 @@ export const handleUserProfile = async ({ userAuth, additionalData }: any) => {
         ...additionalData,
       });
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
   return userRef;
@@ -44,3 +44,5 @@ export const getCurrentUser = () => {
     }, reject);
   })
 }
+
+
