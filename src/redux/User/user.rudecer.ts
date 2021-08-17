@@ -9,7 +9,7 @@ import { userTypes, UserAction } from './user.types';
 type TInitialState = typeof initialState;
 
 const initialState = {
-  currentUser: null,
+  currentUser: null
 };
 
 export const userReducer = (state = initialState, action: UserAction): TInitialState => {
@@ -18,6 +18,11 @@ export const userReducer = (state = initialState, action: UserAction): TInitialS
       return {
         ...state,
         currentUser: action.payload,
+      };
+    case userTypes.SIGN_OUT_USER_SUCCESS:
+      return {
+        ...state,
+        ...initialState,
       };
 
     default:

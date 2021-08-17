@@ -10,7 +10,6 @@ import { useHistory } from 'react-router-dom';
 // import { signInUser } from '../../redux/User/user.actions';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../hooks/useTypeSelector';
-import { useActions } from '../../hooks/useAction';
 import { emailSignInStart } from '../../redux/User/user.actions';
 
 const SignIn: React.FC = () => {
@@ -40,8 +39,7 @@ const SignIn: React.FC = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    // dispatch(signInUser(email, password));
-    dispatch(emailSignInStart({ email, password }));
+    dispatch(emailSignInStart({email, password}));
   };
 
   return (

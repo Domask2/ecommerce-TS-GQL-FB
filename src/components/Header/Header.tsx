@@ -1,13 +1,19 @@
 import { Wrapper } from './Header.style';
 import { Link } from 'react-router-dom';
-import { auth } from './../../firebase/utils';
+import { useDispatch } from 'react-redux';
+import { signOutUserStart } from '../../redux/User/user.actions';
 import { useTypedSelector } from '../../hooks/useTypeSelector';
 // @ts-ignore
 import Logo from '../../assets/logo.png';
 
+
 const Header: React.FC = (props) => {
-  // const user = useSelector((state: RootState) => state.user.setUser);
+  const dispatch = useDispatch();
   const currentUser = useTypedSelector((state) => state.user.currentUser);
+
+  const signOut = () => {
+    dispatch(signOutUserStart());
+  }
 
   return (
     <Wrapper>
@@ -25,7 +31,7 @@ const Header: React.FC = (props) => {
                 <Link to="/dashboard">My Account</Link>
               </li>
               <li>
-                <span onClick={() => auth.signOut()}>LogOut</span>
+                <span onClick={() => signOut()}>LogOut</span>
               </li>
             </ul>
           )}
