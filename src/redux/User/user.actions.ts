@@ -38,14 +38,14 @@ export const resetAllAuthForms = () => {
   return { type: userTypes.RESEY_AUTH_FORMS };
 };
 
-// export const signInUser = (email: string, password: string) => async (dispatch: any) => {
-//   try {
-//     await auth.signInWithEmailAndPassword(email, password);
-//     dispatch(signInSuccess(true));
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+export const signInUser = (email: string, password: string) => async (dispatch: any) => {
+  try {
+    await auth.signInWithEmailAndPassword(email, password);
+    dispatch(signInSuccess(true));
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const signUpUser =
   (displayName: string, email: string, password: string, confirmPassword: string) =>
