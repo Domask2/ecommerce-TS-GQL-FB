@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../hooks/useTypeSelector';
-import { emailSignInStart } from '../../redux/User/user.actions';
+import { emailSignInStart, googleSignInStart } from '../../redux/User/user.actions';
 
 const SignIn: React.FC = () => {
   const history = useHistory();
@@ -33,8 +33,8 @@ const SignIn: React.FC = () => {
   };
 
   const handleGoogleSignIn = () => {
-    // dispatch(signInWithGoogle());
-  };
+    dispatch(googleSignInStart());
+  }
 
   const handleSubmit = (e: any) => {
     e.preventDefault();

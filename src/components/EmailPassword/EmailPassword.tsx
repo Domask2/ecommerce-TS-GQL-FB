@@ -1,36 +1,41 @@
+import { useEffect } from 'react';
 import AuthWrapper from './../AuthWrapper/AuthWrapper';
 import FormInput from '../forms/FormInput/FormInput';
 import Button from '../forms/Button/Button';
-// import { useHistory } from 'react-router';
-// import { useDispatch } from 'react-redux';
-// import { useTypedSelector } from '../../hooks/useTypeSelector';
+import { useHistory } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { useTypedSelector } from '../../hooks/useTypeSelector';
 import { useState } from 'react';
-// import { useActions } from '../../hooks/useAction';
+import { resetUserState, resetPasswordStart } from '../../redux/User/user.actions';
 
 const EmailPassword: React.FC = (props) => {
-  // const dispatch = useDispatch();
-  // const history = useHistory();
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const resetPasswordSuccess= useTypedSelector(state => state.user.resetPasswordSuccess);
+  const userErr = useTypedSelector(state => state.user.userErr);
 
   const [email, setEmail] = useState<string>('');
-  const [error, setError] = useState<string>('');
+  const [error, setError] = useState([]);
 
-  // useEffect(() => {
-  //   if (resetPasswordSuccess) {
-  //     resetAllAuthForms();
-  //     history.push('/login');
-  //   }
-  // }, [resetPasswordSuccess, history, resetAllAuthForms]);
+  useEffect(() => {
+    if (resetPasswordSuccess) {
+      dispatch(resetUserState());
+      history.push('/login');
+    }
+  }, [resetPasswordSuccess]);
 
-  // useEffect(() => {
-  //   if (resetPasswordError.length > 0) {
-  //     setError(resetPasswordError);
-  //   }
-  // }, [resetPasswordError]);
+  useEffect(() => {
+    if (userErr.length > 0) {
+      setError(userErr);
+    }
 
-  const handleSubmit = async (e: any) => {
+  }, [userErr]);
+
+  const handleSubmit = (e:any) => {
     e.preventDefault();
-    // dispatch(resetPassword(email));
-  };
+    dispatch(resetPasswordStart({ email }));
+  }
 
   return (
     <AuthWrapper headline="Email Password">

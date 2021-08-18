@@ -1,4 +1,4 @@
-import { userTypes, UserAction } from './user.types';
+import { userTypes, UserAction } from "./user.types";
 
 interface Iuser {
   id: string;
@@ -8,19 +8,24 @@ interface Iuser {
 }
 
 type TInitialState = typeof initialState;
-export type TUser = [] | null
+export type TUser = [Iuser] | null;
 
 const initialState = {
   currentUser: null as TUser,
-  userErr: []
+  userErr: [],
+  resetPasswordSuccess: false,
 };
 
-export const userReducer = (state = initialState, action: UserAction): TInitialState => {
+export const userReducer = (
+  state = initialState,
+  action: UserAction
+): TInitialState => {
   switch (action.type) {
     case userTypes.SIGN_IN_SUCCESS:
       return {
         ...state,
         currentUser: action.payload,
+        userErr: [],
       };
     case userTypes.SIGN_OUT_USER_SUCCESS:
       return {
@@ -30,9 +35,13 @@ export const userReducer = (state = initialState, action: UserAction): TInitialS
     case userTypes.USER_ERROR:
       return {
         ...state,
-        userErr: action.payload
-      }
-
+        userErr: action.payload,
+      };
+    case userTypes.RESET_USER_STATE:
+      return {
+        ...state,
+        ...initialState,
+      };
     default:
       return state;
   }

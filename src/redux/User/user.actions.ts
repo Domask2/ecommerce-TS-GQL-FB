@@ -3,7 +3,7 @@ import { TUser } from './user.rudecer';
 
 interface IUserCreden {
   email: string,
-  password: string,
+  password?: string,
   displayName?: string,
   confirmPassword?:string
 }
@@ -30,12 +30,26 @@ export const signOutUserSuccess = () => {
   return { type: userTypes.SIGN_OUT_USER_SUCCESS };
 };
 
-export const signUpUserStart = (useCredentials:IUserCreden) => ({
-  type:userTypes.SIGN_UP_USER_START,
-  payload: useCredentials
+export const signUpUserStart = (useCredentials:UserCreden) => {
+  return { type:userTypes.SIGN_UP_USER_START, payload: useCredentials }
+};
+
+export const userError = (err:any) => {
+  return { type: userTypes.USER_ERROR, payload: err }
+};
+
+export const resetPasswordStart = (useCredentials: UserCreden) => {
+  return { type:userTypes.RESET_PASSWORD_START, payload:useCredentials}
+}
+
+export const resetPasswordSuccess = () => {
+  return { type:userTypes.RESET_PASSWORD_SUCCESS, payload: true}
+}
+
+export const resetUserState = () => ({
+  type: userTypes.RESET_USER_STATE
 });
 
-export const userError = (err:any) => ({
-  type: userTypes.USER_ERROR,
-  payload: err
+export const googleSignInStart = () => ({
+  type: userTypes.GOOGLE_SIGN_IN_START
 });

@@ -3,10 +3,9 @@ import FormInput from '../forms/FormInput/FormInput';
 import Button from '../forms/Button/Button';
 import AuthWrapper from '../AuthWrapper/AuthWrapper';
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useTypedSelector } from '../../hooks/useTypeSelector';
-import { useActions } from '../../hooks/useAction';
 import { signUpUserStart } from '../../redux/User/user.actions';
 
 
@@ -41,7 +40,7 @@ const SignUp = () => {
     setDisplayName('');
     setPassword('');
     setConfirmPassword('');
-   
+    setError([]);
   };
 
   const handleFormSubmit = (e: any) => {
