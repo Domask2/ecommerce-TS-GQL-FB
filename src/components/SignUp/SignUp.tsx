@@ -3,10 +3,12 @@ import FormInput from '../forms/FormInput/FormInput';
 import Button from '../forms/Button/Button';
 import AuthWrapper from '../AuthWrapper/AuthWrapper';
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useTypedSelector } from '../../hooks/useTypeSelector';
 import { useActions } from '../../hooks/useAction';
+import { signUpUserStart } from '../../redux/User/user.actions';
+
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -16,45 +18,53 @@ const SignUp = () => {
   const [displayName, setDisplayName] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
-  const [error, setError] = useState<string>('');
+  const [error, setError] = useState([]);
 
-  // useEffect(() => {
-  //   if (signUpSuccess) {
-  //     resetForm();
-  //     resetAllAuthForms();
-  //     history.push('/');
-  //   }
-  // }, [signUpSuccess, history, resetUserState]);
+  const currentUser = useTypedSelector(state => state.user.currentUser)
+  const userError = useTypedSelector(state => state.user.userErr)
 
-  // useEffect(() => {
-  //   if (signUpError.length > 0) {
-  //     setError(signUpError);
-  //   }
-  // }, [signUpError]);
+  useEffect(() => {
+    if (currentUser) {
+      resetForm();
+      history.push('/');
+    }
+  }, [currentUser, history]);
+
+  useEffect(() => {
+    if (userError.length > 0) {
+      setError(userError);
+    }
+  }, [userError]);
 
   const resetForm = () => {
     setEmail('');
     setDisplayName('');
     setPassword('');
     setConfirmPassword('');
-    setError('');
+   
   };
 
   const handleFormSubmit = (e: any) => {
     e.preventDefault();
 
-    // dispatch(signUpUser(displayName, email, password, confirmPassword));
+    dispatch(signUpUserStart({displayName, email, password, confirmPassword}));
   };
 
   return (
     <AuthWrapper headline="SignUp">
       <FormWrap>
         <form onSubmit={handleFormSubmit}>
-          {error && (
-            <ul>
-              <li>{error}</li>
-            </ul>
-          )}
+           {error.length > 0 && (
+          <ul>
+            {error.map((err, index) => {
+              return (
+                <li key={index}>
+                  {err}
+                </li>
+              );
+            })}
+          </ul>
+        )}
 
           <FormInput
             type="text"

@@ -2,7 +2,8 @@ import { userTypes } from './user.types';
 import { takeLatest, call, all, put } from '@redux-saga/core/effects';
 import { auth, handleUserProfile, GoogleProvider, getCurrentUser } from './../../firebase/utils';
 import { AnyAction } from 'redux';
-import { signInSuccess, signOutUserSuccess } from './user.actions';
+import { signInSuccess, signOutUserSuccess, userError } from './user.actions';
+import { UserCreden } from './user.actions'
 
 export function* getSnapshotFromUserAuth(user: any, additionalData={}): any {
   try {
@@ -64,10 +65,40 @@ export function* onSignOutUserStart() {
   yield takeLatest(userTypes.SIGN_OUT_USER_START, signOutUserStart)
 }
 
+export function* signUpUser({ payload: {
+  displayName,
+  email,
+  password,
+  confirmPassword
+}}:any) {
+
+    if (password !== confirmPassword) {
+    const err = ['Password Don\'t match'];
+    yield put(
+      userError(err)
+    );
+    return;
+  }
+
+  try {
+    const { user } = yield auth.createUserWithEmailAndPassword(email, password);
+    const additionalData = { displayName };
+    yield getSnapshotFromUserAuth(user, additionalData);
+
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export function* onSignUpUserStart() {
+  takeLatest(userTypes.SIGN_UP_USER_START, signUpUser)
+}
+
 export default function* userSaga() {
   yield all([
     call(onEmailSignInStart),
     call(onCheckUserSession),
     call(onSignOutUserStart),
+    call(onSignUpUserStart),
   ]);
 }

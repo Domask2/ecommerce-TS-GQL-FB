@@ -7,7 +7,6 @@ import AuthWrapper from '../AuthWrapper/AuthWrapper';
 
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-// import { signInUser } from '../../redux/User/user.actions';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../hooks/useTypeSelector';
 import { emailSignInStart } from '../../redux/User/user.actions';
