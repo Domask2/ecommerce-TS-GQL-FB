@@ -1,17 +1,20 @@
-import { FormWrap } from './SignUp.style';
-import FormInput from '../forms/FormInput/FormInput';
-import Button from '../forms/Button/Button';
-import AuthWrapper from '../AuthWrapper/AuthWrapper';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { useTypedSelector } from '../../hooks/useTypeSelector';
 import { signUpUserStart } from '../../redux/User/user.actions';
 
+import { FormWrap, Links } from './SignUp.style';
+import AuthWrapper from '../AuthWrapper/AuthWrapper';
+import FormInput from '../forms/FormInput/FormInput';
+import Button from '../forms/Button/Button';
 
 const SignUp = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const currentUser = useTypedSelector((state) => state.user.currentUser);
+  const userError = useTypedSelector((state) => state.user.userErr);
 
   const [email, setEmail] = useState<string>('');
   const [displayName, setDisplayName] = useState<string>('');
@@ -19,15 +22,12 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [error, setError] = useState([]);
 
-  const currentUser = useTypedSelector(state => state.user.currentUser)
-  const userError = useTypedSelector(state => state.user.userErr)
-
   useEffect(() => {
     if (currentUser) {
       resetForm();
       history.push('/');
     }
-  }, [currentUser, history]);
+  }, [currentUser]);
 
   useEffect(() => {
     if (userError.length > 0) {
@@ -46,25 +46,25 @@ const SignUp = () => {
   const handleFormSubmit = (e: any) => {
     e.preventDefault();
 
-    dispatch(signUpUserStart({displayName, email, password, confirmPassword}));
+    dispatch(signUpUserStart({ displayName, email, password, confirmPassword }));
+  };
+
+  const configAuthWrapper = {
+    headline: 'Registration',
   };
 
   return (
-    <AuthWrapper headline="SignUp">
+    <AuthWrapper {...configAuthWrapper}>
       <FormWrap>
-        <form onSubmit={handleFormSubmit}>
-           {error.length > 0 && (
+        {error.length > 0 && (
           <ul>
             {error.map((err, index) => {
-              return (
-                <li key={index}>
-                  {err}
-                </li>
-              );
+              return <li key={index}>{err}</li>;
             })}
           </ul>
         )}
 
+        <form onSubmit={handleFormSubmit}>
           <FormInput
             type="text"
             name="displayName"
@@ -102,6 +102,12 @@ const SignUp = () => {
           </Button>
         </form>
       </FormWrap>
+
+      <Links>
+        <Link to="/registration">Register</Link>
+        {` | `}
+        <Link to="/recovery">Reset Password</Link>
+      </Links>
     </AuthWrapper>
   );
 };

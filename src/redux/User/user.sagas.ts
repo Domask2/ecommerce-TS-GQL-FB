@@ -4,11 +4,12 @@ import { auth, handleUserProfile, GoogleProvider, getCurrentUser } from './../..
 import { AnyAction } from 'redux';
 import { signInSuccess, signOutUserSuccess, userError, resetPasswordSuccess } from './user.actions';
 import { handleResetPasswordAPI } from './user.helpers';
+import { TUser } from './user.rudecer';
 
-export function* getSnapshotFromUserAuth(user: any, additionalData={}): any {
+export function* getSnapshotFromUserAuth(user: TUser | any, additionalData = {}): any {
   try {
     const userRef: any = yield call(handleUserProfile, { userAuth: user, additionalData });
-    
+
     const snapshot = yield userRef.get();
     yield put(
       signInSuccess({
@@ -34,46 +35,39 @@ export function* onEmailSignInStart() {
   yield takeLatest(userTypes.EMAIL_SIGN_IN_START, emailSignIn);
 }
 
-export function* isUserAuthenticated() {
+export function* isUserAuthenticated(): any {
   try {
-    const userAuth = getCurrentUser();
-    if(!userAuth) return;
+    const userAuth = yield getCurrentUser();
+    if (!userAuth) return;
     yield getSnapshotFromUserAuth(userAuth);
-
-  } catch(error) {
+  } catch (error) {
     console.log(error);
   }
 }
 
 export function* onCheckUserSession() {
-  yield takeLatest(userTypes.CHECK_USER_SESSION, isUserAuthenticated)
+  yield takeLatest(userTypes.CHECK_USER_SESSION, isUserAuthenticated);
 }
 
 export function* signOutUserStart() {
   try {
     yield auth.signOut();
-    yield put(signOutUserSuccess())
+    yield put(signOutUserSuccess());
   } catch (error) {
     // console.log(error)
   }
 }
 
 export function* onSignOutUserStart() {
-  yield takeLatest(userTypes.SIGN_OUT_USER_START, signOutUserStart)
+  yield takeLatest(userTypes.SIGN_OUT_USER_START, signOutUserStart);
 }
 
-export function* signUpUser({ payload: {
-  displayName,
-  email,
-  password,
-  confirmPassword
-}}:AnyAction) {
-
-    if (password !== confirmPassword) {
-    const err = ['Password Don\'t match'];
-    yield put(
-      userError(err)
-    );
+export function* signUpUser({
+  payload: { displayName, email, password, confirmPassword },
+}: AnyAction) {
+  if (password !== confirmPassword) {
+    const err = ["Password Don't match"];
+    yield put(userError(err));
     return;
   }
 
@@ -81,38 +75,32 @@ export function* signUpUser({ payload: {
     const { user } = yield auth.createUserWithEmailAndPassword(email, password);
     const additionalData = { displayName };
     yield getSnapshotFromUserAuth(user, additionalData);
-
   } catch (err) {
     console.log(err);
   }
 }
 
 export function* onSignUpUserStart() {
-  yield takeLatest(userTypes.SIGN_UP_USER_START, signUpUser)
+  yield takeLatest(userTypes.SIGN_UP_USER_START, signUpUser);
 }
 
-export function* resetPasswordStart({payload: {email}}: AnyAction) {
+export function* resetPasswordStart({ payload: { email } }: AnyAction) {
   try {
     yield call(handleResetPasswordAPI, email);
-    yield put(
-      resetPasswordSuccess()
-    );
-
+    yield put(resetPasswordSuccess());
   } catch (err) {
-    yield put(
-      userError(err)
-    )
+    yield put(userError(err));
   }
 }
+
 export function* onResetPasswordStart() {
-  yield takeLatest(userTypes.RESET_PASSWORD_START, resetPasswordStart)
+  yield takeLatest(userTypes.RESET_PASSWORD_START, resetPasswordStart);
 }
 
 export function* googleSignIn() {
   try {
     const { user } = yield auth.signInWithPopup(GoogleProvider);
     yield getSnapshotFromUserAuth(user);
-
   } catch (err) {
     // console.log(err);
   }

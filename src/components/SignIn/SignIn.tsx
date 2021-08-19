@@ -1,15 +1,15 @@
-import { SocialSignIn, Links } from './SignIn.style';
-import Button from './../forms/Button/Button';
-
-import { Link } from 'react-router-dom';
-import FormInput from '../forms/FormInput/FormInput';
-import AuthWrapper from '../AuthWrapper/AuthWrapper';
-
 import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../hooks/useTypeSelector';
+import { Link, useHistory } from 'react-router-dom';
+//action
 import { emailSignInStart, googleSignInStart } from '../../redux/User/user.actions';
+//style
+import { SocialSignIn, Links } from './SignIn.style';
+//Components
+import AuthWrapper from '../AuthWrapper/AuthWrapper';
+import Button from './../forms/Button/Button';
+import FormInput from '../forms/FormInput/FormInput';
 
 const SignIn: React.FC = () => {
   const history = useHistory();
@@ -25,7 +25,7 @@ const SignIn: React.FC = () => {
       resetForm();
       history.push('/');
     }
-  }, [currentUser, history]);
+  }, [currentUser]);
 
   const resetForm = () => {
     setEmail('');
@@ -34,15 +34,19 @@ const SignIn: React.FC = () => {
 
   const handleGoogleSignIn = () => {
     dispatch(googleSignInStart());
-  }
+  };
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    dispatch(emailSignInStart({email, password}));
+    dispatch(emailSignInStart({ email, password }));
+  };
+
+  const configAuthWrapper = {
+    headline: 'LogIn',
   };
 
   return (
-    <AuthWrapper headline="LogIn">
+    <AuthWrapper {...configAuthWrapper}>
       <div className="form-wrapper">
         <form onSubmit={handleSubmit}>
           <FormInput
@@ -74,7 +78,9 @@ const SignIn: React.FC = () => {
           </SocialSignIn>
 
           <Links>
-            <Link to="/recovery">Reset Pasword</Link>
+            <Link to="/registration">Register</Link>
+            {` | `}
+            <Link to="/recovery">Reset Password</Link>
           </Links>
         </form>
       </div>

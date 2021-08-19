@@ -1,19 +1,21 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { useTypedSelector } from '../../hooks/useTypeSelector';
+import { useHistory } from 'react-router';
+import { resetUserState, resetPasswordStart } from '../../redux/User/user.actions';
+
+import { Links } from './EmailPassword.style';
 import AuthWrapper from './../AuthWrapper/AuthWrapper';
 import FormInput from '../forms/FormInput/FormInput';
 import Button from '../forms/Button/Button';
-import { useHistory } from 'react-router';
-import { useDispatch } from 'react-redux';
-import { useTypedSelector } from '../../hooks/useTypeSelector';
-import { useState } from 'react';
-import { resetUserState, resetPasswordStart } from '../../redux/User/user.actions';
 
 const EmailPassword: React.FC = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const resetPasswordSuccess= useTypedSelector(state => state.user.resetPasswordSuccess);
-  const userErr = useTypedSelector(state => state.user.userErr);
+  const resetPasswordSuccess = useTypedSelector((state) => state.user.resetPasswordSuccess);
+  const userErr = useTypedSelector((state) => state.user.userErr);
 
   const [email, setEmail] = useState<string>('');
   const [error, setError] = useState([]);
@@ -29,16 +31,19 @@ const EmailPassword: React.FC = (props) => {
     if (userErr.length > 0) {
       setError(userErr);
     }
-
   }, [userErr]);
 
-  const handleSubmit = (e:any) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     dispatch(resetPasswordStart({ email }));
-  }
+  };
+
+  const configAuthWrapper = {
+    headline: 'Email Password',
+  };
 
   return (
-    <AuthWrapper headline="Email Password">
+    <AuthWrapper {...configAuthWrapper}>
       {error.length > 0 && (
         <ul>
           <li>{error}</li>
@@ -58,6 +63,12 @@ const EmailPassword: React.FC = (props) => {
           Email Password
         </Button>
       </form>
+
+      <Links>
+        <Link to="/registration">Register</Link>
+        {` | `}
+        <Link to="/recovery">Reset Password</Link>
+      </Links>
     </AuthWrapper>
   );
 };
