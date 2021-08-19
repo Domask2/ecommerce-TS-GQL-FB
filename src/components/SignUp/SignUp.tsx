@@ -9,7 +9,7 @@ import AuthWrapper from '../AuthWrapper/AuthWrapper';
 import FormInput from '../forms/FormInput/FormInput';
 import Button from '../forms/Button/Button';
 
-const SignUp = () => {
+const SignUp: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -43,7 +43,7 @@ const SignUp = () => {
     setError([]);
   };
 
-  const handleFormSubmit = (e: any) => {
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     dispatch(signUpUserStart({ displayName, email, password, confirmPassword }));

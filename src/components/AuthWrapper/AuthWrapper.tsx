@@ -1,9 +1,5 @@
 import { Wrapper } from './AuthWrapper.style';
-
-interface IAuthWrapper {
-  headline?: string;
-  children?: any;
-}
+import { IAuthWrapper } from '../../type/type';
 
 const AuthWrapper: React.FC<IAuthWrapper> = ({ headline, children }) => {
   return (

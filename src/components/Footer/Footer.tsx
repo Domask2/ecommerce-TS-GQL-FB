@@ -1,14 +1,12 @@
-import React from 'react'
-import { FooterWrap } from './Footer.style'
+import React from 'react';
+import { FooterWrap } from './Footer.style';
 
-const Footer = () => {
+const Footer: React.FC = () => {
   return (
     <FooterWrap>
-      <div className="container">
-        © Serg Gordeev 2021
-      </div>
+      <div className="container">© Serg Gordeev 2021</div>
     </FooterWrap>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

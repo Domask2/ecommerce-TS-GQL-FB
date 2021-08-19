@@ -9,8 +9,8 @@ import { TUser } from './user.rudecer';
 export function* getSnapshotFromUserAuth(user: TUser | any, additionalData = {}): any {
   try {
     const userRef: any = yield call(handleUserProfile, { userAuth: user, additionalData });
-
     const snapshot = yield userRef.get();
+
     yield put(
       signInSuccess({
         id: snapshot.id,

@@ -1,7 +1,7 @@
 import { Wrapper } from './Registration.style';
 import SignUp from '../../components/SignUp/SignUp';
 
-const Registration = () => {
+const Registration: React.FC = () => {
   return (
     <Wrapper>
       <SignUp />

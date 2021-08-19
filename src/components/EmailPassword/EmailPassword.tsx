@@ -10,7 +10,7 @@ import AuthWrapper from './../AuthWrapper/AuthWrapper';
 import FormInput from '../forms/FormInput/FormInput';
 import Button from '../forms/Button/Button';
 
-const EmailPassword: React.FC = (props) => {
+const EmailPassword: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -18,7 +18,7 @@ const EmailPassword: React.FC = (props) => {
   const userErr = useTypedSelector((state) => state.user.userErr);
 
   const [email, setEmail] = useState<string>('');
-  const [error, setError] = useState([]);
+  const [error, setError] = useState<Array<string>>([]);
 
   useEffect(() => {
     if (resetPasswordSuccess) {
@@ -33,7 +33,7 @@ const EmailPassword: React.FC = (props) => {
     }
   }, [userErr]);
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(resetPasswordStart({ email }));
   };

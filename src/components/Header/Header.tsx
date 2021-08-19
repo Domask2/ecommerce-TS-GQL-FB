@@ -6,14 +6,13 @@ import { useTypedSelector } from '../../hooks/useTypeSelector';
 // @ts-ignore
 import Logo from '../../assets/logo.png';
 
-
-const Header: React.FC = (props) => {
+const Header: React.FC = () => {
   const dispatch = useDispatch();
   const currentUser = useTypedSelector((state) => state.user.currentUser);
 
   const signOut = () => {
     dispatch(signOutUserStart());
-  }
+  };
 
   return (
     <Wrapper>

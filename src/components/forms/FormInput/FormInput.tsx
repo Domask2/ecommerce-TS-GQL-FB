@@ -1,4 +1,5 @@
 import { Wrapper } from './FormInput.style';
+
 interface iFormInput {
   label?: string;
   type: string;
