@@ -9,6 +9,7 @@ import Registration from "./pages/Registration/Registration";
 import Login from "./pages/Login/Login";
 import Recovery from "./pages/Recovery/Recovery";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import Admin from './pages/Admin/Admin';
 //Layout
 import MainLayout from "./layouts/MainLayout";
 import HomePageLayout from "./layouts/HomePageLayout";
@@ -71,6 +72,13 @@ const App: React.FC = () => {
             </WithAuth>
           )}
         />
+        <Route path="/admin" render={() => (
+             <WithAuth>
+              <MainLayout>
+              <Admin />
+              </MainLayout>
+            </WithAuth>
+        )} />
       </Switch>
     </div>
   );
