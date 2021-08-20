@@ -3,14 +3,15 @@ import { Wrapper } from './FormInput.style';
 interface iFormInput {
   label?: string;
   type: string;
-  name: string;
-  placeholder: string;
+  name?: string;
+  placeholder?: string;
   value: string;
+  productName?: any;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  // displayName: {
-  //   value: string;
-  //   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  // }
+  min?: any;
+  max?: any;
+  step?: any;
+  displayName?: any;
 }
 
 const FormInput: React.FC<iFormInput> = ({
@@ -18,9 +19,12 @@ const FormInput: React.FC<iFormInput> = ({
   type,
   name,
   placeholder,
-  // displayName,
   value,
-  handleChange,
+  handleChange, 
+  min,
+  max,
+  step,
+  displayName
 }) => {
   return (
     <Wrapper>
@@ -34,7 +38,10 @@ const FormInput: React.FC<iFormInput> = ({
           placeholder={placeholder}
           value={value}
           onChange={handleChange}
-          // {...displayName}
+          min={min}
+          max={max}
+          step={step}
+          {...displayName}
         />
       </div>
     </Wrapper>
