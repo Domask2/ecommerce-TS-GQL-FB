@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.section`
+export const Wrapper = styled.div`
   display: block;
   width: 100%;
   max-width: 40rem;
@@ -21,6 +21,5 @@ export const Wrapper = styled.section`
       padding: 0;
       margin: 1.2rem auto;
     }
-
   }
 `;
