@@ -8,107 +8,96 @@ import FormSelect from './../../components/forms/FormSelect/FormSelect';
 import Button from './../../components/forms/Button/Button';
 
 const Admin: React.FC = () => {
-  const  [ hideModal, setHideModal ] = useState<boolean>(true);
-  const  [ productCategory, setProductCategory ] = useState<string>('');
-  const  [ productName, setProductName ] = useState<string>('');
-  const  [ productThumbnail, setProductThumbnail ] = useState<string>('');
-  const  [ productPrice, setProductPrice ] = useState<string>('');
-  const  [ productDesc, setProductDesc ] = useState<string>('');
+  const [hideModal, setHideModal] = useState<boolean>(true);
+  const [productCategory, setProductCategory] = useState<string>('');
+  const [productName, setProductName] = useState<string>('');
+  const [productThumbnail, setProductThumbnail] = useState<string>('');
+  const [productPrice, setProductPrice] = useState<string>('');
+  const [productDesc, setProductDesc] = useState<string>('');
 
-  const handleSubmit = () => {
+  const handleSubmit = () => {};
 
-  }
-
-  const handleLoadMore = () => {
-
-  }
+  const handleLoadMore = () => {};
 
   const toggleModal = () => setHideModal(!hideModal);
 
   const configModal = {
     hideModal,
-    toggleModal
+    toggleModal,
   };
 
   const configLoadMore = {
     onLoadMoreEvt: handleLoadMore,
   };
-  
+
   return (
     <Wrapper>
-    <div className="admin">
+      <div className="admin">
+        <div className="callToActions">
+          <ul>
+            <li>
+              <Button onClick={() => toggleModal()}>Add new product</Button>
+            </li>
+          </ul>
+        </div>
 
-      <div className="callToActions">
-        <ul>
-          <li>
-            <Button onClick={() => toggleModal()}>
-              Add new product
-            </Button>
-          </li>
-        </ul>
-      </div>
+        <Modal {...configModal}>
+          <div className="addNewProductForm">
+            <form onSubmit={handleSubmit}>
+              <h2>Add new product</h2>
 
-      <Modal {...configModal}>
-        <div className="addNewProductForm">
-          <form onSubmit={handleSubmit}>
+              <FormSelect
+                label="Category"
+                options={[
+                  {
+                    value: 'mens',
+                    name: 'Mens',
+                  },
+                  {
+                    value: 'womens',
+                    name: 'Womens',
+                  },
+                ]}
+                handleChange={(e) => setProductCategory(e.target.value)}
+              />
 
-            <h2>
-              Add new product
-            </h2>
+              <FormInput
+                label="Name"
+                type="text"
+                value={productName}
+                handleChange={(e) => setProductName(e.target.value)}
+              />
 
-            <FormSelect
-              label="Category"
-              options={[{
-                value: "mens",
-                name: "Mens"
-              }, {
-                value: "womens",
-                name: "Womens"
-              }]}
-              handleChange={e => setProductCategory(e.target.value)}
-            />
+              <FormInput
+                label="Main image URL"
+                type="url"
+                value={productThumbnail}
+                handleChange={(e) => setProductThumbnail(e.target.value)}
+              />
 
-            <FormInput
-              label="Name"
-              type="text"
-              value={productName}
-              handleChange={e => setProductName(e.target.value)}
-            />
+              <FormInput
+                label="Price"
+                type="number"
+                min="0.00"
+                max="10000.00"
+                step="0.01"
+                value={productPrice}
+                handleChange={(e) => setProductPrice(e.target.value)}
+              />
 
-            <FormInput
-              label="Main image URL"
-              type="url"
-              value={productThumbnail}
-              handleChange={e => setProductThumbnail(e.target.value)}
-            />
-
-            <FormInput
-              label="Price"
-              type="number"
-              min="0.00"
-              max="10000.00"
-              step="0.01"
-              value={productPrice}
-              handleChange={e => setProductPrice(e.target.value)}
-            />
-
-            {/* <CKEditor
+              {/* <CKEditor
               onChange={evt => setProductDesc(evt.editor.getData())}
             /> */}
 
-            <br />
+              <br />
 
-            <Button type="submit">
-              Add product
-            </Button>
+              <Button type="submit">Add product</Button>
+            </form>
+          </div>
+        </Modal>
 
-          </form>
-        </div>
-      </Modal>
-
-      <div className="manageProducts">
-
-        {/* <table border="0" cellPadding="0" cellSpacing="0">
+        <div className="manageProducts">
+          {/* <table border="0" cellPadding="0" cellSpacing="0">
           <tbody>
             <tr>
               <th>
@@ -174,10 +163,8 @@ const Admin: React.FC = () => {
             </tr>
           </tbody>
         </table> */}
-
+        </div>
       </div>
-
-    </div>
     </Wrapper>
   );
 };

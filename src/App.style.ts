@@ -43,4 +43,12 @@ export const GlobalStyle = createGlobalStyle`
     list-style-type: none;
   }
 
+  .adminLayout {
+    height: calc(100% - 6.5rem - 5.8rem - 3.6rem);
+  }
+
+  .dashboardLayout {
+    height: calc(100% - 6.5rem - 5.8rem);
+  }
+
 `;
