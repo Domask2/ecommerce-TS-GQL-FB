@@ -43,12 +43,42 @@ export const GlobalStyle = createGlobalStyle`
     list-style-type: none;
   }
 
-  .adminLayout {
-    height: calc(100% - 6.5rem - 5.8rem - 3.6rem);
+  .main {
+  width: 100%;
+  height: calc(100% - 6.5rem);
+  max-width: 1450px;
+  padding: 0 10px;
+  margin: 0 auto;
+}
+
+.controlPanel {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  min-height: 100%;
+  padding: 3rem 0 6rem 25.0rem;
+  border-bottom: 1px solid #d3d3d3;
+
+  .sidebar {
+    position: absolute;
+    top: 0; left: 0;
+    width: 25.0rem;
+    height: 100%;
+    z-index: 1;
+    border-right: 1px solid #d3d3d3;
   }
 
-  .dashboardLayout {
-    height: calc(100% - 6.5rem - 5.8rem);
+  .content {
+    padding: 0 10px;
   }
+}
+
+.adminLayout {
+  height: calc(100% - 6.5rem - 5.8rem - 3.6rem);
+}
+
+.dashboardLayout {
+  height: calc(100% - 6.5rem - 5.8rem);
+}
 
 `;

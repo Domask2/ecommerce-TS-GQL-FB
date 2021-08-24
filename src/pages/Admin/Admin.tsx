@@ -36,7 +36,9 @@ const Admin: React.FC = () => {
         <div className="callToActions">
           <ul>
             <li>
-              <Button onClick={() => toggleModal()}>Add new product</Button>
+              <Button onClick={() => toggleModal()} pd="16px" wd="auto">
+                Add New Product
+              </Button>
             </li>
           </ul>
         </div>
@@ -91,7 +93,9 @@ const Admin: React.FC = () => {
 
               <br />
 
-              <Button type="submit">Add product</Button>
+              <Button type="submit" pd="16px">
+                Add product
+              </Button>
             </form>
           </div>
         </Modal>

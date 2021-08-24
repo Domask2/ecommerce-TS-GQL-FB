@@ -19,7 +19,8 @@ const UserProfile: React.FC<Props> = (props) => {
             </div>
           </li>
           <li>
-            {/* <span className="displayName">{displayName && displayName}</span> */}dispalyName
+            <span className="displayName">Name</span>
+            {/* {displayName && displayName} */}
           </li>
         </ul>
       </div>
