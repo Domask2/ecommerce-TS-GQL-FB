@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
   *, ::before, ::after {
@@ -53,11 +53,12 @@ export const GlobalStyle = createGlobalStyle`
 
 .controlPanel {
   position: relative;
-  display: inline-block;
-  width: 100%;
+  max-width: 1450px;
+  margin: 0 auto;
+  display: flex;
   min-height: 100%;
   padding: 3rem 0 6rem 25.0rem;
-  border-bottom: 1px solid #d3d3d3;
+  border: 1px solid #d3d3d3;
 
   .sidebar {
     position: absolute;

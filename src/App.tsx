@@ -24,7 +24,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     dispatch(checkUserSession());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="App">
