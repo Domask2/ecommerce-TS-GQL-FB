@@ -25,7 +25,7 @@ const SignIn: React.FC = () => {
       resetForm();
       history.push('/');
     }
-  }, [currentUser]);
+  }, [currentUser, history]);
 
   const resetForm = () => {
     setEmail('');

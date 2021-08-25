@@ -27,7 +27,7 @@ const SignUp: React.FC = () => {
       resetForm();
       history.push('/');
     }
-  }, [currentUser]);
+  }, [currentUser, history]);
 
   useEffect(() => {
     if (userError.length > 0) {

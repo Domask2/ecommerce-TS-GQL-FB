@@ -5,10 +5,11 @@ interface Iuser {
   createData: any;
   displayName: string;
   email: string;
+  userRoles: [string, string]
 }
 
 type TInitialState = typeof initialState;
-export type TUser = [Iuser] | null;
+export type TUser = Iuser | null;
 
 const initialState = {
   currentUser: null as TUser,
