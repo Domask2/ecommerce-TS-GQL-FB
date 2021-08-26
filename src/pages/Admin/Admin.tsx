@@ -1,6 +1,8 @@
 import { useState } from 'react';
-
+import { useDispatch } from 'react-redux';
 import { Wrapper } from './Admin.style';
+
+import { addProductStart } from '../../redux/Products/products.actions';
 
 import Modal from './../../components/Modal/Modal';
 import FormInput from './../../components/forms/FormInput/FormInput';
@@ -8,20 +10,42 @@ import FormSelect from './../../components/forms/FormSelect/FormSelect';
 import Button from './../../components/forms/Button/Button';
 
 const Admin: React.FC = () => {
+  const dispatch = useDispatch();
+
   const [hideModal, setHideModal] = useState<boolean>(true);
-  const [productCategory, setProductCategory] = useState<string>('');
+  const [productCategory, setProductCategory] = useState<string>('mens');
   const [productName, setProductName] = useState<string>('');
   const [productThumbnail, setProductThumbnail] = useState<string>('');
-  const [productPrice, setProductPrice] = useState<string>('');
+  const [productPrice, setProductPrice] = useState<string>('0');
   const [productDesc, setProductDesc] = useState<string>('');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    dispatch(
+      addProductStart({
+        productCategory,
+        productName,
+        productThumbnail,
+        productPrice,
+      }),
+    );
+
+    resetForm();
   };
 
   const handleLoadMore = () => {};
 
   const toggleModal = () => setHideModal(!hideModal);
+
+  const resetForm = () => {
+    setHideModal(true);
+    setProductCategory('mens');
+    setProductName('');
+    setProductThumbnail('');
+    setProductPrice('0');
+    setProductDesc('');
+  };
 
   const configModal = {
     hideModal,

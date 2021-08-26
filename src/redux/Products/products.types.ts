@@ -1,8 +1,11 @@
 interface IProduct {
-  id: string;
+  productCategory: string;
+  productName: string;
+  productThumbnail: string;
+  productPrice: string;
 }
 
-export type TProduct = IProduct | null;
+export type TProduct = IProduct | [];
 
 export enum productTypes {
   ADD_NEW_PRODUCT_START = 'ADD_NEW_PRODUCT_START',
