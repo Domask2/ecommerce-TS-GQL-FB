@@ -14,3 +14,8 @@ export const setProducts = (products: TProduct) => ({
   type: productTypes.SET_PRODUCTS,
   payload: products,
 });
+
+export const deleteProductStart = (productID:string) => ({
+  type: productTypes.DELETE_PRODUCT_START,
+  payload: productID
+})
