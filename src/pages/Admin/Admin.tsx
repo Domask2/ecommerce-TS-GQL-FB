@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Wrapper } from './Admin.style';
+import { useTypedSelector } from '../../hooks/useTypeSelector';
 
-import { addProductStart } from '../../redux/Products/products.actions';
+import { addProductStart, fetchProductsStart } from '../../redux/Products/products.actions';
+
+import { Wrapper } from './Admin.style';
 
 import Modal from './../../components/Modal/Modal';
 import FormInput from './../../components/forms/FormInput/FormInput';
@@ -11,6 +13,7 @@ import Button from './../../components/forms/Button/Button';
 
 const Admin: React.FC = () => {
   const dispatch = useDispatch();
+  const products = useTypedSelector((state) => state.products.products);
 
   const [hideModal, setHideModal] = useState<boolean>(true);
   const [productCategory, setProductCategory] = useState<string>('mens');
@@ -18,6 +21,10 @@ const Admin: React.FC = () => {
   const [productThumbnail, setProductThumbnail] = useState<string>('');
   const [productPrice, setProductPrice] = useState<string>('0');
   const [productDesc, setProductDesc] = useState<string>('');
+
+  useEffect(() => {
+    dispatch(fetchProductsStart());
+  }, []);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

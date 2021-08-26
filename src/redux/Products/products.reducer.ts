@@ -10,7 +10,7 @@ const initialState = {
 
 export const productReducer = (state = initialState, action: ProductAction): TInitialState => {
   switch (action.type) {
-    case productTypes.ADD_NEW_PRODUCT_START:
+    case productTypes.SET_PRODUCTS:
       return {
         ...state,
         products: action.payload,

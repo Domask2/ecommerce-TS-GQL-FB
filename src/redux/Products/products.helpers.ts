@@ -15,3 +15,5 @@ export const handleAddProduct = (product: any) => {
       });
   });
 };
+
+export const handleFetchProducts = (payload: any) => {};

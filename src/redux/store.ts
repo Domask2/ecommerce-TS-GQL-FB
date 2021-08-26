@@ -18,7 +18,7 @@ function* rootSaga() {
 
 export const rootReducer = combineReducers({
   user: userReducer,
-  product: productReducer,
+  products: productReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();
