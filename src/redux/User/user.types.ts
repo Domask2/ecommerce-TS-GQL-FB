@@ -8,6 +8,14 @@ interface Iuser {
 
 export type TUser = Iuser | null;
 
+export interface IUserCreden {
+  email: string;
+  password?: string;
+  displayName?: string;
+  confirmPassword?: string;
+}
+export type UserCreden = IUserCreden;
+
 export enum userTypes {
   EMAIL_SIGN_IN_START = 'EMAIL_SIGN_IN_START',
   SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS',

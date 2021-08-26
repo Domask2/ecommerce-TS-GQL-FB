@@ -4,7 +4,7 @@ import { auth, handleUserProfile, GoogleProvider, getCurrentUser } from './../..
 import { AnyAction } from 'redux';
 import { signInSuccess, signOutUserSuccess, userError, resetPasswordSuccess } from './user.actions';
 import { handleResetPasswordAPI } from './user.helpers';
-import { TUser } from './user.rudecer';
+import { TUser } from './user.types';
 
 export function* getSnapshotFromUserAuth(user: TUser | any, additionalData = {}): any {
   try {

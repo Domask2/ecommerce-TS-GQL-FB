@@ -2,17 +2,23 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import logger from 'redux-logger';
+
 import createSagaMiddleware from '@redux-saga/core';
-import { userReducer } from './User/user.rudecer';
 import { all, call } from '@redux-saga/core/effects';
+
 import userSaga from './User/user.sagas';
+import productsSagas from './Products/products.sagas';
+
+import { userReducer } from './User/user.rudecer';
+import { productReducer } from './Products/products.reducer';
 
 function* rootSaga() {
-  yield all([call(userSaga)]);
+  yield all([call(userSaga), call(productsSagas)]);
 }
 
 export const rootReducer = combineReducers({
   user: userReducer,
+  product: productReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();
