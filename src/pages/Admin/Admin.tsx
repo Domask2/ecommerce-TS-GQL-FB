@@ -15,7 +15,9 @@ const Admin: React.FC = () => {
   const [productPrice, setProductPrice] = useState<string>('');
   const [productDesc, setProductDesc] = useState<string>('');
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
 
   const handleLoadMore = () => {};
 
@@ -93,7 +95,7 @@ const Admin: React.FC = () => {
 
               <br />
 
-              <Button type="submit" pd="16px">
+              <Button type="submit" pd="16px" wd="100%">
                 Add product
               </Button>
             </form>

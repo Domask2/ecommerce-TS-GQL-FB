@@ -1,3 +1,13 @@
+interface Iuser {
+  id: string;
+  createData: any;
+  displayName: string;
+  email: string;
+  userRoles: [string, string];
+}
+
+export type TUser = Iuser | null;
+
 export enum userTypes {
   EMAIL_SIGN_IN_START = 'EMAIL_SIGN_IN_START',
   SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS',
@@ -9,14 +19,14 @@ export enum userTypes {
   RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS',
   USER_ERROR = 'USER_ERROR',
   GOOGLE_SIGN_IN_START = 'GOOGLE_SIGN_IN_START',
-  RESET_USER_STATE = 'RESET_USER_STATE'
+  RESET_USER_STATE = 'RESET_USER_STATE',
 }
 interface FetchUserAction {
-  type: 
+  type:
     | userTypes.SIGN_IN_SUCCESS
     | userTypes.SIGN_OUT_USER_SUCCESS
     | userTypes.USER_ERROR
-    | userTypes.RESET_USER_STATE
+    | userTypes.RESET_USER_STATE;
   payload: any;
 }
 

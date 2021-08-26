@@ -1,15 +1,7 @@
 import { userTypes, UserAction } from './user.types';
-
-interface Iuser {
-  id: string;
-  createData: any;
-  displayName: string;
-  email: string;
-  userRoles: [string, string]
-}
+import { TUser } from './user.types';
 
 type TInitialState = typeof initialState;
-export type TUser = Iuser | null;
 
 const initialState = {
   currentUser: null as TUser,

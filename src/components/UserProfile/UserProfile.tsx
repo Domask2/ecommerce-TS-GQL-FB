@@ -1,4 +1,4 @@
-import { TUser } from '../../redux/User/user.rudecer';
+import { TUser } from '../../redux/User/user.types';
 import { Wrapper } from './UserProfile.style';
 
 interface Props {
