@@ -1,12 +1,12 @@
 export interface IProduct {
-  productCategory: string;
+  productCategory?: string;
   productName: string;
   productThumbnail: string;
   productPrice: string;
   documentID?: any;
+  createDate?: {seconds: number, nanoseconds: number}
+  productAdminUserUID? : string
 }
-
-export type TProduct = IProduct;
 
 export enum productTypes {
   ADD_NEW_PRODUCT_START = 'ADD_NEW_PRODUCT_START',
@@ -20,4 +20,3 @@ export interface FetchProductAction {
   payload: any;
 }
 
-export type ProductAction = FetchProductAction;

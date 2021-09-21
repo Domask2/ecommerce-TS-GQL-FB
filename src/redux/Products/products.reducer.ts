@@ -1,14 +1,14 @@
-import { productTypes, ProductAction } from './products.types';
-import { TProduct } from './products.types';
+import { productTypes, FetchProductAction } from './products.types';
+import { IProduct } from './products.types';
 
 type TInitialState = typeof initialState;
 
 const initialState = {
-  products: [] as Array<TProduct>,
-  product: {} as TProduct,
+  products: [] as IProduct[] | null,
+  product: {} as IProduct,
 };
 
-export const productReducer = (state = initialState, action: ProductAction): TInitialState => {
+export const productReducer = (state = initialState, action: FetchProductAction): TInitialState => {
   switch (action.type) {
     case productTypes.SET_PRODUCTS:
       return {

@@ -6,7 +6,8 @@ interface Props {
 
 const MainLayout: React.FC<Props> = (props) => {
   return (
-    <div>
+    <div style={{display: 'flex',
+      flexDirection: 'column'}}>
       <Header {...props} />
       <div className="main">
         {props.children}

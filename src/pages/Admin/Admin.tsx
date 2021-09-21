@@ -156,7 +156,7 @@ const Admin: React.FC = () => {
                 <td>
                   <table className="results" style={{ border: 0 }} cellPadding="10" cellSpacing="0">
                     <tbody>
-                      {products.map((product, index) => {
+                      {products!.map((product, index) => {
                         const { productName, productThumbnail, productPrice, documentID } = product;
 
                         return (

@@ -1,5 +1,5 @@
 import { firestore } from '../../firebase/utils';
-import { TProduct } from './products.types';
+import { IProduct } from './products.types';
 
 export const handleAddProduct = (product: any) => {
   return new Promise<void>((resolve, reject) => {

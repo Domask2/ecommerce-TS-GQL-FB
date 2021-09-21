@@ -1,22 +1,55 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useTypedSelector } from '../../hooks/useTypeSelector';
-import { fetchProductsStart } from '../../redux/Products/products.actions';
-import { Wrapper } from './Products.style';
+import React, { useEffect } from "react";
+import { IProduct } from "../../redux/Products/products.types";
+import { useDispatch } from "react-redux";
+import { useTypedSelector } from "../../hooks/useTypeSelector";
+import { fetchProductsStart } from "../../redux/Products/products.actions";
+import Product from './Product/Product';
+import { Wrapper } from "./Products.style";
 
-const Products: React.FC = () => {
+type Tproducts = IProduct[] | null;
+
+const ProductsResults: React.FC = () => {
   const dispatch = useDispatch();
-  const productsData = useTypedSelector((state) => state.products.products);
-
+  const products: Tproducts = useTypedSelector(
+    (state) => state.products.products
+  );
+  console.log(products);
   useEffect(() => {
     dispatch(fetchProductsStart());
   }, []);
-  console.log(productsData);
+
+  // if (Array.isArray(products)) return null;
+
+  if (products!.length < 1) {
+    return (
+      <div className="products">
+        <p>No search results.</p>
+      </div>
+    );
+  }
+
   return (
     <Wrapper>
-      <h1>Products</h1>
+      <div className="products">
+        <h1>Browse Products</h1>
+        {products!.map((product: IProduct, pos) => {
+            const { productThumbnail, productName, productPrice } = product;
+            console.log(productPrice);
+            if (!productThumbnail || !productName || !productPrice) return null;
+
+            const configProduct = {
+              productThumbnail, 
+              productName, 
+              productPrice
+            }
+
+            return (
+              <Product {...configProduct}/>
+            );
+          })}
+      </div>
     </Wrapper>
   );
 };
 
-export default Products;
+export default ProductsResults;
