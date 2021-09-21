@@ -1,30 +1,37 @@
-import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { useTypedSelector } from "../../hooks/useTypeSelector";
+import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useTypedSelector } from '../../hooks/useTypeSelector';
 
 import {
   addProductStart,
   fetchProductsStart,
-  deleteProductStart
-} from "../../redux/Products/products.actions";
+  deleteProductStart,
+} from '../../redux/Products/products.actions';
 
-import { Wrapper } from "./Admin.style";
+import { Wrapper } from './Admin.style';
 
-import Modal from "./../../components/Modal/Modal";
-import FormInput from "./../../components/forms/FormInput/FormInput";
-import FormSelect from "./../../components/forms/FormSelect/FormSelect";
-import Button from "./../../components/forms/Button/Button";
+import Modal from './../../components/Modal/Modal';
+import FormInput from './../../components/forms/FormInput/FormInput';
+import FormSelect from './../../components/forms/FormSelect/FormSelect';
+import Button from './../../components/forms/Button/Button';
 
 const Admin: React.FC = () => {
   const dispatch = useDispatch();
   const products = useTypedSelector((state) => state.products.products);
 
   const [hideModal, setHideModal] = useState<boolean>(true);
-  const [productCategory, setProductCategory] = useState<string>("classic");
-  const [productName, setProductName] = useState<string>("");
-  const [productThumbnail, setProductThumbnail] = useState<string>("");
-  const [productPrice, setProductPrice] = useState<string>("0");
-  const [productDesc, setProductDesc] = useState<string>("");
+  const [productCategory, setProductCategory] = useState<string>('classic');
+  const [productName, setProductName] = useState<string>('');
+  const [productThumbnail, setProductThumbnail] = useState<string>('');
+  const [productPrice, setProductPrice] = useState<string>('0');
+  const [productDesc, setProductDesc] = useState<string>('');
+
+  interface IProduct {
+    productCategory: string;
+    productName: string;
+    productThumbnail: string;
+    productPrice: string;
+  }
 
   useEffect(() => {
     dispatch(fetchProductsStart());
@@ -39,7 +46,7 @@ const Admin: React.FC = () => {
         productName,
         productThumbnail,
         productPrice,
-      })
+      }),
     );
 
     resetForm();
@@ -51,11 +58,11 @@ const Admin: React.FC = () => {
 
   const resetForm = () => {
     setHideModal(true);
-    setProductCategory("classic");
-    setProductName("");
-    setProductThumbnail("");
-    setProductPrice("0");
-    setProductDesc("");
+    setProductCategory('classic');
+    setProductName('');
+    setProductThumbnail('');
+    setProductPrice('0');
+    setProductDesc('');
   };
 
   const configModal = {
@@ -89,12 +96,12 @@ const Admin: React.FC = () => {
                 label="Category"
                 options={[
                   {
-                    value: "classic",
-                    name: "Classic",
+                    value: 'classic',
+                    name: 'Classic',
                   },
                   {
-                    value: "modern",
-                    name: "Modern",
+                    value: 'modern',
+                    name: 'Modern',
                   },
                 ]}
                 handleChange={(e) => setProductCategory(e.target.value)}
@@ -147,36 +154,23 @@ const Admin: React.FC = () => {
               </tr>
               <tr>
                 <td>
-                  <table
-                    className="results"
-                    style={{ border: 0 }}
-                    cellPadding="10"
-                    cellSpacing="0"
-                  >
+                  <table className="results" style={{ border: 0 }} cellPadding="10" cellSpacing="0">
                     <tbody>
                       {products.map((product, index) => {
-                        const {
-                          productName,
-                          productThumbnail,
-                          productPrice,
-                          documentID
-                        } = product;
+                        const { productName, productThumbnail, productPrice, documentID } = product;
 
                         return (
                           <tr key={index}>
                             <td>
-                              <img
-                                className="thumb"
-                                src={productThumbnail}
-                                alt="img"
-                              />
+                              <img className="thumb" src={productThumbnail} alt="img" />
                             </td>
                             <td>{productName}</td>
                             <td>£{productPrice}</td>
                             <td>
-                              <Button pd="16px" wd="100%"
-                                onClick={() => dispatch(deleteProductStart(documentID))}
-                              >
+                              <Button
+                                pd="16px"
+                                wd="100%"
+                                onClick={() => dispatch(deleteProductStart(documentID))}>
                                 Delete
                               </Button>
                             </td>

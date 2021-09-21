@@ -1,7 +1,7 @@
 import { productTypes } from './products.types';
-import { TProduct } from './products.types';
+import { TProduct, IProduct } from './products.types';
 
-export const addProductStart = (productData: any) => ({
+export const addProductStart = (productData: IProduct) => ({
   type: productTypes.ADD_NEW_PRODUCT_START,
   payload: productData,
 });
@@ -15,7 +15,7 @@ export const setProducts = (products: TProduct) => ({
   payload: products,
 });
 
-export const deleteProductStart = (productID:string) => ({
+export const deleteProductStart = (productID: string) => ({
   type: productTypes.DELETE_PRODUCT_START,
-  payload: productID
-})
+  payload: productID,
+});

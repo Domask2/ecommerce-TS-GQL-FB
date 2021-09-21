@@ -14,6 +14,7 @@ export interface IUserCreden {
   displayName?: string;
   confirmPassword?: string;
 }
+
 export type UserCreden = IUserCreden;
 
 export enum userTypes {
@@ -29,6 +30,7 @@ export enum userTypes {
   GOOGLE_SIGN_IN_START = 'GOOGLE_SIGN_IN_START',
   RESET_USER_STATE = 'RESET_USER_STATE',
 }
+
 interface FetchUserAction {
   type:
     | userTypes.SIGN_IN_SUCCESS

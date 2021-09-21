@@ -7,6 +7,7 @@ interface Props {
 
 const UserProfile: React.FC<Props> = (props) => {
   const { currentUser } = props;
+  const displayName = currentUser?.displayName;
 
   return (
     <Wrapper>
@@ -19,8 +20,7 @@ const UserProfile: React.FC<Props> = (props) => {
             </div>
           </li>
           <li>
-            <span className="displayName">Name</span>
-            {/* {displayName && displayName} */}
+            <span className="displayName">{displayName && displayName}</span>
           </li>
         </ul>
       </div>
