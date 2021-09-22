@@ -1,7 +1,7 @@
 import { firestore } from '../../firebase/utils';
 import { IProduct } from './products.types';
 
-export const handleAddProduct = (product: any) => {
+export const handleAddProduct = (product: IProduct) => {
   return new Promise<void>((resolve, reject) => {
     firestore
       .collection('products')
@@ -17,26 +17,27 @@ export const handleAddProduct = (product: any) => {
 };
 
 export const handleFetchProducts = () => {
-  return new Promise((resolve,reject) => {
+  return new Promise((resolve, reject) => {
     firestore
       .collection('products')
+      .orderBy('createDate')
       .get()
-      .then(snapshot => {
-        const productsArray = snapshot.docs.map(doc => {
+      .then((snapshot) => {
+        const productsArray = snapshot.docs.map((doc) => {
           return {
             ...doc.data(),
-            documentID: doc.id
-          }
+            documentID: doc.id,
+          };
         });
         resolve(productsArray);
       })
-      .catch(error => {
+      .catch((error) => {
         reject(error);
-      })
-  })
+      });
+  });
 };
 
-export const handleDeleteProduct = (documentID:string) => {
+export const handleDeleteProduct = (documentID: string) => {
   return new Promise<void>((resolve, reject) => {
     firestore
       .collection('products')
@@ -45,8 +46,8 @@ export const handleDeleteProduct = (documentID:string) => {
       .then(() => {
         resolve();
       })
-      .catch(error => {
-        reject(error)
-      })
-  })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };

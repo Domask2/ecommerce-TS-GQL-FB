@@ -4,8 +4,8 @@ export interface IProduct {
   productThumbnail: string;
   productPrice: string;
   documentID?: any;
-  createDate?: {seconds: number, nanoseconds: number}
-  productAdminUserUID? : string
+  createDate?: Date;
+  productAdminUserUID?: string;
 }
 
 export enum productTypes {
@@ -19,4 +19,3 @@ export interface FetchProductAction {
   type: productTypes.SET_PRODUCTS;
   payload: any;
 }
-

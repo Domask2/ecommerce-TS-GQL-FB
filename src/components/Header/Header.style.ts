@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   height: 6.5rem;
@@ -20,6 +20,40 @@ export const Wrapper = styled.div`
       display: block;
       width: 100%;
       margin: 0;
+    }
+  }
+
+  nav {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+
+    ul,
+    ul li {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+    }
+
+    ul {
+      text-align: center;
+
+      li {
+        display: inline-block;
+        list-style-type: none;
+        margin: 0 1rem;
+
+        a {
+          font-size: 1.8rem;
+          line-height: 6.5rem;
+          vertical-align: middle;
+          color: black;
+          text-decoration: none;
+          text-transform: uppercase;
+        }
+      }
     }
   }
 

@@ -2,10 +2,24 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   .products {
-    display: inline-block;
-    text-align: center;
+    display: block;
     width: 100%;
     padding: 0;
     margin: 2rem 0;
+
+    .productsWrapper {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .productsResults {
+      margin: 0 -10px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: start;
+    }
   }
 `;

@@ -1,18 +1,20 @@
 import styled from 'styled-components';
 
 export const ProductWrapper = styled.div`
-  width: 33.33%;
-  height: 20rem;
-  float: left;
-  padding: 0 10px;
-  margin: 0 auto 20rem;
+  width: calc(33.33% - 15px);
+  margin: 0px 0px 10px 1rem;
+  border: 1px solid lightgray;
 
   @media (max-width: 800px) {
-    width: 50%;
+    width: 48%;
   }
 
   @media (max-width: 600px) {
-    width: 100%;
+    width: 80%;
+  }
+
+  @media (max-width: 200px) {
+    width: 40%;
   }
 
   .thumb {
@@ -31,8 +33,6 @@ export const ProductWrapper = styled.div`
   .details {
     display: block;
     width: 100%;
-    padding: 1rem 0;
-    margin: 0 auto;
 
     ul,
     ul li {
@@ -46,19 +46,30 @@ export const ProductWrapper = styled.div`
         width: 100%;
         list-style-type: none;
         text-align: left;
-        margin: 0 0 0.5rem;
+        margin-bottom: 10px;
 
         .name {
           font-size: 2.5rem;
           line-height: 1.2;
           font-weight: 400;
+          padding: 10px;
         }
 
         .price {
           font-size: 1.6rem;
           line-height: 1;
           font-weight: 400;
+          padding: 10px;
         }
+      }
+    }
+
+    .addToCard {
+      margin: 2rem 0 0 0;
+      button {
+        margin: 0;
+        border-radius: 0px;
+        box-shadow: 0px 0px 0px white;
       }
     }
   }

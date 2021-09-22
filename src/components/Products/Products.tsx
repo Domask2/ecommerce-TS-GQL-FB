@@ -28,19 +28,23 @@ const ProductsResults: React.FC = () => {
     <Wrapper>
       <div className="products">
         <h1>Browse Products</h1>
-        {products!.map((product: IProduct, pos) => {
-          const { productThumbnail, productName, productPrice } = product;
+        <div className="productsWrapper">
+          <div className="productsResults">
+            {products!.map((product: IProduct, pos) => {
+              const { productThumbnail, productName, productPrice } = product;
 
-          if (!productThumbnail || !productName || !productPrice) return null;
+              if (!productThumbnail || !productName || !productPrice) return null;
 
-          const configProduct = {
-            productThumbnail,
-            productName,
-            productPrice,
-          };
+              const configProduct = {
+                productThumbnail,
+                productName,
+                productPrice,
+              };
 
-          return <Product {...configProduct} />;
-        })}
+              return <Product {...configProduct} />;
+            })}
+          </div>
+        </div>
       </div>
     </Wrapper>
   );
