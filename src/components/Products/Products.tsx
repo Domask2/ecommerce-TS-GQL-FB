@@ -1,24 +1,20 @@
-import React, { useEffect } from "react";
-import { IProduct } from "../../redux/Products/products.types";
-import { useDispatch } from "react-redux";
-import { useTypedSelector } from "../../hooks/useTypeSelector";
-import { fetchProductsStart } from "../../redux/Products/products.actions";
+import React, { useEffect } from 'react';
+import { IProduct } from '../../redux/Products/products.types';
+import { useDispatch } from 'react-redux';
+import { useTypedSelector } from '../../hooks/useTypeSelector';
+import { fetchProductsStart } from '../../redux/Products/products.actions';
 import Product from './Product/Product';
-import { Wrapper } from "./Products.style";
+import { Wrapper } from './Products.style';
 
 type Tproducts = IProduct[] | null;
 
 const ProductsResults: React.FC = () => {
   const dispatch = useDispatch();
-  const products: Tproducts = useTypedSelector(
-    (state) => state.products.products
-  );
+  const products: Tproducts = useTypedSelector((state) => state.products.products);
   console.log(products);
   useEffect(() => {
     dispatch(fetchProductsStart());
   }, []);
-
-  // if (Array.isArray(products)) return null;
 
   if (products!.length < 1) {
     return (
@@ -33,20 +29,18 @@ const ProductsResults: React.FC = () => {
       <div className="products">
         <h1>Browse Products</h1>
         {products!.map((product: IProduct, pos) => {
-            const { productThumbnail, productName, productPrice } = product;
-            console.log(productPrice);
-            if (!productThumbnail || !productName || !productPrice) return null;
+          const { productThumbnail, productName, productPrice } = product;
 
-            const configProduct = {
-              productThumbnail, 
-              productName, 
-              productPrice
-            }
+          if (!productThumbnail || !productName || !productPrice) return null;
 
-            return (
-              <Product {...configProduct}/>
-            );
-          })}
+          const configProduct = {
+            productThumbnail,
+            productName,
+            productPrice,
+          };
+
+          return <Product {...configProduct} />;
+        })}
       </div>
     </Wrapper>
   );

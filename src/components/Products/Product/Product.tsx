@@ -2,9 +2,7 @@ import React from 'react';
 import { IProduct } from '../../../redux/Products/products.types';
 import { ProductWrapper } from './Product.style';
 
-const Product: React.FC<IProduct> = ({productThumbnail, productName, 
-productPrice}: IProduct) => {
-
+const Product: React.FC<IProduct> = ({ productThumbnail, productName, productPrice }: IProduct) => {
   if (!productThumbnail || !productName || !productPrice) return null;
 
   return (
@@ -16,19 +14,15 @@ productPrice}: IProduct) => {
       <div className="details">
         <ul>
           <li>
-            <span>
-              {productName}
-            </span>
+            <span className="name">{productName}</span>
           </li>
           <li>
-            <span>
-              {productPrice}
-            </span>
+            <span className="price">${productPrice}</span>
           </li>
         </ul>
       </div>
     </ProductWrapper>
-  )
-}
+  );
+};
 
-export default Product
+export default Product;
