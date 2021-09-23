@@ -3,18 +3,22 @@ import { IProduct } from '../../redux/Products/products.types';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../hooks/useTypeSelector';
 import { fetchProductsStart } from '../../redux/Products/products.actions';
+import { useHistory, useParams } from 'react-router';
 import Product from './Product/Product';
 import { Wrapper } from './Products.style';
+import FormSelect from './../forms/FormSelect/FormSelect';
 
 type Tproducts = IProduct[] | null;
 
 const ProductsResults: React.FC = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const { filterType }: { filterType: string } = useParams();
   const products: Tproducts = useTypedSelector((state) => state.products.products);
-  console.log(products);
+
   useEffect(() => {
-    dispatch(fetchProductsStart());
-  }, []);
+    dispatch(fetchProductsStart({ filterType }));
+  }, [filterType]);
 
   if (products!.length < 1) {
     return (
@@ -24,26 +28,49 @@ const ProductsResults: React.FC = () => {
     );
   }
 
+  const handleFilter = (e: any) => {
+    const nextFilter = e.target.value;
+    history.push(`/search/${nextFilter}`);
+  };
+
   return (
     <Wrapper>
       <div className="products">
         <h1>Browse Products</h1>
-        <div className="productsWrapper">
-          <div className="productsResults">
-            {products!.map((product: IProduct, pos) => {
-              const { productThumbnail, productName, productPrice } = product;
 
-              if (!productThumbnail || !productName || !productPrice) return null;
+        <FormSelect
+          defaultValue={filterType}
+          options={[
+            {
+              value: '',
+              name: 'Show All',
+            },
+            {
+              value: 'mens',
+              name: 'Mens',
+            },
+            {
+              value: 'women',
+              name: 'Women',
+            },
+          ]}
+          handleChange={handleFilter}
+        />
 
-              const configProduct = {
-                productThumbnail,
-                productName,
-                productPrice,
-              };
+        <div className="productsResults">
+          {products!.map((product: IProduct, pos) => {
+            const { productThumbnail, productName, productPrice } = product;
 
-              return <Product {...configProduct} />;
-            })}
-          </div>
+            if (!productThumbnail || !productName || !productPrice) return null;
+
+            const configProduct = {
+              productThumbnail,
+              productName,
+              productPrice,
+            };
+
+            return <Product {...configProduct} />;
+          })}
         </div>
       </div>
     </Wrapper>

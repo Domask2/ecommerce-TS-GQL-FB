@@ -3,7 +3,7 @@ export interface IProduct {
   productName: string;
   productThumbnail: string;
   productPrice: string;
-  documentID?: any;
+  documentID?: string;
   createDate?: Date;
   productAdminUserUID?: string;
 }

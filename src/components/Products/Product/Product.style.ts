@@ -46,13 +46,13 @@ export const ProductWrapper = styled.div`
         width: 100%;
         list-style-type: none;
         text-align: left;
-        margin-bottom: 10px;
 
         .name {
           font-size: 2.5rem;
           line-height: 1.2;
           font-weight: 400;
           padding: 10px;
+          margin-bottom: 10px;
         }
 
         .price {
@@ -60,6 +60,7 @@ export const ProductWrapper = styled.div`
           line-height: 1;
           font-weight: 400;
           padding: 10px;
+          margin-bottom: 10px;
         }
       }
     }

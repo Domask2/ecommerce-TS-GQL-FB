@@ -16,7 +16,12 @@ export const handleAddProduct = (product: IProduct) => {
   });
 };
 
-export const handleFetchProducts = () => {
+type TPaylad = {
+  filterType: string;
+};
+
+export const handleFetchProducts = (filters: any) => {
+  console.log(filters.payload.filterType);
   return new Promise((resolve, reject) => {
     firestore
       .collection('products')

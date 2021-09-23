@@ -170,7 +170,7 @@ const Admin: React.FC = () => {
                               <Button
                                 pd="16px"
                                 wd="100%"
-                                onClick={() => dispatch(deleteProductStart(documentID))}>
+                                onClick={() => dispatch(deleteProductStart(documentID!))}>
                                 Delete
                               </Button>
                             </td>
