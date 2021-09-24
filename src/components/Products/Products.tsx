@@ -46,12 +46,12 @@ const ProductsResults: React.FC = () => {
               name: 'Show All',
             },
             {
-              value: 'mens',
-              name: 'Mens',
+              value: 'classic',
+              name: 'Classic',
             },
             {
-              value: 'women',
-              name: 'Women',
+              value: 'modern',
+              name: 'Modern',
             },
           ]}
           handleChange={handleFilter}

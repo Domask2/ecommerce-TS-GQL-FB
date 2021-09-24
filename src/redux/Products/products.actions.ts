@@ -6,13 +6,7 @@ export const addProductStart = (productData: IProduct) => ({
   payload: productData,
 });
 
-type filterType = { filterType: string };
-type TFilters = {
-  type: productTypes.FETCH_PRODUCTS_START;
-  payload: filterType | {};
-};
-
-export const fetchProductsStart = (filters?: any) => ({
+export const fetchProductsStart = (filters = {}) => ({
   type: productTypes.FETCH_PRODUCTS_START,
   payload: filters,
 });

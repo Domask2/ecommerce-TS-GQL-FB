@@ -28,10 +28,6 @@ export function* onAddProductStart() {
   yield takeLatest(productTypes.ADD_NEW_PRODUCT_START, addProduct);
 }
 
-type TPaylad = {
-  filterType: string;
-};
-
 export function* fetchProducts(filters: any) {
   try {
     const products: IProduct[] = yield handleFetchProducts(filters);

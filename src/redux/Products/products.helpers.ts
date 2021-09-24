@@ -21,11 +21,16 @@ type TPaylad = {
 };
 
 export const handleFetchProducts = (filters: any) => {
-  console.log(filters.payload.filterType);
+  let type = filters.payload.filterType;
+
   return new Promise((resolve, reject) => {
-    firestore
-      .collection('products')
-      .orderBy('createDate')
+    let ref = firestore.collection('products').orderBy('createDate');
+
+    if (type) {
+      ref = ref.where('productCategory', '==', type);
+    }
+
+    ref
       .get()
       .then((snapshot) => {
         const productsArray = snapshot.docs.map((doc) => {
