@@ -1,26 +1,33 @@
-import React, { useEffect } from 'react';
-import { IProduct } from '../../redux/Products/products.types';
-import { useDispatch } from 'react-redux';
-import { useTypedSelector } from '../../hooks/useTypeSelector';
-import { fetchProductsStart } from '../../redux/Products/products.actions';
-import { useHistory, useParams } from 'react-router';
-import Product from './Product/Product';
-import { Wrapper } from './Products.style';
-import FormSelect from './../forms/FormSelect/FormSelect';
+import React, { useEffect } from "react";
+import { IProduct } from "../../redux/Products/products.types";
+import { useDispatch } from "react-redux";
+import { useTypedSelector } from "../../hooks/useTypeSelector";
+import { fetchProductsStart } from "../../redux/Products/products.actions";
+import { useHistory, useParams } from "react-router";
+import Product from "./Product/Product";
+import { Wrapper } from "./Products.style";
+import FormSelect from "./../forms/FormSelect/FormSelect";
+import LoadMore from "../LoadMore/LoadMore";
 
-type Tproducts = IProduct[] | null;
+type Tproducts = TData | null;
+
+type TData = {
+  data: IProduct[],
+  queryDoc: any,
+  isLastPage: boolean,
+}
 
 const ProductsResults: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { filterType }: { filterType: string } = useParams();
-  const products: Tproducts = useTypedSelector((state) => state.products.products);
+  const products:any = useTypedSelector((state) => state.products.products);
 
   useEffect(() => {
     dispatch(fetchProductsStart({ filterType }));
   }, [filterType]);
 
-  if (products!.length < 1) {
+  if (products.data?.length < 1) {
     return (
       <div className="products">
         <p>No search results.</p>
@@ -33,6 +40,10 @@ const ProductsResults: React.FC = () => {
     history.push(`/search/${nextFilter}`);
   };
 
+  const onLoadMoreEvt = () => {
+    console.log('helloo');
+  }; 
+
   return (
     <Wrapper>
       <div className="products">
@@ -42,23 +53,23 @@ const ProductsResults: React.FC = () => {
           defaultValue={filterType}
           options={[
             {
-              value: '',
-              name: 'Show All',
+              value: "",
+              name: "Show All",
             },
             {
-              value: 'classic',
-              name: 'Classic',
+              value: "classic",
+              name: "Classic",
             },
             {
-              value: 'modern',
-              name: 'Modern',
+              value: "modern",
+              name: "Modern",
             },
           ]}
           handleChange={handleFilter}
         />
 
         <div className="productsResults">
-          {products!.map((product: IProduct, pos) => {
+          {products.data?.map((product: IProduct, pos: any) => {
             const { productThumbnail, productName, productPrice } = product;
 
             if (!productThumbnail || !productName || !productPrice) return null;
@@ -69,9 +80,10 @@ const ProductsResults: React.FC = () => {
               productPrice,
             };
 
-            return <Product {...configProduct} />;
+            return <Product key={pos} {...configProduct} />;
           })}
         </div>
+        <LoadMore onLoadMoreEvt={onLoadMoreEvt}/>
       </div>
     </Wrapper>
   );

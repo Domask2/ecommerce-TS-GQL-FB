@@ -20,26 +20,36 @@ type TPaylad = {
   filterType: string;
 };
 
-export const handleFetchProducts = (filters: any) => {
+export const handleFetchProducts = (filters: any, startAfterDoc?: number) => {
   let type = filters.payload.filterType;
 
   return new Promise((resolve, reject) => {
-    let ref = firestore.collection('products').orderBy('createDate');
+    const pageSize = 6;
 
-    if (type) {
-      ref = ref.where('productCategory', '==', type);
-    }
+    let ref = firestore.collection('products').orderBy('createDate').limit(pageSize);
+
+    if (type) ref = ref.where('productCategory', '==', type);
+    if (startAfterDoc) ref = ref.startAfter(startAfterDoc)
 
     ref
       .get()
       .then((snapshot) => {
-        const productsArray = snapshot.docs.map((doc) => {
-          return {
-            ...doc.data(),
-            documentID: doc.id,
-          };
+        const totalCount = snapshot.size;
+
+        const data = [
+          ...snapshot.docs.map((doc) => {
+            return {
+              ...doc.data(),
+              documentID: doc.id,
+            }
+          })
+        ];
+        resolve({
+          data,
+          queryDoc: snapshot.docs[totalCount - 1],
+          isLastPage: totalCount < 1
         });
-        resolve(productsArray);
+        
       })
       .catch((error) => {
         reject(error);
