@@ -20,16 +20,18 @@ type TPaylad = {
   filterType: string;
 };
 
-export const handleFetchProducts = (filters: any, startAfterDoc?: number) => {
-  let type = filters.payload.filterType;
-
+export const handleFetchProducts = ({ payload }: any) => {
+  let type = payload.filterType;
+  let startAfterDoc = payload.startAfterDocs;
+  // let persistProducts = filters.payload.persistProducts;
+  // console.log(startAfterDoc);
   return new Promise((resolve, reject) => {
     const pageSize = 6;
 
     let ref = firestore.collection('products').orderBy('createDate').limit(pageSize);
 
     if (type) ref = ref.where('productCategory', '==', type);
-    if (startAfterDoc) ref = ref.startAfter(startAfterDoc)
+    if (startAfterDoc) ref = ref.startAfter(startAfterDoc);
 
     ref
       .get()
@@ -37,19 +39,19 @@ export const handleFetchProducts = (filters: any, startAfterDoc?: number) => {
         const totalCount = snapshot.size;
 
         const data = [
+          // ...persistProducts,
           ...snapshot.docs.map((doc) => {
             return {
               ...doc.data(),
               documentID: doc.id,
-            }
-          })
+            };
+          }),
         ];
         resolve({
           data,
           queryDoc: snapshot.docs[totalCount - 1],
-          isLastPage: totalCount < 1
+          isLastPage: totalCount < 1,
         });
-        
       })
       .catch((error) => {
         reject(error);

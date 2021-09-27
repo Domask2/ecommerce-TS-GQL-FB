@@ -1,28 +1,28 @@
-import React, { useEffect } from "react";
-import { IProduct } from "../../redux/Products/products.types";
-import { useDispatch } from "react-redux";
-import { useTypedSelector } from "../../hooks/useTypeSelector";
-import { fetchProductsStart } from "../../redux/Products/products.actions";
-import { useHistory, useParams } from "react-router";
-import Product from "./Product/Product";
-import { Wrapper } from "./Products.style";
-import FormSelect from "./../forms/FormSelect/FormSelect";
-import LoadMore from "../LoadMore/LoadMore";
+import React, { useEffect } from 'react';
+import { IProduct } from '../../redux/Products/products.types';
+import { useDispatch } from 'react-redux';
+import { useTypedSelector } from '../../hooks/useTypeSelector';
+import { fetchProductsStart } from '../../redux/Products/products.actions';
+import { useHistory, useParams } from 'react-router';
+import Product from './Product/Product';
+import { Wrapper } from './Products.style';
+import FormSelect from './../forms/FormSelect/FormSelect';
+import LoadMore from '../LoadMore/LoadMore';
 
 type Tproducts = TData | null;
 
 type TData = {
-  data: IProduct[],
-  queryDoc: any,
-  isLastPage: boolean,
-}
+  data: IProduct[];
+  queryDoc: any;
+  isLastPage: boolean;
+};
 
 const ProductsResults: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { filterType }: { filterType: string } = useParams();
-  const products:any = useTypedSelector((state) => state.products.products);
-
+  const products: any = useTypedSelector((state) => state.products.products);
+  console.log(products);
   useEffect(() => {
     dispatch(fetchProductsStart({ filterType }));
   }, [filterType]);
@@ -41,8 +41,14 @@ const ProductsResults: React.FC = () => {
   };
 
   const onLoadMoreEvt = () => {
-    console.log('helloo');
-  }; 
+    dispatch(
+      fetchProductsStart({
+        filterType,
+        startAfterDoc: products.queryDoc,
+        persistProducts: products.data,
+      }),
+    );
+  };
 
   return (
     <Wrapper>
@@ -53,16 +59,16 @@ const ProductsResults: React.FC = () => {
           defaultValue={filterType}
           options={[
             {
-              value: "",
-              name: "Show All",
+              value: '',
+              name: 'Show All',
             },
             {
-              value: "classic",
-              name: "Classic",
+              value: 'classic',
+              name: 'Classic',
             },
             {
-              value: "modern",
-              name: "Modern",
+              value: 'modern',
+              name: 'Modern',
             },
           ]}
           handleChange={handleFilter}
@@ -83,7 +89,7 @@ const ProductsResults: React.FC = () => {
             return <Product key={pos} {...configProduct} />;
           })}
         </div>
-        <LoadMore onLoadMoreEvt={onLoadMoreEvt}/>
+        <LoadMore onLoadMoreEvt={onLoadMoreEvt} />
       </div>
     </Wrapper>
   );
