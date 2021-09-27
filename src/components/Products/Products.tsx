@@ -22,7 +22,9 @@ const ProductsResults: React.FC = () => {
   const history = useHistory();
   const { filterType }: { filterType: string } = useParams();
   const products: any = useTypedSelector((state) => state.products.products);
-  console.log(products);
+  
+  const { data, queryDoc, isLastPage }: {data:any, queryDoc:any, isLastPage:any} = products;
+
   useEffect(() => {
     dispatch(fetchProductsStart({ filterType }));
   }, [filterType]);
@@ -44,8 +46,8 @@ const ProductsResults: React.FC = () => {
     dispatch(
       fetchProductsStart({
         filterType,
-        startAfterDoc: products.queryDoc,
-        persistProducts: products.data,
+        startAfterDocs: queryDoc,
+        persistProducts: data,
       }),
     );
   };
