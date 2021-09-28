@@ -1,37 +1,33 @@
-import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useTypedSelector } from '../../hooks/useTypeSelector';
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useTypedSelector } from "../../hooks/useTypeSelector";
 
 import {
   addProductStart,
   fetchProductsStart,
   deleteProductStart,
-} from '../../redux/Products/products.actions';
+} from "../../redux/Products/products.actions";
 
-import { Wrapper } from './Admin.style';
+import { Wrapper } from "./Admin.style";
 
-import Modal from './../../components/Modal/Modal';
-import FormInput from './../../components/forms/FormInput/FormInput';
-import FormSelect from './../../components/forms/FormSelect/FormSelect';
-import Button from './../../components/forms/Button/Button';
+import Modal from "./../../components/Modal/Modal";
+import FormInput from "./../../components/forms/FormInput/FormInput";
+import FormSelect from "./../../components/forms/FormSelect/FormSelect";
+import Button from "./../../components/forms/Button/Button";
+import LoadMore from "../../components/LoadMore/LoadMore";
 
 const Admin: React.FC = () => {
   const dispatch = useDispatch();
-  const products = useTypedSelector((state) => state.products.products);
+  const products: any = useTypedSelector((state) => state.products.products);
 
   const [hideModal, setHideModal] = useState<boolean>(true);
-  const [productCategory, setProductCategory] = useState<string>('classic');
-  const [productName, setProductName] = useState<string>('');
-  const [productThumbnail, setProductThumbnail] = useState<string>('');
-  const [productPrice, setProductPrice] = useState<string>('0');
-  const [productDesc, setProductDesc] = useState<string>('');
+  const [productCategory, setProductCategory] = useState<string>("classic");
+  const [productName, setProductName] = useState<string>("");
+  const [productThumbnail, setProductThumbnail] = useState<string>("");
+  const [productPrice, setProductPrice] = useState<string>("0");
+  const [productDesc, setProductDesc] = useState<string>("");
 
-  interface IProduct {
-    productCategory: string;
-    productName: string;
-    productThumbnail: string;
-    productPrice: string;
-  }
+  const { data, queryDoc, isLastPage }: any = products;
 
   useEffect(() => {
     dispatch(fetchProductsStart());
@@ -46,23 +42,26 @@ const Admin: React.FC = () => {
         productName,
         productThumbnail,
         productPrice,
-      }),
+      })
     );
 
     resetForm();
   };
 
-  const handleLoadMore = () => {};
+  const handleLoadMore = () => {
+    dispatch(fetchProductsStart({startAfterDocs: queryDoc,
+      persistProducts: data}))
+  };
 
   const toggleModal = () => setHideModal(!hideModal);
 
   const resetForm = () => {
     setHideModal(true);
-    setProductCategory('classic');
-    setProductName('');
-    setProductThumbnail('');
-    setProductPrice('0');
-    setProductDesc('');
+    setProductCategory("classic");
+    setProductName("");
+    setProductThumbnail("");
+    setProductPrice("0");
+    setProductDesc("");
   };
 
   const configModal = {
@@ -96,12 +95,12 @@ const Admin: React.FC = () => {
                 label="Category"
                 options={[
                   {
-                    value: 'classic',
-                    name: 'Classic',
+                    value: "classic",
+                    name: "Classic",
                   },
                   {
-                    value: 'modern',
-                    name: 'Modern',
+                    value: "modern",
+                    name: "Modern",
                   },
                 ]}
                 handleChange={(e) => setProductCategory(e.target.value)}
@@ -154,29 +153,48 @@ const Admin: React.FC = () => {
               </tr>
               <tr>
                 <td>
-                  <table className="results" style={{ border: 0 }} cellPadding="10" cellSpacing="0">
+                  <table
+                    className="results"
+                    style={{ border: 0 }}
+                    cellPadding="10"
+                    cellSpacing="0"
+                  >
                     <tbody>
-                      {products!.map((product, index) => {
-                        const { productName, productThumbnail, productPrice, documentID } = product;
+                      {(Array.isArray(data) &&
+                        data.length > 0) &&
+                        data.map((product: any, index: number) => {
+                          const {
+                            productName,
+                            productThumbnail,
+                            productPrice,
+                            documentID,
+                          } = product;
 
-                        return (
-                          <tr key={index}>
-                            <td>
-                              <img className="thumb" src={productThumbnail} alt="img" />
-                            </td>
-                            <td>{productName}</td>
-                            <td>£{productPrice}</td>
-                            <td>
-                              <Button
-                                pd="16px"
-                                wd="100%"
-                                onClick={() => dispatch(deleteProductStart(documentID!))}>
-                                Delete
-                              </Button>
-                            </td>
-                          </tr>
-                        );
-                      })}
+                          return (
+                            <tr key={index}>
+                              <td>
+                                <img
+                                  className="thumb"
+                                  src={productThumbnail}
+                                  alt="img"
+                                />
+                              </td>
+                              <td>{productName}</td>
+                              <td>£{productPrice}</td>
+                              <td>
+                                <Button
+                                  pd="16px"
+                                  wd="100%"
+                                  onClick={() =>
+                                    dispatch(deleteProductStart(documentID!))
+                                  }
+                                >
+                                  Delete
+                                </Button>
+                              </td>
+                            </tr>
+                          );
+                        })}
                     </tbody>
                   </table>
                 </td>
@@ -190,10 +208,7 @@ const Admin: React.FC = () => {
                     <tbody>
                       <tr>
                         <td>
-                          {/* {!isLastPage && (
-                          <LoadMore {...configLoadMore} />
-                        )} */}
-                          LastPage
+                          {!isLastPage && <LoadMore {...configLoadMore} />}
                         </td>
                       </tr>
                     </tbody>

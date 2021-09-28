@@ -18,13 +18,13 @@ export const handleAddProduct = (product: IProduct) => {
 
 export const handleFetchProducts = ({filterType, startAfterDocs, persistProducts=[]}: any) => {
   return new Promise((resolve, reject) => {
-    const pageSize = 3;
+    const pageSize = 6;
 
     let ref = firestore.collection('products').orderBy('createDate').limit(pageSize);
 
     if (filterType) ref = ref.where('productCategory', '==', filterType);
     if (startAfterDocs) ref = ref.startAfter(startAfterDocs);
-    console.log(startAfterDocs)
+
     ref
       .get()
       .then((snapshot) => {
@@ -42,7 +42,7 @@ export const handleFetchProducts = ({filterType, startAfterDocs, persistProducts
         resolve({
           data,
           queryDoc: snapshot.docs[snapshot.docs.length - 1],
-          isLastPage: totalCount < 1,
+          isLastPage: totalCount < pageSize,
         });
       })
       .catch((error) => {
