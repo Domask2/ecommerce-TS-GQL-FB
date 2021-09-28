@@ -22,8 +22,9 @@ const ProductsResults: React.FC = () => {
   const history = useHistory();
   const { filterType }: { filterType: string } = useParams();
   const products: any = useTypedSelector((state) => state.products.products);
-  
-  const { data, queryDoc, isLastPage }: {data:any, queryDoc:any, isLastPage:any} = products;
+
+  const { data, queryDoc, isLastPage }: { data: IProduct[]; queryDoc: any; isLastPage: boolean } =
+    products;
 
   useEffect(() => {
     dispatch(fetchProductsStart({ filterType }));
