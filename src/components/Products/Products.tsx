@@ -84,9 +84,7 @@ const ProductsResults: React.FC = () => {
             if (!productThumbnail || !productName || !productPrice) return null;
 
             const configProduct = {
-              productThumbnail,
-              productName,
-              productPrice,
+              ...product,
             };
 
             return <Product key={pos} {...configProduct} />;

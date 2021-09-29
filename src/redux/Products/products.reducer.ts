@@ -5,7 +5,7 @@ type TInitialState = typeof initialState;
 
 const initialState = {
   products: [] as IProduct[] | null,
-  product: [] as IProduct[],
+  product: [] as any,
 };
 
 export const productReducer = (state = initialState, action: FetchProductAction): TInitialState => {

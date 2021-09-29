@@ -47,6 +47,10 @@ export const ProductWrapper = styled.div`
         list-style-type: none;
         text-align: left;
 
+        a {
+          cursor: pointer;
+        }
+
         .name {
           font-size: 2.5rem;
           line-height: 1.2;
