@@ -6,6 +6,7 @@ export interface IProduct {
   documentID?: string;
   createDate?: Date;
   productAdminUserUID?: string;
+  productDesc?: any;
 }
 
 export enum productTypes {

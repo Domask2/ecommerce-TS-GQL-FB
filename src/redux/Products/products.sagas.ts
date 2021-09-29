@@ -11,7 +11,7 @@ import {
 import { setProducts, fetchProductsStart, setProduct } from './products.actions';
 
 export function* addProduct({
-  payload: { productCategory, productName, productThumbnail, productPrice },
+  payload: { productCategory, productName, productThumbnail, productPrice, productDesc },
 }: any) {
   try {
     const timestamp = new Date();
@@ -20,6 +20,7 @@ export function* addProduct({
       productName,
       productThumbnail,
       productPrice,
+      productDesc,
       productAdminUserUID: auth.currentUser?.uid,
       createDate: timestamp,
     });

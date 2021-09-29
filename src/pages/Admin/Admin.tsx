@@ -15,6 +15,7 @@ import FormInput from "./../../components/forms/FormInput/FormInput";
 import FormSelect from "./../../components/forms/FormSelect/FormSelect";
 import Button from "./../../components/forms/Button/Button";
 import LoadMore from "../../components/LoadMore/LoadMore";
+import { CKEditor } from "ckeditor4-react";
 
 const Admin: React.FC = () => {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ const Admin: React.FC = () => {
         productName,
         productThumbnail,
         productPrice,
+        productDesc
       })
     );
 
@@ -49,8 +51,9 @@ const Admin: React.FC = () => {
   };
 
   const handleLoadMore = () => {
-    dispatch(fetchProductsStart({startAfterDocs: queryDoc,
-      persistProducts: data}))
+    dispatch(
+      fetchProductsStart({ startAfterDocs: queryDoc, persistProducts: data })
+    );
   };
 
   const toggleModal = () => setHideModal(!hideModal);
@@ -130,9 +133,9 @@ const Admin: React.FC = () => {
                 handleChange={(e) => setProductPrice(e.target.value)}
               />
 
-              {/* <CKEditor
-              onChange={evt => setProductDesc(evt.editor.getData())}
-            /> */}
+              <CKEditor
+                onChange={(evt) => setProductDesc(evt.editor.getData())}
+              />
 
               <br />
 
@@ -160,8 +163,8 @@ const Admin: React.FC = () => {
                     cellSpacing="0"
                   >
                     <tbody>
-                      {(Array.isArray(data) &&
-                        data.length > 0) &&
+                      {Array.isArray(data) &&
+                        data.length > 0 &&
                         data.map((product: any, index: number) => {
                           const {
                             productName,
