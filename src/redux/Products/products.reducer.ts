@@ -5,7 +5,7 @@ type TInitialState = typeof initialState;
 
 const initialState = {
   products: [] as IProduct[] | null,
-  product: {} as IProduct,
+  product: [] as IProduct[],
 };
 
 export const productReducer = (state = initialState, action: FetchProductAction): TInitialState => {
@@ -14,6 +14,11 @@ export const productReducer = (state = initialState, action: FetchProductAction)
       return {
         ...state,
         products: action.payload,
+      };
+    case productTypes.SET_PRODUCT:
+      return {
+        ...state,
+        product: action.payload,
       };
 
     default:

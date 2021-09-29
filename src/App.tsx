@@ -13,6 +13,7 @@ import Login from './pages/Login/Login';
 import Recovery from './pages/Recovery/Recovery';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Admin from './pages/Admin/Admin';
+import ProductsDetails from './pages/ProductsDetaiks/ProductsDetails';
 //Layout
 import MainLayout from './layouts/MainLayout';
 import HomePageLayout from './layouts/HomePageLayout';
@@ -58,6 +59,14 @@ const App: React.FC = () => {
           render={() => (
             <MainLayout>
               <SearchPage />
+            </MainLayout>
+          )}
+        />
+        <Route
+          path="/product/:productID"
+          render={() => (
+            <MainLayout>
+              <ProductsDetails />
             </MainLayout>
           )}
         />
