@@ -8,17 +8,25 @@ import { all, call } from '@redux-saga/core/effects';
 
 import userSaga from './User/user.sagas';
 import productsSagas from './Products/products.sagas';
+import cartSagas from './Cart/cart.sagas';
 
 import { userReducer } from './User/user.rudecer';
 import { productReducer } from './Products/products.reducer';
+import { cartReducer } from './Cart/card.reducer';
+
 
 function* rootSaga() {
-  yield all([call(userSaga), call(productsSagas)]);
+  yield all([
+    call(userSaga), 
+    call(productsSagas),
+    call(cartSagas),
+  ]);
 }
 
 export const rootReducer = combineReducers({
   user: userReducer,
   products: productReducer,
+  cartData: cartReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();
