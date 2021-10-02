@@ -14,7 +14,7 @@ export function* fetchCart({payload}: any) {
 }
 
 export function* onFetchCartStart() {
-  yield takeLatest(cartTypes.ADD_TO_CART, fetchCart);
+  yield takeLatest(cartTypes.ADD_TO_CART_TEST, fetchCart);
 }
 
 export default function* cartSagas() {

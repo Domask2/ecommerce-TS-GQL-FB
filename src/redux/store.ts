@@ -12,7 +12,7 @@ import cartSagas from './Cart/cart.sagas';
 
 import { userReducer } from './User/user.rudecer';
 import { productReducer } from './Products/products.reducer';
-import { cartReducer } from './Cart/card.reducer';
+import { cartReducer } from './Cart/cart.reducer';
 
 
 function* rootSaga() {

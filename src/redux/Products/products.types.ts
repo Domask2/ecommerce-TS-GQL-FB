@@ -7,6 +7,7 @@ export interface IProduct {
   createDate?: Date;
   productAdminUserUID?: string;
   productDesc?: any;
+  quantity?: any;
 }
 
 export enum productTypes {

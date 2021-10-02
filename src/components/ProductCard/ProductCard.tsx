@@ -3,6 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../hooks/useTypeSelector';
 import { fetchProductStart, setProduct } from '../../redux/Products/products.actions';
+import { addProduct } from '../../redux/Cart/cart.actions';
 import Button from '../forms/Button/Button';
 import { Wrapper } from './ProductCard.style';
 import { IProduct } from './../../redux/Products/products.types';
@@ -24,10 +25,11 @@ const ProductCard = () => {
   }, []);
 
   const handleAddToCart = (product: IProduct) => {
-    // if (!product) return;
-    // dispatch(
-    //   addProduct(product)
-    // );
+    if (!product) return;
+    dispatch(
+      addProduct(product)
+    );
+
     // history.push('/cart');
     console.log('handle add card');
   };

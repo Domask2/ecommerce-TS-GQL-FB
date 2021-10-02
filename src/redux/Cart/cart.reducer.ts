@@ -1,10 +1,11 @@
+import { IProduct } from './../Products/products.types';
 import { cartTypes, CartAction } from './cart.types';
-import { ICart} from './cart.types';
+import { handleAddToCart } from './cart.helpers';
 
 type TInitialState = typeof initialState;
 
 const initialState = {
-  cartItems: [] as any,
+  cartItems: [] as IProduct[],
 };
 
 export const cartReducer = (state = initialState, action: CartAction): TInitialState => {
@@ -12,12 +13,10 @@ export const cartReducer = (state = initialState, action: CartAction): TInitialS
     case cartTypes.ADD_TO_CART:
       return {
         ...state,
-        cartItems: [
-          ...state.cartItems,
-          {
-            ...action.payload
-          }
-        ]
+        cartItems: handleAddToCart({
+          prevCartItems: state.cartItems,
+          nextCartItem: action.payload
+        })
       };
 
     default:

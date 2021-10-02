@@ -1,20 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { IProduct } from '../../../redux/Products/products.types';
 import { ProductWrapper } from './Product.style';
 import Button from '../../forms/Button/Button';
+import { addProduct } from '../../../redux/Cart/cart.actions';
 
-const Product: React.FC<IProduct> = ({
-  productThumbnail,
-  productName,
-  productPrice,
-  documentID,
-}: IProduct) => {
+const Product: React.FC<IProduct> = (product: IProduct) => {
+  const dispatch = useDispatch();
+
+  const { productThumbnail, productName, productPrice, documentID } = product;
+
   if (!productThumbnail || !productName || !productPrice || !documentID) return null;
 
   const configAddToCardBtn = {
     type: 'button',
   };
+
+  const handleAddToCart = (product: IProduct) => {
+    if(!product) return;
+    
+    dispatch(addProduct(product));
+  }
 
   return (
     <ProductWrapper>
@@ -36,7 +43,12 @@ const Product: React.FC<IProduct> = ({
           </li>
           <li>
             <div className="addToCard">
-              <Button {...configAddToCardBtn} pd="10px" wd="100%">
+              <Button 
+                onClick={() => handleAddToCart(product)}  
+                pd="10px" 
+                wd="100%" 
+                {...configAddToCardBtn} 
+              >
                 Add to card
               </Button>
             </div>
