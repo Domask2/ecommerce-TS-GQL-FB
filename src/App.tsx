@@ -14,6 +14,7 @@ import Recovery from './pages/Recovery/Recovery';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Admin from './pages/Admin/Admin';
 import ProductsDetails from './pages/ProductsDetaiks/ProductsDetails';
+import Cart from './pages/Cart/Cart';
 //Layout
 import MainLayout from './layouts/MainLayout';
 import HomePageLayout from './layouts/HomePageLayout';
@@ -67,6 +68,14 @@ const App: React.FC = () => {
           render={() => (
             <MainLayout>
               <ProductsDetails />
+            </MainLayout>
+          )}
+        />
+        <Route
+          path="/cart"
+          render={() => (
+            <MainLayout>
+              <Cart />
             </MainLayout>
           )}
         />

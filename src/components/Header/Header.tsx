@@ -15,7 +15,7 @@ const Header: React.FC = () => {
   const dispatch = useDispatch();
   const currentUser = useTypedSelector((state) => state.user.currentUser);
 
-  const { totalNumCartItems } = useSelector(mapState)
+  const { totalNumCartItems } = useSelector(mapState);
 
   const signOut = () => {
     dispatch(signOutUserStart());
