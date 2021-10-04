@@ -3,7 +3,10 @@ import { useSelector } from "react-redux";
 import { selectCartItems } from "../../redux/Cart/cart.selectors";
 import { createStructuredSelector } from "reselect";
 import { Wrapper } from "./Checkout.style";
+
 import { IProduct } from "../../redux/Products/products.types";
+import Button from "../forms/Button/Button";
+import Item from './Item/Item';
 
 const mapState = createStructuredSelector({
   cartItems: selectCartItems,
@@ -40,21 +43,46 @@ const Checkout = () => {
             <tr>
               <table style={{ border: 0 }} cellPadding="0" cellSpacing="0">
                 <tbody>
-                  <tr>
-                    <td>
-                      {cartItems!.map((item:IProduct,pos:number) => {
-                        return (
-                          <tr key={pos}>
-                            <td>
-                              {item.productName}
-                            </td>
-                          </tr>
-                        )
-                      })}
-                    </td>
-                  </tr>
+                  {cartItems.map((item: IProduct, pos: number) => {
+                    return (
+                      <tr key={pos}>
+                        <td>
+                          <Item {...item} />
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
+            </tr>
+
+            <tr>
+              <table
+                style={{ border: 0 }}
+                cellPadding="0"
+                cellSpacing="10"
+              >
+                <tr>
+                  <td>
+                    <h3>Total:</h3>
+                  </td>
+                </tr>
+                <tr>
+                  <table style={{ border: 0 }} cellPadding="10" cellSpacing="0">
+                    <tbody>
+                      <tr>
+                        <td>
+                          <Button pd="8px" wd="100%">Continue Shopping</Button>
+                        </td>
+                        <td>
+                        <Button pd="8px" wd="100%">Checkout</Button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </tr>
+              </table>
+              
             </tr>
           </tbody>
         </table>
