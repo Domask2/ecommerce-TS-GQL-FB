@@ -14,6 +14,8 @@ const mapState = createStructuredSelector({
 
 const Checkout = () => {
   const { cartItems }: { cartItems: IProduct[] } = useSelector(mapState);
+
+  const errMsg = 'You have no items im your cart.';
   return (
     <Wrapper>
       <h1>Checkout</h1>
@@ -86,7 +88,7 @@ const Checkout = () => {
             </tbody>
           </table>
         ) : (
-          <p>You have no items im your cart.</p>
+          <p>{errMsg}</p>
         )}
       </div>
     </Wrapper>
