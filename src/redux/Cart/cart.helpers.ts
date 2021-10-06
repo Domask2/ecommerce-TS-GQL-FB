@@ -18,43 +18,43 @@ export const handleAddCart = (product: ICart) => {
   });
 };
 interface IHandleProduct {
-  prevCartItems: IProduct[],
-  nextCartItem: IProduct
+  prevCartItems: IProduct[];
+  nextCartItem: IProduct;
 }
 
-export const existingCartItem = ({
-  prevCartItems,
-  nextCartItem
-}: IHandleProduct) => {
-  return prevCartItems.find(
-    cartItem => cartItem.documentID === nextCartItem.documentID
-  );
+interface IHandleRemove {
+  prevCartItems: IProduct[];
+  cartItemToRemove: IProduct;
 }
 
-export const handleAddToCart = ({
-  prevCartItems,
-  nextCartItem
-}: IHandleProduct) => {
+export const existingCartItem = ({ prevCartItems, nextCartItem }: IHandleProduct) => {
+  return prevCartItems.find((cartItem) => cartItem.documentID === nextCartItem.documentID);
+};
+
+export const handleAddToCart = ({ prevCartItems, nextCartItem }: IHandleProduct) => {
   const quantityIncrement = 1;
-  const cartItemExists = existingCartItem({prevCartItems,
-    nextCartItem})
+  const cartItemExists = existingCartItem({ prevCartItems, nextCartItem });
 
-  if(cartItemExists) {
-    return prevCartItems.map(cartItem => 
+  if (cartItemExists) {
+    return prevCartItems.map((cartItem) =>
       cartItem.documentID === nextCartItem.documentID
         ? {
-          ...cartItem,
-          quantity: cartItem.quantity + quantityIncrement
-        } : cartItem
-      
-      )
+            ...cartItem,
+            quantity: cartItem.quantity + quantityIncrement,
+          }
+        : cartItem,
+    );
   }
 
   return [
     ...prevCartItems,
     {
       ...nextCartItem,
-      quantity: quantityIncrement
-    }
-  ]
-}
+      quantity: quantityIncrement,
+    },
+  ];
+};
+
+export const handleRemoveCartitem = ({ prevCartItems, cartItemToRemove }: IHandleRemove) => {
+  return prevCartItems.filter((item: IProduct) => item.documentID !== cartItemToRemove.documentID);
+};

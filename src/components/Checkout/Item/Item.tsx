@@ -1,19 +1,21 @@
-import React from "react";
-import { IProduct } from "../../../redux/Products/products.types";
-import { Wrapper } from "./Item.style";
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { IProduct } from '../../../redux/Products/products.types';
+import { Wrapper } from './Item.style';
+import { removeCartItem } from '../../../redux/Cart/cart.actions';
 
 const Item: React.FC<IProduct> = (product) => {
-  const { productName, productThumbnail, productPrice, quantity, documentID } =
-    product;
+  const dispatch = useDispatch();
+
+  const { productName, productThumbnail, productPrice, quantity, documentID } = product;
+
+  const handleRemoveCartItem = (documentID: any) => {
+    dispatch(removeCartItem({ documentID }));
+  };
 
   return (
     <Wrapper>
-      <table
-        className="cartItem"
-        style={{ border: 0 }}
-        cellPadding="0"
-        cellSpacing="0"
-      >
+      <table className="cartItem" style={{ border: 0 }} cellPadding="0" cellSpacing="0">
         <tbody>
           <tr>
             <td>
@@ -27,7 +29,9 @@ const Item: React.FC<IProduct> = (product) => {
             </td>
             <td>${productPrice}</td>
             <td align="center">
-              <span className="cartBtn remove">X</span>
+              <span className="cartBtn remove" onClick={() => handleRemoveCartItem(documentID)}>
+                X
+              </span>
             </td>
           </tr>
         </tbody>

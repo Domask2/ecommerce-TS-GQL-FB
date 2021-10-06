@@ -1,11 +1,11 @@
 import { IProduct } from './../Products/products.types';
 import { cartTypes, CartAction } from './cart.types';
-import { handleAddToCart } from './cart.helpers';
+import { handleAddToCart, handleRemoveCartitem } from './cart.helpers';
 
 type TInitialState = typeof initialState;
 
 const initialState = {
-  cartItems: [] as IProduct[],
+  cartItems: [] as IProduct[] | any,
 };
 
 export const cartReducer = (state = initialState, action: CartAction): TInitialState => {
@@ -15,8 +15,16 @@ export const cartReducer = (state = initialState, action: CartAction): TInitialS
         ...state,
         cartItems: handleAddToCart({
           prevCartItems: state.cartItems,
-          nextCartItem: action.payload
-        })
+          nextCartItem: action.payload,
+        }),
+      };
+    case cartTypes.REMOVE_CART_ITEM:
+      return {
+        ...state,
+        cartItems: handleRemoveCartitem({
+          prevCartItems: state.cartItems,
+          cartItemToRemove: action.payload,
+        }),
       };
 
     default:
