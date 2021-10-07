@@ -5,7 +5,7 @@ import { handleAddToCart, handleRemoveCartitem, handleReduceCartItem } from './c
 type TInitialState = typeof initialState;
 
 const initialState = {
-  cartItems: [] as IProduct[] | any,
+  cartItems: [] as IProduct | any
 };
 
 export const cartReducer = (state = initialState, action: CartAction): TInitialState => {
@@ -18,7 +18,7 @@ export const cartReducer = (state = initialState, action: CartAction): TInitialS
           nextCartItem: action.payload,
         }),
       };
-    case cartTypes.REMOVE_CART_ITEM:
+    case cartTypes.REDUCE_CART_ITEM:
       return {
         ...state,
         cartItems: handleReduceCartItem({

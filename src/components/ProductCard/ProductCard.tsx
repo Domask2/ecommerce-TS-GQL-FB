@@ -30,8 +30,7 @@ const ProductCard = () => {
       addProduct(product)
     );
 
-    // history.push('/cart');
-    console.log('handle add card');
+    history.push('/cart');
   };
 
   const configAddToCartBtn = {

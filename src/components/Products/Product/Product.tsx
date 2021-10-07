@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { IProduct } from '../../../redux/Products/products.types';
 import { ProductWrapper } from './Product.style';
@@ -8,6 +8,7 @@ import { addProduct } from '../../../redux/Cart/cart.actions';
 
 const Product: React.FC<IProduct> = (product: IProduct) => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const { productThumbnail, productName, productPrice, documentID } = product;
 
@@ -21,6 +22,8 @@ const Product: React.FC<IProduct> = (product: IProduct) => {
     if(!product) return;
     
     dispatch(addProduct(product));
+
+    history.push('/cart')
   }
 
   return (

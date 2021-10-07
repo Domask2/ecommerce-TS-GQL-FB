@@ -1,21 +1,27 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { selectCartItems } from '../../redux/Cart/cart.selectors';
-import { createStructuredSelector } from 'reselect';
-import { Wrapper } from './Checkout.style';
-
-import { IProduct } from '../../redux/Products/products.types';
-import Button from '../forms/Button/Button';
-import Item from './Item/Item';
+import React from "react";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router";
+import {
+  selectCartItems,
+  selectCartTotal,
+} from "../../redux/Cart/cart.selectors";
+import { createStructuredSelector } from "reselect";
+import { Wrapper } from "./Checkout.style";
+import { IProduct } from "../../redux/Products/products.types";
+import Button from "../forms/Button/Button";
+import Item from "./Item/Item";
 
 const mapState = createStructuredSelector({
   cartItems: selectCartItems,
+  total: selectCartTotal,
 });
 
 const Checkout = () => {
-  const { cartItems }: { cartItems: IProduct[] } = useSelector(mapState);
+  const history = useHistory();
+  const { cartItems, total }: { cartItems: IProduct[]; total: number } =
+    useSelector(mapState);
 
-  const errMsg = 'You have no items im your cart.';
+  const errMsg = "You have no items im your cart.";
   return (
     <Wrapper>
       <h1>Checkout</h1>
@@ -29,7 +35,8 @@ const Checkout = () => {
                   className="checkoutHeader"
                   style={{ border: 0 }}
                   cellPadding="10"
-                  cellSpacing="0">
+                  cellSpacing="0"
+                >
                   <tbody>
                     <tr>
                       <th>Product</th>
@@ -62,15 +69,23 @@ const Checkout = () => {
                 <table style={{ border: 0 }} cellPadding="0" cellSpacing="10">
                   <tr>
                     <td>
-                      <h3>Total:</h3>
+                      <h3>Total: {total}</h3>
                     </td>
                   </tr>
                   <tr>
-                    <table style={{ border: 0 }} cellPadding="10" cellSpacing="0">
+                    <table
+                      style={{ border: 0 }}
+                      cellPadding="10"
+                      cellSpacing="0"
+                    >
                       <tbody>
                         <tr>
                           <td>
-                            <Button pd="8px" wd="100%">
+                            <Button
+                              pd="8px"
+                              wd="100%"
+                              onClick={() => history.goBack()}
+                            >
                               Continue Shopping
                             </Button>
                           </td>

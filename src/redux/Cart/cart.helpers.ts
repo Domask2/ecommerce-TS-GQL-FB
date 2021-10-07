@@ -69,7 +69,7 @@ export const handleReduceCartItem = ({ prevCartItems, cartItemToReduce }: IHandl
     (cartItem: IProduct) => cartItem.documentID === cartItemToReduce.documentID,
   );
 
-  if (existingCartItem!.quantity === 1) {
+  if (existingCartItem && existingCartItem.quantity === 1) {
     return prevCartItems.filter(
       (item: IProduct) => item.documentID !== existingCartItem!.documentID,
     );
