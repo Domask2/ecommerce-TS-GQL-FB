@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { IProduct } from '../../../redux/Products/products.types';
 import { Wrapper } from './Item.style';
-import { removeCartItem } from '../../../redux/Cart/cart.actions';
+import { removeCartItem, addProduct } from '../../../redux/Cart/cart.actions';
 
 const Item: React.FC<IProduct> = (product) => {
   const dispatch = useDispatch();
@@ -11,6 +11,10 @@ const Item: React.FC<IProduct> = (product) => {
 
   const handleRemoveCartItem = (documentID: any) => {
     dispatch(removeCartItem({ documentID }));
+  };
+
+  const handleAddProduct = (product: IProduct) => {
+    dispatch(addProduct(product));
   };
 
   return (
@@ -25,7 +29,7 @@ const Item: React.FC<IProduct> = (product) => {
             <td>
               <span className="cartBtn">{`< `}</span>
               <span>{quantity}</span>
-              <span className="cartBtn">{` >`}</span>
+              <span onClick={() => handleAddProduct(product)} className="cartBtn">{` >`}</span>
             </td>
             <td>${productPrice}</td>
             <td align="center">
