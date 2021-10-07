@@ -1,7 +1,10 @@
+/* eslint-disable import/no-anonymous-default-export */
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import logger from 'redux-logger';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 import createSagaMiddleware from '@redux-saga/core';
 import { all, call } from '@redux-saga/core/effects';
@@ -14,6 +17,11 @@ import { userReducer } from './User/user.rudecer';
 import { productReducer } from './Products/products.reducer';
 import { cartReducer } from './Cart/cart.reducer';
 
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['cartData']
+}
 
 function* rootSaga() {
   yield all([
@@ -36,10 +44,13 @@ const devTools =
     ? applyMiddleware(thunkMiddleware)
     : composeWithDevTools(applyMiddleware(thunkMiddleware, sagaMiddleware, logger));
 
-const store = createStore(rootReducer, devTools);
-
+const presistedReducer = persistReducer(persistConfig, rootReducer );
+const store = createStore(presistedReducer, devTools);
 sagaMiddleware.run(rootSaga);
 
-export default store;
+const persistor = persistStore(store);
+
+export { store, persistor };
 
 export type RootState = ReturnType<typeof rootReducer>;
+

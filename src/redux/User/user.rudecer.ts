@@ -9,7 +9,7 @@ const initialState = {
   resetPasswordSuccess: false as boolean,
 };
 
-export const userReducer = (state = initialState, action: UserAction): TInitialState => {
+export const userReducer = (state = initialState , action: UserAction): TInitialState => {
   switch (action.type) {
     case userTypes.SIGN_IN_SUCCESS:
       return {

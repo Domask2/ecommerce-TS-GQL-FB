@@ -9,5 +9,5 @@ export enum cartTypes {
 
 export interface CartAction {
   type: cartTypes.ADD_TO_CART | cartTypes.REMOVE_CART_ITEM | cartTypes.REDUCE_CART_ITEM;
-  payload: any;
+  payload?: any;
 }
