@@ -24,7 +24,12 @@ interface IHandleProduct {
 
 interface IHandleRemove {
   prevCartItems: IProduct[];
-  cartItemToRemove: IProduct;
+  cartItemToRemove: string;
+}
+
+interface IHandleReduce {
+  prevCartItems: IProduct[];
+  cartItemToReduce: any;
 }
 
 export const existingCartItem = ({ prevCartItems, nextCartItem }: IHandleProduct) => {
@@ -56,5 +61,26 @@ export const handleAddToCart = ({ prevCartItems, nextCartItem }: IHandleProduct)
 };
 
 export const handleRemoveCartitem = ({ prevCartItems, cartItemToRemove }: IHandleRemove) => {
-  return prevCartItems.filter((item: IProduct) => item.documentID !== cartItemToRemove.documentID);
+  return prevCartItems.filter((item: IProduct) => item.documentID !== cartItemToRemove);
+};
+
+export const handleReduceCartItem = ({ prevCartItems, cartItemToReduce }: IHandleReduce) => {
+  const existingCartItem = prevCartItems.find(
+    (cartItem: IProduct) => cartItem.documentID === cartItemToReduce.documentID,
+  );
+
+  if (existingCartItem!.quantity === 1) {
+    return prevCartItems.filter(
+      (item: IProduct) => item.documentID !== existingCartItem!.documentID,
+    );
+  }
+
+  return prevCartItems.map((cartItem: IProduct) =>
+    cartItem.documentID === existingCartItem?.documentID
+      ? {
+          ...cartItem,
+          quantity: cartItemToReduce.quantity - 1,
+        }
+      : cartItem,
+  );
 };
