@@ -1,9 +1,19 @@
 import * as functions from "firebase-functions";
+const express = require('express');
+const cors = require('cors');
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+const app = express();
+
+app.use(cors({
+  origin: true
+}));
+app.use(express.json());
+
+app.get('*', (req:any, res:any) => {
+  res 
+    .status(404)
+    .send('404 Not Found.');
+});
+
+exports.api = functions.https.onRequest(app);
+
