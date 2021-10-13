@@ -15,6 +15,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import Admin from './pages/Admin/Admin';
 import ProductsDetails from './pages/ProductsDetaiks/ProductsDetails';
 import Cart from './pages/Cart/Cart';
+import Payment from './pages/Payment/Payment';
 //Layout
 import MainLayout from './layouts/MainLayout';
 import HomePageLayout from './layouts/HomePageLayout';
@@ -76,6 +77,14 @@ const App: React.FC = () => {
           render={() => (
             <MainLayout>
               <Cart />
+            </MainLayout>
+          )}
+        />
+        <Route
+          path="/payment"
+          render={() => (
+            <MainLayout>
+              <Payment />
             </MainLayout>
           )}
         />
