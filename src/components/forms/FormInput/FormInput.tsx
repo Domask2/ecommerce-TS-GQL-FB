@@ -5,9 +5,9 @@ interface iFormInput {
   type: string;
   name?: string;
   placeholder?: string;
-  value: string;
+  value?: string;
   productName?: any;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   min?: any;
   max?: any;
   step?: any;
@@ -20,11 +20,11 @@ const FormInput: React.FC<iFormInput> = ({
   name,
   placeholder,
   value,
-  handleChange, 
+  handleChange,
   min,
   max,
   step,
-  displayName
+  displayName,
 }) => {
   return (
     <Wrapper>
