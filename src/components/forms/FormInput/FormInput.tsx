@@ -1,4 +1,4 @@
-import { Wrapper } from './FormInput.style';
+import { WrapperForm } from './FormInput.style';
 
 interface iFormInput {
   label?: string;
@@ -27,7 +27,7 @@ const FormInput: React.FC<iFormInput> = ({
   displayName,
 }) => {
   return (
-    <Wrapper>
+    <WrapperForm>
       <div className="container">
         {label && <label>{label}</label>}
 
@@ -44,7 +44,7 @@ const FormInput: React.FC<iFormInput> = ({
           {...displayName}
         />
       </div>
-    </Wrapper>
+    </WrapperForm>
   );
 };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Wrapper } from './FormSelect.style';
+import { Wrapper, FormRow } from './FormSelect.style';
 
 interface Props {
   options: { value: string; name: string }[];
@@ -20,7 +20,7 @@ const FormSelect: React.FC<Props> = ({
 
   return (
     <Wrapper>
-      <div className="formRow">
+      <FormRow>
         {label && <label>{label}</label>}
 
         <select className="formSelect" value={defaultValue} onChange={handleChange} {...otherProps}>
@@ -34,7 +34,7 @@ const FormSelect: React.FC<Props> = ({
             );
           })}
         </select>
-      </div>
+      </FormRow>
     </Wrapper>
   );
 };

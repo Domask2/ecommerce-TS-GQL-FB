@@ -1,17 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import FormInput from '../forms/FormInput/FormInput';
-import Button from '../forms/Button/Button';
+import FormInput from "../forms/FormInput/FormInput";
+import Button from "../forms/Button/Button";
+import { CountryDropdown } from "react-country-region-selector";
 
-import { Wrapper } from './PaymentDetails.style';
+import { Wrapper } from "./PaymentDetails.style";
+import { FormRow } from "../forms/FormSelect/FormSelect.style";
+import { WrapperForm } from "../forms/FormInput/FormInput.style";
 
 const PaymentDetails = () => {
-  const [name, setName] = useState<string>('');
+  const [name, setName] = useState<string>("");
+  const [country, setCountry] = useState<string>("");
 
   const handleFormSubmit = async (e: any) => {
     e.preventDefault();
   };
 
+  console.log(country);
   return (
     <Wrapper>
       <div className="paymentDetails">
@@ -35,6 +40,16 @@ const PaymentDetails = () => {
             <FormInput type="text" placeholder="postal Code" />
 
             <FormInput type="text" placeholder="State" />
+            
+            <WrapperForm>
+              <FormRow>
+                <CountryDropdown
+                  value={country}
+                  onChange={(val) => setCountry(val)}
+                  valueType="short"
+                />
+              </FormRow>{" "}
+            </WrapperForm>
           </div>
 
           <div className="group">

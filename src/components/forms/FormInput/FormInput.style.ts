@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
+export const WrapperForm = styled.div`
   input,
   &.checkoutInput select {
     display: block;
@@ -15,3 +15,4 @@ export const Wrapper = styled.div`
     outline: none;
   }
 `;
+
