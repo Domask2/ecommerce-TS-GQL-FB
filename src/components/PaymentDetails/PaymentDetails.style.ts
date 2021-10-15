@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   .paymentDetails {
@@ -30,7 +30,11 @@ export const Wrapper = styled.div`
 
       input {
         margin: 12px auto;
+      }
+
+      select {
         border: 1px solid #9e9e9e;
+        width: 100%;
       }
     }
   }

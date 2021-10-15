@@ -1,16 +1,43 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import FormInput from "../forms/FormInput/FormInput";
-import Button from "../forms/Button/Button";
-import { CountryDropdown } from "react-country-region-selector";
+import FormInput from '../forms/FormInput/FormInput';
+import Button from '../forms/Button/Button';
+import { CountryDropdown } from 'react-country-region-selector';
 
-import { Wrapper } from "./PaymentDetails.style";
-import { FormRow } from "../forms/FormSelect/FormSelect.style";
-import { WrapperForm } from "../forms/FormInput/FormInput.style";
+import { Wrapper } from './PaymentDetails.style';
+import { FormRow } from '../forms/FormSelect/FormSelect.style';
+import { WrapperForm } from '../forms/FormInput/FormInput.style';
+
+const initialAddressState = {
+  line1: '',
+  line2: '',
+  city: '',
+  state: '',
+  postal_code: '',
+  country: '',
+};
+
+interface IInitialAddressState {
+  line1: string;
+  line2: string;
+  city: string;
+  state: string;
+  postal_code: string;
+  country: string;
+}
 
 const PaymentDetails = () => {
-  const [name, setName] = useState<string>("");
-  const [country, setCountry] = useState<string>("");
+  const [name, setName] = useState<string>('');
+  const [country, setCountry] = useState<string>('');
+
+  const [billingAddress, setBillingAddress] = useState<IInitialAddressState>({
+    ...initialAddressState,
+  });
+  const [shippingAddress, setShippingAddress] = useState<IInitialAddressState>({
+    ...initialAddressState,
+  });
+  const [recipientName, setRecipientName] = useState('');
+  const [nameOnCard, setNameOnCard] = useState('');
 
   const handleFormSubmit = async (e: any) => {
     e.preventDefault();
@@ -40,7 +67,7 @@ const PaymentDetails = () => {
             <FormInput type="text" placeholder="postal Code" />
 
             <FormInput type="text" placeholder="State" />
-            
+
             <WrapperForm>
               <FormRow>
                 <CountryDropdown
@@ -48,7 +75,7 @@ const PaymentDetails = () => {
                   onChange={(val) => setCountry(val)}
                   valueType="short"
                 />
-              </FormRow>{" "}
+              </FormRow>{' '}
             </WrapperForm>
           </div>
 
@@ -71,6 +98,16 @@ const PaymentDetails = () => {
             <FormInput type="text" placeholder="postal Code" />
 
             <FormInput type="text" placeholder="State" />
+
+            <WrapperForm>
+              <FormRow>
+                <CountryDropdown
+                  value={country}
+                  onChange={(val) => setCountry(val)}
+                  valueType="short"
+                />
+              </FormRow>{' '}
+            </WrapperForm>
           </div>
 
           <div className="group">
