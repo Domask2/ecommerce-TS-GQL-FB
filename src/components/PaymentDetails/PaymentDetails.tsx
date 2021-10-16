@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import FormInput from '../forms/FormInput/FormInput';
-import Button from '../forms/Button/Button';
-import { CountryDropdown } from 'react-country-region-selector';
+import { CardElement, useElements } from "@stripe/react-stripe-js";
 
-import { Wrapper } from './PaymentDetails.style';
-import { FormRow } from '../forms/FormSelect/FormSelect.style';
-import { WrapperForm } from '../forms/FormInput/FormInput.style';
+import FormInput from "../forms/FormInput/FormInput";
+import Button from "../forms/Button/Button";
+import { CountryDropdown } from "react-country-region-selector";
+
+import { Wrapper } from "./PaymentDetails.style";
+import { FormRow } from "../forms/FormSelect/FormSelect.style";
+import { WrapperForm } from "../forms/FormInput/FormInput.style";
 
 const initialAddressState = {
-  line1: '',
-  line2: '',
-  city: '',
-  state: '',
-  postal_code: '',
-  country: '',
+  line1: "",
+  line2: "",
+  city: "",
+  state: "",
+  postal_code: "",
+  country: "",
 };
 
 interface IInitialAddressState {
@@ -26,24 +28,48 @@ interface IInitialAddressState {
   country: string;
 }
 
-const PaymentDetails = () => {
-  const [name, setName] = useState<string>('');
-  const [country, setCountry] = useState<string>('');
-
+const PaymentDetails: React.FC = () => {
   const [billingAddress, setBillingAddress] = useState<IInitialAddressState>({
     ...initialAddressState,
   });
   const [shippingAddress, setShippingAddress] = useState<IInitialAddressState>({
     ...initialAddressState,
   });
-  const [recipientName, setRecipientName] = useState('');
-  const [nameOnCard, setNameOnCard] = useState('');
+  const [recipientName, setRecipientName] = useState("");
+  const [nameOnCard, setNameOnCard] = useState("");
+
+  const handleShipping = (e:any) => {
+    const { name, value } = e.target;
+
+    setShippingAddress({
+      ...shippingAddress,
+      [name] : value
+    })
+  }
+
+  const handleBilling = (e:any) => {
+    const { name, value } = e.target;
+    setBillingAddress({
+      ...billingAddress,
+      [name]: value
+    });
+  }
 
   const handleFormSubmit = async (e: any) => {
     e.preventDefault();
+
+
   };
 
-  console.log(country);
+  const configCardElement = {
+    style: {
+      base: {
+        fontSize: '16px'
+      }
+    },
+    hidePostalCode: true
+  };
+
   return (
     <Wrapper>
       <div className="paymentDetails">
@@ -54,28 +80,65 @@ const PaymentDetails = () => {
             <FormInput
               type="text"
               placeholder="Recipient name"
-              value={name}
-              handleChange={(e) => setName(e.target.value)}
+              name="recipientName"
+              value={recipientName}
+              handleChange={(e) => setRecipientName(e.target.value)}
             />
 
-            <FormInput type="text" placeholder="Line 1" />
+            <FormInput
+              type="text"
+              placeholder="Line 1"
+              name="line1"
+              value={shippingAddress.line1}
+              handleChange={(e:any) => handleShipping(e)}
+            />
 
-            <FormInput type="text" placeholder="Line 2" />
+            <FormInput
+              type="text"
+              placeholder="Line 2"
+              name="line2"
+              value={shippingAddress.line2}
+              handleChange={(e:any) => handleShipping(e)}
 
-            <FormInput type="text" placeholder="City" />
+            />
 
-            <FormInput type="text" placeholder="postal Code" />
+            <FormInput
+              type="text"
+              placeholder="City"
+              name="city"
+              value={shippingAddress.city}
+              handleChange={(e:any) => handleShipping(e)}
 
-            <FormInput type="text" placeholder="State" />
+            />
+
+            <FormInput
+              type="text"
+              placeholder="State"
+              name="state"
+              value={shippingAddress.state}
+              handleChange={(e:any) => handleShipping(e)}
+
+            />
+
+            <FormInput
+              type="text"
+              placeholder="postal Code"
+              name="postal_code"
+              value={shippingAddress.postal_code}
+              handleChange={(e:any) => handleShipping(e)}
+
+            />
 
             <WrapperForm>
               <FormRow>
                 <CountryDropdown
-                  value={country}
-                  onChange={(val) => setCountry(val)}
+                  value={shippingAddress.country}
+                  onChange={(val) =>
+                    setShippingAddress({ ...shippingAddress, country: val })
+                  }
                   valueType="short"
                 />
-              </FormRow>{' '}
+              </FormRow>{" "}
             </WrapperForm>
           </div>
 
@@ -85,33 +148,70 @@ const PaymentDetails = () => {
             <FormInput
               type="text"
               placeholder="Name on Card"
-              value={name}
-              handleChange={(e) => setName(e.target.value)}
+              name="nameOnCard"
+              value={nameOnCard}
+              handleChange={(e) => setNameOnCard(e.target.value)}
             />
 
-            <FormInput type="text" placeholder="Line 1" />
+            <FormInput
+              type="text"
+              placeholder="Line 1"
+              name="line1"
+              value={billingAddress.line1}
+              handleChange={(e) => handleBilling(e)}
+            />
 
-            <FormInput type="text" placeholder="Line 2" />
+            <FormInput
+              type="text"
+              placeholder="Line 2"
+              name="line2"
+              value={billingAddress.line2}
+              handleChange={(e) => handleBilling(e)}
+            />
 
-            <FormInput type="text" placeholder="City" />
+            <FormInput
+              type="text"
+              placeholder="City"
+              name="city"
+              value={billingAddress.city}
+              handleChange={(e) => handleBilling(e)}
+            />
 
-            <FormInput type="text" placeholder="postal Code" />
+            <FormInput
+              type="text"
+              placeholder="State"
+              name="state"
+              value={billingAddress.state}
+              handleChange={(e) => handleBilling(e)}
+            />
 
-            <FormInput type="text" placeholder="State" />
+            <FormInput
+              type="text"
+              placeholder="postal Code"
+              name="postal_code"
+              value={billingAddress.postal_code}
+              handleChange={(e) => handleBilling(e)}
+            />
 
             <WrapperForm>
               <FormRow>
                 <CountryDropdown
-                  value={country}
-                  onChange={(val) => setCountry(val)}
+                  value={billingAddress.country}
+                  onChange={(val) =>
+                    setShippingAddress({ ...billingAddress, country: val })
+                  }
                   valueType="short"
                 />
-              </FormRow>{' '}
+              </FormRow>{" "}
             </WrapperForm>
           </div>
 
           <div className="group">
             <h2>Card Details</h2>
+
+            <CardElement
+              options={configCardElement}
+            />
           </div>
         </form>
       </div>
