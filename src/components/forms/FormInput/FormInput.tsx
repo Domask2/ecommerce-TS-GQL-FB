@@ -12,6 +12,7 @@ interface iFormInput {
   max?: any;
   step?: any;
   displayName?: any;
+  required?: any;
 }
 
 const FormInput: React.FC<iFormInput> = ({
@@ -25,6 +26,7 @@ const FormInput: React.FC<iFormInput> = ({
   max,
   step,
   displayName,
+  required
 }) => {
   return (
     <WrapperForm>
@@ -41,6 +43,7 @@ const FormInput: React.FC<iFormInput> = ({
           min={min}
           max={max}
           step={step}
+          required
           {...displayName}
         />
       </div>

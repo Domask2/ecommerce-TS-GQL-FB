@@ -1,14 +1,20 @@
 import React, { useState } from "react";
 
-import { CardElement, useElements } from "@stripe/react-stripe-js";
+import { CardElement,useStripe, useElements } from "@stripe/react-stripe-js";
 
 import FormInput from "../forms/FormInput/FormInput";
 import Button from "../forms/Button/Button";
 import { CountryDropdown } from "react-country-region-selector";
 
+import { apiInstance } from "../../Utils/utils";
+
 import { Wrapper } from "./PaymentDetails.style";
 import { FormRow } from "../forms/FormSelect/FormSelect.style";
 import { WrapperForm } from "../forms/FormInput/FormInput.style";
+
+import { selectCartTotal } from "../../redux/Cart/cart.selectors";
+import { createStructuredSelector } from "reselect";
+import { useSelector } from "react-redux";
 
 const initialAddressState = {
   line1: "",
@@ -28,7 +34,14 @@ interface IInitialAddressState {
   country: string;
 }
 
+const mapState = createStructuredSelector({
+  total: selectCartTotal
+});
+
 const PaymentDetails: React.FC = () => {
+  const stripe = useStripe();
+  const elements = useElements();
+  const { total } = useSelector(mapState);
   const [billingAddress, setBillingAddress] = useState<IInitialAddressState>({
     ...initialAddressState,
   });
@@ -58,7 +71,46 @@ const PaymentDetails: React.FC = () => {
   const handleFormSubmit = async (e: any) => {
     e.preventDefault();
 
+    const cardElement = elements?.getElement('card')!;
 
+    if(
+      !shippingAddress.line1 || !shippingAddress.city ||
+      !shippingAddress.state || !shippingAddress.postal_code ||
+      !shippingAddress.country || !billingAddress.line1 ||
+      !billingAddress.city || !billingAddress.state ||
+      !billingAddress.postal_code || !billingAddress.country ||
+      !recipientName || !nameOnCard
+    ) {
+      return;
+    }
+
+    apiInstance.post('/payment/create', {
+      amount: total * 100,
+      shipping : {
+        name: recipientName,
+        address: {
+          ...shippingAddress
+        }
+      }
+    }).then(({data: clientSecret} : {data:any}) => {
+      stripe?.createPaymentMethod({
+        type: 'card',
+        card: cardElement,
+        billing_details: {
+          name: nameOnCard,
+          address:{
+            ...billingAddress
+          }
+        }
+      }).then(({ paymentMethod }) => {
+        stripe.confirmCardPayment(clientSecret, {
+          payment_method: paymentMethod!.id
+        })
+        .then(({ paymentIntent}) => {
+          console.log(paymentIntent);
+        });
+      })
+    });
   };
 
   const configCardElement = {
@@ -78,6 +130,7 @@ const PaymentDetails: React.FC = () => {
             <h2>Shipping Address</h2>
 
             <FormInput
+              required
               type="text"
               placeholder="Recipient name"
               name="recipientName"
@@ -86,6 +139,7 @@ const PaymentDetails: React.FC = () => {
             />
 
             <FormInput
+            required
               type="text"
               placeholder="Line 1"
               name="line1"
@@ -103,6 +157,7 @@ const PaymentDetails: React.FC = () => {
             />
 
             <FormInput
+              required
               type="text"
               placeholder="City"
               name="city"
@@ -112,6 +167,7 @@ const PaymentDetails: React.FC = () => {
             />
 
             <FormInput
+              required
               type="text"
               placeholder="State"
               name="state"
@@ -121,6 +177,7 @@ const PaymentDetails: React.FC = () => {
             />
 
             <FormInput
+              required
               type="text"
               placeholder="postal Code"
               name="postal_code"
@@ -146,6 +203,7 @@ const PaymentDetails: React.FC = () => {
             <h2>Billing Address</h2>
 
             <FormInput
+              required
               type="text"
               placeholder="Name on Card"
               name="nameOnCard"
@@ -154,6 +212,7 @@ const PaymentDetails: React.FC = () => {
             />
 
             <FormInput
+              required
               type="text"
               placeholder="Line 1"
               name="line1"
@@ -170,6 +229,7 @@ const PaymentDetails: React.FC = () => {
             />
 
             <FormInput
+              required
               type="text"
               placeholder="City"
               name="city"
@@ -178,6 +238,7 @@ const PaymentDetails: React.FC = () => {
             />
 
             <FormInput
+              required
               type="text"
               placeholder="State"
               name="state"
@@ -186,6 +247,7 @@ const PaymentDetails: React.FC = () => {
             />
 
             <FormInput
+              required
               type="text"
               placeholder="postal Code"
               name="postal_code"
@@ -198,7 +260,7 @@ const PaymentDetails: React.FC = () => {
                 <CountryDropdown
                   value={billingAddress.country}
                   onChange={(val) =>
-                    setShippingAddress({ ...billingAddress, country: val })
+                    setBillingAddress({ ...billingAddress, country: val })
                   }
                   valueType="short"
                 />
@@ -213,6 +275,10 @@ const PaymentDetails: React.FC = () => {
               options={configCardElement}
             />
           </div>
+
+          <Button pd='16px' type='submit'>
+            Pay Now
+          </Button>
         </form>
       </div>
     </Wrapper>

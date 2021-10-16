@@ -1,4 +1,5 @@
 import { TUser } from '../redux/User/user.types';
+import axios from 'axios';
 
 export const checkUserIsAdmin = (currentUser: TUser) => {
   if (!currentUser || !Array.isArray(currentUser.userRoles)) return false;
@@ -9,3 +10,7 @@ export const checkUserIsAdmin = (currentUser: TUser) => {
 
   return false;
 };
+
+export const apiInstance = axios.create({
+  baseURL: 'http://localhost:5001/ecommerce-furniture-fe321/us-central1/api'
+});
