@@ -12,6 +12,7 @@ import { all, call } from '@redux-saga/core/effects';
 import userSaga from './User/user.sagas';
 import productsSagas from './Products/products.sagas';
 import cartSagas from './Cart/cart.sagas';
+import ordersSagas from './Orders/orders.sagas';
 
 import { userReducer } from './User/user.rudecer';
 import { productReducer } from './Products/products.reducer';
@@ -20,15 +21,11 @@ import { cartReducer } from './Cart/cart.reducer';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['cartData']
-}
+  whitelist: ['cartData'],
+};
 
 function* rootSaga() {
-  yield all([
-    call(userSaga), 
-    call(productsSagas),
-    call(cartSagas),
-  ]);
+  yield all([call(userSaga), call(productsSagas), call(cartSagas), call(ordersSagas)]);
 }
 
 export const rootReducer = combineReducers({
@@ -44,7 +41,7 @@ const devTools =
     ? applyMiddleware(thunkMiddleware)
     : composeWithDevTools(applyMiddleware(thunkMiddleware, sagaMiddleware, logger));
 
-const presistedReducer = persistReducer(persistConfig, rootReducer );
+const presistedReducer = persistReducer(persistConfig, rootReducer);
 const store = createStore(presistedReducer, devTools);
 sagaMiddleware.run(rootSaga);
 
@@ -53,4 +50,3 @@ const persistor = persistStore(store);
 export { store, persistor };
 
 export type RootState = ReturnType<typeof rootReducer>;
-
