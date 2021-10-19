@@ -5,7 +5,7 @@ import { handleAddToCart, handleRemoveCartitem, handleReduceCartItem } from './c
 type TInitialState = typeof initialState;
 
 const initialState = {
-  cartItems: [] as IProduct | any
+  cartItems: [] as IProduct | any,
 };
 
 export const cartReducer = (state = initialState, action: CartAction): TInitialState => {
@@ -33,6 +33,11 @@ export const cartReducer = (state = initialState, action: CartAction): TInitialS
           prevCartItems: state.cartItems,
           cartItemToRemove: action.payload,
         }),
+      };
+    case cartTypes.CLEAR_CART:
+      return {
+        ...state,
+        ...initialState,
       };
 
     default:

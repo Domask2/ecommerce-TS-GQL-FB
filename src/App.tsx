@@ -75,9 +75,11 @@ const App: React.FC = () => {
         <Route
           path="/cart"
           render={() => (
-            <MainLayout>
-              <Cart />
-            </MainLayout>
+            <WithAuth>
+              <MainLayout>
+                <Cart />
+              </MainLayout>
+            </WithAuth>
           )}
         />
         <Route
