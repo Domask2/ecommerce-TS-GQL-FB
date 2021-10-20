@@ -12,10 +12,16 @@ import { Wrapper } from './PaymentDetails.style';
 import { FormRow } from '../forms/FormSelect/FormSelect.style';
 import { WrapperForm } from '../forms/FormInput/FormInput.style';
 
-import { selectCartTotal, selectCartItemsCount } from '../../redux/Cart/cart.selectors';
+import {
+  selectCartTotal,
+  selectCartItemsCount,
+  selectCartItems,
+} from '../../redux/Cart/cart.selectors';
 import { createStructuredSelector } from 'reselect';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearCart } from '../../redux/Cart/cart.actions';
+import { saveOrderHistory } from '../../redux/Orders/orders.action';
+import { IProduct } from './../../redux/Products/products.types';
 
 const initialAddressState = {
   line1: '',
@@ -38,6 +44,7 @@ interface IInitialAddressState {
 const mapState = createStructuredSelector({
   total: selectCartTotal,
   itemCount: selectCartItemsCount,
+  cartItems: selectCartItems,
 });
 
 const PaymentDetails: React.FC = () => {
@@ -45,7 +52,7 @@ const PaymentDetails: React.FC = () => {
   const elements = useElements();
   const dispatch = useDispatch();
   const history = useHistory();
-  const { total, itemCount } = useSelector(mapState);
+  const { total, itemCount, cartItems } = useSelector(mapState);
   const [billingAddress, setBillingAddress] = useState<IInitialAddressState>({
     ...initialAddressState,
   });
@@ -57,7 +64,7 @@ const PaymentDetails: React.FC = () => {
 
   useEffect(() => {
     if (itemCount < 1) {
-      history.push('');
+      history.push('/dashboard');
     }
   }, [itemCount]);
 
@@ -128,8 +135,23 @@ const PaymentDetails: React.FC = () => {
                 payment_method: paymentMethod!.id,
               })
               .then(({ paymentIntent }) => {
-                console.log(paymentIntent);
-                dispatch(clearCart());
+                const configOrder = {
+                  orderTotal: total,
+                  orderItems: cartItems.map((item: IProduct) => {
+                    const { documentID, productThumbnail, productName, productPrice, quantity } =
+                      item;
+
+                    return {
+                      documentID,
+                      productThumbnail,
+                      productName,
+                      productPrice,
+                      quantity,
+                    };
+                  }),
+                };
+
+                dispatch(saveOrderHistory(configOrder));
               });
           });
       });

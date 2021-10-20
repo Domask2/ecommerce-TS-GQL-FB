@@ -1,5 +1,8 @@
+import { IProduct } from './../Products/products.types';
+
 export interface IOrder {
-  id: string;
+  orderTotal: string;
+  orderItems: IProduct;
 }
 
 export enum ordersTypes {
