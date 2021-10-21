@@ -2,9 +2,9 @@ import { Wrapper } from './Dashboard.style';
 
 const Dashboard: React.FC = () => {
   return (
-    <Wrapper>
-      <h1>You logged in!!</h1>
-    </Wrapper>
+    <div>
+      <h1>Order History</h1>
+    </div>
   );
 };
 

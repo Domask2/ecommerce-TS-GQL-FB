@@ -20,6 +20,7 @@ import Payment from './pages/Payment/Payment';
 import MainLayout from './layouts/MainLayout';
 import HomePageLayout from './layouts/HomePageLayout';
 import AdminLayout from './layouts/AdminLayout';
+import DashboardLayout from './layouts/DashboardLayout';
 //redux-saga
 import { checkUserSession } from './redux/User/user.actions';
 //hoc
@@ -118,9 +119,9 @@ const App: React.FC = () => {
           path="/dashboard"
           render={() => (
             <WithAuth>
-              <MainLayout>
+              <DashboardLayout>
                 <Dashboard />
-              </MainLayout>
+              </DashboardLayout>
             </WithAuth>
           )}
         />
