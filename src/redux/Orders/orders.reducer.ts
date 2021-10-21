@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   orderDetails: {},
 };
 
-const ordersReducer = (state = INITIAL_STATE, action: FetchOrdersAction) => {
+export const ordersReducer = (state = INITIAL_STATE, action: FetchOrdersAction) => {
   switch (action.type) {
     case ordersTypes.SET_USER_ORDER_HISTORY:
       return {
@@ -18,5 +18,3 @@ const ordersReducer = (state = INITIAL_STATE, action: FetchOrdersAction) => {
       return state;
   }
 };
-
-export default ordersReducer;

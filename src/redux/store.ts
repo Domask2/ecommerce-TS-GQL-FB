@@ -17,6 +17,7 @@ import ordersSagas from './Orders/orders.sagas';
 import { userReducer } from './User/user.rudecer';
 import { productReducer } from './Products/products.reducer';
 import { cartReducer } from './Cart/cart.reducer';
+import { ordersReducer } from './Orders/orders.reducer';
 
 const persistConfig = {
   key: 'root',
@@ -32,6 +33,7 @@ export const rootReducer = combineReducers({
   user: userReducer,
   products: productReducer,
   cartData: cartReducer,
+  ordersData: ordersReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();
