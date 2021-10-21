@@ -10,7 +10,7 @@ export function* getUserOrderHistory({ payload }: any): any {
     const history: any = yield handleGetUserOrderHistory(payload);
     yield put(setUserOrderHistory(history));
   } catch (err) {
-    // console.log(err)
+    console.log(err);
   }
 }
 
