@@ -8,6 +8,7 @@ import {
   TableCell,
 } from '@material-ui/core';
 import moment from 'moment';
+import { useHistory } from 'react-router-dom';
 
 interface IProps {
   orders: [];
@@ -46,6 +47,7 @@ const formatText = (columnName: string, columnValue: string) => {
 };
 
 const OrderHistory: React.FC<IProps> = ({ orders }) => {
+  const history = useHistory();
   return (
     <TableContainer style={{ width: '100%' }}>
       <Table>
@@ -66,8 +68,10 @@ const OrderHistory: React.FC<IProps> = ({ orders }) => {
           {Array.isArray(orders) &&
             orders.length > 0 &&
             orders.map((row, pos) => {
+              const { documentID } = row;
+
               return (
-                <TableRow key={pos}>
+                <TableRow key={pos} onClick={() => history.push(`/orders/${documentID}`)}>
                   {columns.map((column, pos) => {
                     const columnName = column.id;
                     const columnValue = row[columnName];

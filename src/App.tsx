@@ -16,6 +16,7 @@ import Admin from './pages/Admin/Admin';
 import ProductsDetails from './pages/ProductsDetaiks/ProductsDetails';
 import Cart from './pages/Cart/Cart';
 import Payment from './pages/Payment/Payment';
+import Order from './pages/Order/Order';
 //Layout
 import MainLayout from './layouts/MainLayout';
 import HomePageLayout from './layouts/HomePageLayout';
@@ -121,6 +122,16 @@ const App: React.FC = () => {
             <WithAuth>
               <DashboardLayout>
                 <Dashboard />
+              </DashboardLayout>
+            </WithAuth>
+          )}
+        />
+        <Route
+          path="/orders/:orderID"
+          render={() => (
+            <WithAuth>
+              <DashboardLayout>
+                <Order />
               </DashboardLayout>
             </WithAuth>
           )}
