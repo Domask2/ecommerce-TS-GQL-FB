@@ -37,7 +37,7 @@ const styles = {
 const formatText = (columnName: string, columnValue: string) => {
   switch (columnName) {
     case 'orderTotal':
-      return `${columnValue}`;
+      return `$${columnValue}`;
     case 'orderCreateDate':
       return moment(columnValue).format('DD/MM/YYYY');
     default:
@@ -47,7 +47,7 @@ const formatText = (columnName: string, columnValue: string) => {
 
 const OrderHistory: React.FC<IProps> = ({ orders }) => {
   return (
-    <TableContainer>
+    <TableContainer style={{ width: '100%' }}>
       <Table>
         <TableHead>
           <TableRow>

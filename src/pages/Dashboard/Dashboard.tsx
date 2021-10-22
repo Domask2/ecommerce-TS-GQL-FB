@@ -6,7 +6,7 @@ import { Wrapper } from './Dashboard.style';
 
 const mapState = ({ user, ordersData }: any) => ({
   currentUser: user.currentUser,
-  orderHistory: ordersData.OrderHistory.data,
+  orderHistory: ordersData.orderHistory.data,
 });
 
 const Dashboard: React.FC = () => {
@@ -21,7 +21,7 @@ const Dashboard: React.FC = () => {
     <div>
       <h1>Order History</h1>
 
-      {/* <OrderHistory orders={orderHistory} /> */}
+      <OrderHistory orders={orderHistory} />
     </div>
   );
 };
