@@ -20,7 +20,7 @@ export const getOrderDetailsStart = (orderID: string) => ({
   payload: orderID,
 });
 
-export const setOrderDetails = (order: IOrder) => ({
+export const setOrderDetails = (order: IOrder | {}) => ({
   type: ordersTypes.SET_ORDER_DETAILS,
   payload: order,
 });

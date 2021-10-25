@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { getOrderDetailsStart } from '../../redux/Orders/orders.action';
 import { useDispatch, useSelector } from 'react-redux';
+import OrderDetails from '../../components/OrderDetails/OrderDetails';
 
 const mapState = ({ ordersData }: any) => ({
   orderDetails: ordersData.orderDetails,
@@ -21,7 +22,9 @@ const Order = () => {
     <div>
       <h1>Order ID: #{orderID}</h1>
 
-      <h3>Total: {orderTotal}</h3>
+      <OrderDetails order={orderDetails} />
+
+      <h3>Total: {orderTotal} $</h3>
     </div>
   );
 };

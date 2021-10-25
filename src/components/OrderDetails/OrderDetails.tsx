@@ -1,5 +1,5 @@
-import React from "react";
-import { IOrder } from "../../redux/Orders/orders.type";
+import React, { useEffect } from 'react';
+import { IOrder } from '../../redux/Orders/orders.type';
 import {
   TableContainer,
   Table,
@@ -7,7 +7,10 @@ import {
   TableBody,
   TableRow,
   TableCell,
-} from "@material-ui/core";
+} from '@material-ui/core';
+
+import { useDispatch } from 'react-redux';
+import { setOrderDetails } from './../../redux/Orders/orders.action';
 
 interface IProps {
   order: IOrder;
@@ -15,30 +18,49 @@ interface IProps {
 
 const columns = [
   {
-    id: "productThumbnail",
-    label: "",
+    id: 'productThumbnail',
+    label: '',
   },
   {
-    id: "productName",
-    label: "Name",
+    id: 'productName',
+    label: 'Name',
   },
   {
-    id: "productPrice",
-    label: "Price",
+    id: 'productPrice',
+    label: 'Price',
   },
   {
-    id: "quantity",
-    label: "Quantity",
+    id: 'quantity',
+    label: 'Quantity',
   },
 ];
 
 const styles = {
-  fontSize: "16px",
-  width: "10%",
+  fontSize: '16px',
+  width: '10%',
+};
+
+const formatText = (columnName: string, columnValue: string) => {
+  switch (columnName) {
+    case 'productPrice':
+      return `$${columnValue}`;
+    case 'productThumbnail':
+      return <img src={columnValue} width={250} />;
+
+    default:
+      return columnValue;
+  }
 };
 
 const OrderDetails: React.FC<IProps> = ({ order }) => {
+  const dispatch = useDispatch();
   const orderItems = order && order.orderItems;
+
+  useEffect(() => {
+    return () => {
+      dispatch(setOrderDetails({}));
+    };
+  }, []);
 
   return (
     <TableContainer>
@@ -64,10 +86,10 @@ const OrderDetails: React.FC<IProps> = ({ order }) => {
                   {columns.map((col, pos) => {
                     const columnName = col.id;
                     const columnValue = row[columnName];
-                    
+
                     return (
                       <TableCell key={pos} style={styles}>
-                        {col.label}
+                        {formatText(columnName, columnValue)}
                       </TableCell>
                     );
                   })}
