@@ -1,7 +1,8 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
+import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -38,13 +39,12 @@ export const rootReducer = combineReducers({
 
 const sagaMiddleware = createSagaMiddleware();
 
-const devTools =
-  process.env.NODE_ENV === 'production'
-    ? applyMiddleware(thunkMiddleware)
-    : composeWithDevTools(applyMiddleware(thunkMiddleware, sagaMiddleware, logger));
+export const middlewares = [thunk, sagaMiddleware, logger];
+
+// const devTools = composeWithDevTools(applyMiddleware(thunkMiddleware, sagaMiddleware));
 
 const presistedReducer = persistReducer(persistConfig, rootReducer);
-const store = createStore(presistedReducer, devTools);
+const store = createStore(presistedReducer, applyMiddleware(...middlewares));
 sagaMiddleware.run(rootSaga);
 
 const persistor = persistStore(store);
