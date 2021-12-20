@@ -1,6 +1,7 @@
 # Ecommerce-TypeScript--Firebase
 
-Интернет магазин мебели.
+Интернет магазин мебели
+
 https://ecommerce-furniture-fe321.web.app/
 
 ## Особенности
